@@ -17,6 +17,7 @@ namespace Catalog.API.Data
             var database = client.GetDatabase("CatalogDB");
 
             Books = database.GetCollection<Book>("Books");
+            CatalogContextSeed.SeedData(Books);
         }
         public IMongoCollection<Book> Books { get; }
     }

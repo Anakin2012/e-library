@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ryzen\\Source\\Repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj": {}
+    "C:\\Users\\Ryzen\\Source\\Repos\\e-library\\E-library\\Basket.API\\Basket.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ryzen\\Source\\Repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj": {
+    "C:\\Users\\Ryzen\\Source\\Repos\\e-library\\E-library\\Basket.API\\Basket.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ryzen\\Source\\Repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
-        "projectName": "Catalog.API",
-        "projectPath": "C:\\Users\\Ryzen\\Source\\Repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
+        "projectUniqueName": "C:\\Users\\Ryzen\\Source\\Repos\\e-library\\E-library\\Basket.API\\Basket.API.csproj",
+        "projectName": "Basket.API",
+        "projectPath": "C:\\Users\\Ryzen\\Source\\Repos\\e-library\\E-library\\Basket.API\\Basket.API.csproj",
         "packagesPath": "C:\\Users\\Ryzen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ryzen\\Source\\Repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\obj\\",
+        "outputPath": "C:\\Users\\Ryzen\\Source\\Repos\\e-library\\E-library\\Basket.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ryzen\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,13 +40,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "MongoDB.Driver": {
-              "target": "Package",
-              "version": "[2.15.0, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.3.0, )"
+              "version": "[5.6.3, )"
             }
           },
           "imports": [

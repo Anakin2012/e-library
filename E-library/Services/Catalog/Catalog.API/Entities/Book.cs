@@ -14,6 +14,7 @@ namespace Catalog.API.Entities
         public string Language { get; set; }
         public string Description { get; set; }
         public string CoverImageFile { get; set; } // putanja do slike
+        public bool IsAvailable { get; set; } // da li je knjiga dostupna za iznajmljivanje 
         
     }
 }

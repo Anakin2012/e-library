@@ -821,19 +821,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\panap\\.nuget\\packages\\": {}
+    "C:\\Users\\bojan\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\panap\\source\\repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
+      "projectUniqueName": "C:\\Users\\bojan\\Source\\Repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
       "projectName": "Catalog.API",
-      "projectPath": "C:\\Users\\panap\\source\\repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
-      "packagesPath": "C:\\Users\\panap\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\panap\\source\\repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\obj\\",
+      "projectPath": "C:\\Users\\bojan\\Source\\Repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
+      "packagesPath": "C:\\Users\\bojan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bojan\\Source\\Repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\panap\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bojan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -878,12 +883,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[5.0.0, 5.0.0]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"

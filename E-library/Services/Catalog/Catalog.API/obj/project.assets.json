@@ -821,19 +821,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\panap\\.nuget\\packages\\": {}
+    "C:\\Users\\Ryzen\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\panap\\source\\repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
+      "projectUniqueName": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\E-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
       "projectName": "Catalog.API",
-      "projectPath": "C:\\Users\\panap\\source\\repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
-      "packagesPath": "C:\\Users\\panap\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\panap\\source\\repos\\e-library\\E-library\\Services\\Catalog\\Catalog.API\\obj\\",
+      "projectPath": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\E-library\\E-library\\Services\\Catalog\\Catalog.API\\Catalog.API.csproj",
+      "packagesPath": "C:\\Users\\Ryzen\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\E-library\\E-library\\Services\\Catalog\\Catalog.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\panap\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ryzen\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -878,12 +878,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[5.0.0, 5.0.0]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"

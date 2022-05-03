@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace IdentityServer.Entities
 {
-    public class User : IdentityUser<int>
+    public class Member : IdentityUser<int>
     {
         
         public string Name { get; set; }
         public string Surname { get; set; }
 
-        public User()
+        public Member()
         {
         }
 
-        public User(string userName) : base(userName)
+        public Member(string userName) : base(userName)
         {
         }
     }

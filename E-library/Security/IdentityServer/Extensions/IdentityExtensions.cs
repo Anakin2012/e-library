@@ -31,7 +31,7 @@ namespace IdentityServer.Extensions
 
         public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<User, Role>(options =>
+            services.AddIdentity<Member, Role>(options =>
             {
                 options.Password.RequiredLength = 8; // lozinka mora da sadrzi: mala slova, velika slova i broj
                 options.Password.RequireNonAlphanumeric = false;

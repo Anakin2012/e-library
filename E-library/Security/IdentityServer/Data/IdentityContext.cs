@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace IdentityServer.Data
 {
-    public class IdentityContext : IdentityDbContext<User, Role, int>
+    public class IdentityContext : IdentityDbContext<Member, Role, int>
     {
 
 

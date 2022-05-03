@@ -1,3 +1,4 @@
+using IdentityServer.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,11 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddAuthentication();
+
+            services.ConfigurePersistence(Configuration);
+            services.ConfigureIdentity();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -44,6 +50,8 @@ namespace IdentityServer
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

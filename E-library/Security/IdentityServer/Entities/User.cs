@@ -8,8 +8,7 @@ namespace IdentityServer.Entities
 {
     public class User : IdentityUser<int>
     {
-        // TO DO: korisnik moze da se registruje putem imejla ili mobilnog telefona (mozda i fb)
-        // TO DO: dodati polje koje oznacava datum kada se korisnik uclanio u biblioteku
+        
         public string Name { get; set; }
         public string Surname { get; set; }
 

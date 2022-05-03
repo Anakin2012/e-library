@@ -32,6 +32,8 @@ namespace IdentityServer
             services.ConfigurePersistence(Configuration);
             services.ConfigureIdentity();
 
+            services.ConfigureMapper();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -52,7 +54,6 @@ namespace IdentityServer
             app.UseRouting();
 
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

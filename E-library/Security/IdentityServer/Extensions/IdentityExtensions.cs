@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace IdentityServer.Extensions
@@ -42,6 +43,15 @@ namespace IdentityServer.Extensions
 
             return services;
         }
+
+        public static IServiceCollection ConfigureMapper(this IServiceCollection services)
+        {
+            // AutoMapper
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            
+            return services;
+        }
+
 
     }
 }

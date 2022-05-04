@@ -22,7 +22,6 @@ C:\Users\panap\source\repos\e-library\E-library\Services\Catalog\Catalog.API\obj
 C:\Users\panap\source\repos\e-library\E-library\Services\Catalog\Catalog.API\obj\Debug\net5.0\staticwebassets\Catalog.API.StaticWebAssets.xml
 C:\Users\panap\source\repos\e-library\E-library\Services\Catalog\Catalog.API\obj\Debug\net5.0\scopedcss\bundle\Catalog.API.styles.css
 C:\Users\panap\source\repos\e-library\E-library\Services\Catalog\Catalog.API\obj\Debug\net5.0\Catalog.API.RazorTargetAssemblyInfo.cache
-C:\Users\panap\source\repos\e-library\E-library\Services\Catalog\Catalog.API\obj\Debug\net5.0\Catalog.API.csproj.CopyComplete
 C:\Users\panap\source\repos\e-library\E-library\Services\Catalog\Catalog.API\obj\Debug\net5.0\Catalog.API.dll
 C:\Users\panap\source\repos\e-library\E-library\Services\Catalog\Catalog.API\obj\Debug\net5.0\ref\Catalog.API.dll
 C:\Users\panap\source\repos\e-library\E-library\Services\Catalog\Catalog.API\obj\Debug\net5.0\Catalog.API.pdb

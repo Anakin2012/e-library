@@ -18,6 +18,8 @@ namespace Catalog.API.Entities
         public string Description { get; set; }
         public string CoverImageFile { get; set; } // putanja do slike
         public bool IsAvailable { get; set; } // da li je knjiga dostupna za iznajmljivanje 
+        public bool IsPremium { get; set; } 
         
+        // TODO pdf 
     }
 }

@@ -328,3 +328,8 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+E-library/Services/Basket/Basket.API/obj/Basket.API.csproj.nuget.dgspec.json
+*.dll
+*.cache
+*.editorconfig
+*.exe

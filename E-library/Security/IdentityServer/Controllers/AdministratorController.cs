@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using IdentityServer.DTOs;
 using IdentityServer.Entities;
 using IdentityServer.Repositories.Interfaces;
@@ -12,14 +12,13 @@ using System.Threading.Tasks;
 
 namespace IdentityServer.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("/api/v1/[controller]")]
     [ApiController]
-    public class RegistrationController : ControllerBase
+    public class AdministratorController : ControllerBase
     {
-
         private readonly IdentityRepositoryInterface _repository;
 
-        public RegistrationController(IdentityRepositoryInterface repository)
+        public AdministratorController(IdentityRepositoryInterface repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
@@ -28,30 +27,9 @@ namespace IdentityServer.Controllers
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterMember([FromBody] NewMemberDTO newUser)
+        public async Task<IActionResult> RegisterAdministrator([FromBody] NewMemberDTO newUser)
         {
-            var result = await _repository.RegisterMember(newUser);
-            if (!result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.TryAddModelError(error.Code, error.Description);
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return StatusCode(StatusCodes.Status201Created);
-
-        }
-
-
-        [HttpPost("[action]")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterPremiumMember([FromBody] NewMemberDTO newUser)
-        {
-            var result = await _repository.RegisterPremiumMember(newUser);
+            var result = await _repository.RegisterAdministrator(newUser);
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -64,6 +42,8 @@ namespace IdentityServer.Controllers
 
             return StatusCode(StatusCodes.Status201Created);
         }
+
+
 
 
     }

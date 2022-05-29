@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QBgcqPCmfvOCjZEVsvF/6S+PeaKnjQkMcyYVcTIW0nFte/wmLWxakiHSfKTeLLAa/A7ZVHvFmuvXLGvMKrOH3w==",
+  "dgSpecHash": "KNmAOxVALUgLgwk222rVNevFrUxmx9gGS0n3KhD+zJBoWF8Kb+YFKUkb0QdTBTpr7UWL7wVt9zP2iZI/7AhOiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\bojan\\Source\\Repos\\e-library-novo\\E-library\\Services\\WishList\\WishList.API\\WishList.API.csproj",
+  "projectFilePath": "C:\\Users\\bojan\\Source\\Repos\\e-library\\E-library\\Services\\WishList\\WishList.API\\WishList.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bojan\\.nuget\\packages\\dnsclient\\1.6.0\\dnsclient.1.6.0.nupkg.sha512",
     "C:\\Users\\bojan\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",

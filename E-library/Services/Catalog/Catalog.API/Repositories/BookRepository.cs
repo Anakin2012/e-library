@@ -6,39 +6,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using Catalog.API.DTOs;
+using AutoMapper;
 
 namespace Catalog.API.Repositories
 {
     public class BookRepository : IBookRepository
     {
         private readonly ICatalogContext _context;
+        private readonly IMapper _mapper;
 
-        public BookRepository(ICatalogContext context)
+        public BookRepository(ICatalogContext context, IMapper mapper)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<IEnumerable<Book>> GetBooks()
+        public async Task<IEnumerable<BookDTO>> GetBooks()
         {
-            return await _context.Books.Find(b => true).ToListAsync(); // asinhrono pretvara kolekciju u listu
+            var books = await _context.Books.Find(b => true).ToListAsync()); // asinhrono pretvara kolekciju u listu
+            return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
-        public async Task<Book> GetBook(string id)
+        public async Task<BookDTO> GetBook(string id)
         {
-            return await _context.Books.Find(b => b.Id == id).FirstOrDefaultAsync(); // vraca prvi ili podrazumevanu vrednost
-        }
-
-        public async Task<IEnumerable<Book>> GetBooksByGenre(string genre)
-        {
-            return await _context.Books.Find(b => b.Genre == genre).ToListAsync();
+            var book = await _context.Books.Find(b => b.Id == id).FirstOrDefaultAsync(); // vraca prvi ili podrazumevanu vrednost
+            return _mapper.Map<BookDTO>(book);
         }
 
-        public async Task CreateBook(Book book)
+        public async Task<IEnumerable<BookDTO>> GetBooksByGenre(string genre)
         {
+            var books = await _context.Books.Find(b => b.Genre == genre).ToListAsync();
+            return _mapper.Map<IEnumerable<BookDTO>>(books);
+        }
+
+        // todo: mozda treba fix
+        public async Task CreateBook(CreateBookDTO bookDTO)
+        {
+            var book = _mapper.Map<Book>(bookDTO);
             await _context.Books.InsertOneAsync(book);
         }
 
-        public async Task<bool> UpdateBook(Book book)
+        public async Task<bool> UpdateBook(UpdateBookDTO bookDTO)
         {
+            var book = _mapper.Map<Book>(bookDTO);
             var updateResult = await _context.Books.ReplaceOneAsync(b => b.Id == book.Id, book);
             return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
         }

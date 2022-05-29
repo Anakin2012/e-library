@@ -1,4 +1,5 @@
-﻿using Catalog.API.Entities;
+﻿using Catalog.API.DTOs;
+using Catalog.API.Entities;
 using Catalog.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -55,17 +56,17 @@ namespace Catalog.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(IEnumerable<Book>), StatusCodes.Status201Created)]
-        public async Task<ActionResult<Book>> CreateBook([FromBody] Book book)
+        [ProducesResponseType(typeof(BookDTO), StatusCodes.Status201Created)]
+        public async Task<ActionResult<BookDTO>> CreateBook([FromBody] CreateBookDTO bookDTO)
         {
-            await _repository.CreateBook(book);
-
+            await _repository.CreateBook(bookDTO);
+            var book = await _repository.GetBook(bookDTO.Id);
             return CreatedAtRoute("GetBook", new { id = book.Id }, book);
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(Book), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateBook([FromBody] Book book)
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateBook([FromBody] UpdateBookDTO book)
         {
             return Ok(await _repository.UpdateBook(book));
         }

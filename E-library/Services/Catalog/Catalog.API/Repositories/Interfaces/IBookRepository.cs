@@ -1,4 +1,5 @@
-﻿using Catalog.API.Entities;
+﻿using Catalog.API.DTOs;
+using Catalog.API.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ namespace Catalog.API.Repositories.Interfaces
 {
     public interface IBookRepository
     {
-        Task<IEnumerable<Book>> GetBooks();
-        Task<Book> GetBook(string id);
-        Task<IEnumerable<Book>> GetBooksByGenre(string genre);
-        Task CreateBook(Book book);
-        Task<bool> UpdateBook(Book book);
+        Task<IEnumerable<BookDTO>> GetBooks();
+        Task<BookDTO> GetBook(string id);
+        Task<IEnumerable<BookDTO>> GetBooksByGenre(string genre);
+        Task CreateBook(CreateBookDTO bookDTO);
+        Task<bool> UpdateBook(UpdateBookDTO bookDTO);
         Task<bool> DeleteBook(string id);
     }
 }

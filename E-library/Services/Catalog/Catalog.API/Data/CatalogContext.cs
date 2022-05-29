@@ -1,4 +1,5 @@
 ﻿using Catalog.API.Entities;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace Catalog.API.Data
     {
         // konstruktor za povezivanje na bazu podataka
         // i za inicijalizaciju kolekcije u toj bazi
-        public CatalogContext()
+        public CatalogContext(IConfiguration configuration)
         {
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient(configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
             var database = client.GetDatabase("CatalogDB");
 
             Books = database.GetCollection<Book>("Books");

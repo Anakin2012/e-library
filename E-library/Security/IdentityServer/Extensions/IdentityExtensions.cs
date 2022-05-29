@@ -1,5 +1,7 @@
 ﻿using IdentityServer.Data;
 using IdentityServer.Entities;
+using IdentityServer.Repositories;
+using IdentityServer.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -48,7 +50,9 @@ namespace IdentityServer.Extensions
         {
             // AutoMapper
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            
+
+            services.AddScoped<IdentityRepositoryInterface, IdentityRepository>();
+
             return services;
         }
 

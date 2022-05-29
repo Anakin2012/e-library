@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bojan\\Source\\Repos\\e-library\\new\\E-library\\Services\\Recommendation\\Recommendation.API\\Recommendation.API.csproj": {}
+    "C:\\Users\\bojan\\Source\\Repos\\e-library\\E-library\\Services\\Recommendation\\Recommendation.API\\Recommendation.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bojan\\Source\\Repos\\e-library\\new\\E-library\\Services\\Recommendation\\Recommendation.API\\Recommendation.API.csproj": {
+    "C:\\Users\\bojan\\Source\\Repos\\e-library\\E-library\\Services\\Recommendation\\Recommendation.API\\Recommendation.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bojan\\Source\\Repos\\e-library\\new\\E-library\\Services\\Recommendation\\Recommendation.API\\Recommendation.API.csproj",
+        "projectUniqueName": "C:\\Users\\bojan\\Source\\Repos\\e-library\\E-library\\Services\\Recommendation\\Recommendation.API\\Recommendation.API.csproj",
         "projectName": "Recommendation.API",
-        "projectPath": "C:\\Users\\bojan\\Source\\Repos\\e-library\\new\\E-library\\Services\\Recommendation\\Recommendation.API\\Recommendation.API.csproj",
+        "projectPath": "C:\\Users\\bojan\\Source\\Repos\\e-library\\E-library\\Services\\Recommendation\\Recommendation.API\\Recommendation.API.csproj",
         "packagesPath": "C:\\Users\\bojan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bojan\\Source\\Repos\\e-library\\new\\E-library\\Services\\Recommendation\\Recommendation.API\\obj\\",
+        "outputPath": "C:\\Users\\bojan\\Source\\Repos\\e-library\\E-library\\Services\\Recommendation\\Recommendation.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -59,24 +59,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.14, 5.0.14]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -85,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

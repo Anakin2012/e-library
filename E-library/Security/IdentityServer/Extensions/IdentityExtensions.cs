@@ -1,4 +1,5 @@
-﻿using IdentityServer.Data;
+﻿using IdentityServer.AuthenticationServices;
+using IdentityServer.Data;
 using IdentityServer.Entities;
 using IdentityServer.Repositories;
 using IdentityServer.Repositories.Interfaces;
@@ -52,6 +53,7 @@ namespace IdentityServer.Extensions
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddScoped<IdentityRepositoryInterface, IdentityRepository>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             return services;
         }

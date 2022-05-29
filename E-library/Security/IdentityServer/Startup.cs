@@ -27,12 +27,11 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddAuthentication();
-
             services.ConfigurePersistence(Configuration);
             services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
 
-            services.ConfigureMapper();
+            services.ConfigureMiscellaneousServices();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

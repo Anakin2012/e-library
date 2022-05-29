@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+
+  identitydb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  identityserver:
+    image: ${DOCKER_REGISTRY-}identityserver
+    build:
+      context: .
+      dockerfile: Security/IdentityServer/Dockerfile
+
+volumes:
+  identitydb_data:

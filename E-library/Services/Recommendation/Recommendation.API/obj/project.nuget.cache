@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3GZrRE+YtTUzs2Ei1/ZQ7epVK3JAin8Ep6u5u/EwwLst3C7VWVLvHmtrrholkcXsmYM3KWmPjjZ04byPPi5AKQ==",
+  "dgSpecHash": "q5ebQMmW+e2MNU3rivG0uCYQwiggJQNt+J0ptdTYPfdYaYoLM7Zcb6fsY/WZvLUUsWnS9FRlxEnuSjA7GfNmKQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\bojan\\Source\\Repos\\e-library-novo\\E-library\\Services\\Recommendation\\Recommendation.API\\Recommendation.API.csproj",
+  "projectFilePath": "C:\\Users\\bojan\\Source\\Repos\\e-library\\E-library\\Services\\Recommendation\\Recommendation.API\\Recommendation.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bojan\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\bojan\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

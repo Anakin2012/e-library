@@ -11,5 +11,25 @@ services:
       context: .
       dockerfile: Security/IdentityServer/Dockerfile
 
+  shoppingcart.api:
+    image: ${DOCKER_REGISTRY-}shoppingcartapi
+    build:
+      context: .
+      dockerfile: Services/ShoppingCart/ShoppingCart.API/Dockerfile
+
+  wishlist.api:
+    image: ${DOCKER_REGISTRY-}wishlistapi
+    build:
+      context: .
+      dockerfile: Services/WishList/WishList.API/Dockerfile
+
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
+
 volumes:
   identitydb_data:
+
+

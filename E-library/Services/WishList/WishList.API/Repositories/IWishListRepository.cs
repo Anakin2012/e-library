@@ -3,12 +3,14 @@ using WishList.API.Entities;
 
 namespace WishList.API.Repositories
 {
-    public interface IWishListRepo
+    public interface IWishListRepository
     {
         Task<WishBookList> GetList(string username);
 
         Task<WishBookList> UpdateList(WishBookList list);
 
         Task DeleteList(string username);
+
+        Task CreateList(string username);
     }
 }

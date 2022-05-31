@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4mQOlswQ3+X7Sk86By5m5R6cdsHhJhH0rJiWHybv8A+1W9evGD8eKryH9aFIpRW5ZWLx+2WFVvmzSUxGB6AEQQ==",
+  "dgSpecHash": "sPMkpx1KjhqAXi6BWS1A2qr7Qn2MkQ3U9NlM2s2+mhR+yNux9v2mQAb+7zDMZYL4QQjD4sRy7oeCs7U5ae38Xw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\E-library\\Services\\WishList\\WishList.API\\WishList.API.csproj",
+  "projectFilePath": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\e-library\\E-library\\Services\\WishList\\WishList.API\\WishList.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ryzen\\.nuget\\packages\\dnsclient\\1.6.0\\dnsclient.1.6.0.nupkg.sha512",
     "C:\\Users\\Ryzen\\.nuget\\packages\\google.protobuf\\3.13.0\\google.protobuf.3.13.0.nupkg.sha512",

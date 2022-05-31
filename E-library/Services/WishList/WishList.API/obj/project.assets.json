@@ -1453,11 +1453,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\E-library\\Services\\WishList\\WishList.API\\WishList.API.csproj",
+      "projectUniqueName": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\e-library\\E-library\\Services\\WishList\\WishList.API\\WishList.API.csproj",
       "projectName": "WishList.API",
-      "projectPath": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\E-library\\Services\\WishList\\WishList.API\\WishList.API.csproj",
+      "projectPath": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\e-library\\E-library\\Services\\WishList\\WishList.API\\WishList.API.csproj",
       "packagesPath": "C:\\Users\\Ryzen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\E-library\\Services\\WishList\\WishList.API\\obj\\",
+      "outputPath": "C:\\Users\\Ryzen\\Desktop\\PROJEKTI\\E-library\\e-library\\E-library\\Services\\WishList\\WishList.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Ryzen\\AppData\\Roaming\\NuGet\\NuGet.Config",

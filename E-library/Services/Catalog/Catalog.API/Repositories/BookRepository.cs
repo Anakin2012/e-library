@@ -24,7 +24,7 @@ namespace Catalog.API.Repositories
 
         public async Task<IEnumerable<BookDTO>> GetBooks()
         {
-            var books = await _context.Books.Find(b => true).ToListAsync()); // asinhrono pretvara kolekciju u listu
+            var books = await _context.Books.Find(b => true).ToListAsync(); // asinhrono pretvara kolekciju u listu
             return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
         public async Task<BookDTO> GetBook(string id)

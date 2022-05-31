@@ -11,6 +11,6 @@ namespace WishList.API.Repositories
 
         Task DeleteList(string username);
 
-        Task CreateList(string username);
+    
     }
 }

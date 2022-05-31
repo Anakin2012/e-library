@@ -3,19 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{9EBD9A58-E741-4A21-85BC-A6B613BEF8B8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recommendation.API", "Services\Recommendation\Recommendation.API\Recommendation.API.csproj", "{07B8CB09-D622-4CBF-9376-FC83F1C4B0BA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "Security\IdentityServer\IdentityServer.csproj", "{84236708-D3D6-485C-A839-8C0C61019BDF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{9CD0A105-555A-4A32-9F35-4BB3B9BEC140}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.API", "Services\ShoppingCart\ShoppingCart.API\ShoppingCart.API.csproj", "{5DB21E01-F2CB-4E9B-9673-FB21EF3B064A}"
-EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CB7AA8DA-66B6-4441-B883-7FD989B63C19}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WishList.API", "Services\WishList\WishList.API\WishList.API.csproj", "{32020989-8602-44A3-B27B-348AEDA5585F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{0A25F288-7F54-4EBF-9AAD-C44FFF89BEE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.API", "Services\ShoppingCart\ShoppingCart.API\ShoppingCart.API.csproj", "{7B9DCC07-1DE2-4126-957A-1F2CC7FB0DEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9EBD9A58-E741-4A21-85BC-A6B613BEF8B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9EBD9A58-E741-4A21-85BC-A6B613BEF8B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9EBD9A58-E741-4A21-85BC-A6B613BEF8B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9EBD9A58-E741-4A21-85BC-A6B613BEF8B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{07B8CB09-D622-4CBF-9376-FC83F1C4B0BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07B8CB09-D622-4CBF-9376-FC83F1C4B0BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07B8CB09-D622-4CBF-9376-FC83F1C4B0BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07B8CB09-D622-4CBF-9376-FC83F1C4B0BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84236708-D3D6-485C-A839-8C0C61019BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84236708-D3D6-485C-A839-8C0C61019BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84236708-D3D6-485C-A839-8C0C61019BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,10 +29,6 @@ Global
 		{9CD0A105-555A-4A32-9F35-4BB3B9BEC140}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CD0A105-555A-4A32-9F35-4BB3B9BEC140}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CD0A105-555A-4A32-9F35-4BB3B9BEC140}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DB21E01-F2CB-4E9B-9673-FB21EF3B064A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DB21E01-F2CB-4E9B-9673-FB21EF3B064A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DB21E01-F2CB-4E9B-9673-FB21EF3B064A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DB21E01-F2CB-4E9B-9673-FB21EF3B064A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB7AA8DA-66B6-4441-B883-7FD989B63C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB7AA8DA-66B6-4441-B883-7FD989B63C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB7AA8DA-66B6-4441-B883-7FD989B63C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +37,14 @@ Global
 		{32020989-8602-44A3-B27B-348AEDA5585F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32020989-8602-44A3-B27B-348AEDA5585F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32020989-8602-44A3-B27B-348AEDA5585F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A25F288-7F54-4EBF-9AAD-C44FFF89BEE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A25F288-7F54-4EBF-9AAD-C44FFF89BEE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A25F288-7F54-4EBF-9AAD-C44FFF89BEE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A25F288-7F54-4EBF-9AAD-C44FFF89BEE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9DCC07-1DE2-4126-957A-1F2CC7FB0DEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B9DCC07-1DE2-4126-957A-1F2CC7FB0DEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B9DCC07-1DE2-4126-957A-1F2CC7FB0DEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B9DCC07-1DE2-4126-957A-1F2CC7FB0DEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,6 @@
 version: '3.4'
 
 services:
-
   identitydb:
     container_name: identitydb
     user: root
@@ -32,18 +31,34 @@ services:
       - "80"
       - "443"
     volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro 
 
   wishlist.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings:ConnectionString=wishlistdb:6379"
+    depends_on:
+      - wishlistdb
     ports:
-      - "80"
+      - "8001:80"
 
+  wishlistdb:
+    container_name: wishlistdb
+    restart: always
+    ports:
+      - "6379:6379"
 
   catalog.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
+    depends_on: 
+      - catalogdb
     ports:
-      - "80"
+      - "8000:80"
 
+  catalogdb:
+    container_name: catalogdb
+    restart: always
+    ports:
+      - "27017:27017"

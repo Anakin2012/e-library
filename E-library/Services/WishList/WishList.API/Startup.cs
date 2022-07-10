@@ -26,11 +26,14 @@ namespace WishList.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = Configuration.GetValue<string>("CacheSettings:ConnectionString");
-            });
-            services.AddScoped<IWishListRepository, WishListRepository>();
+
+
+            services.AddGrpcClient<CatalogProtoService.CatalogProtoServiceClient>(
+                options => options.Address = new Uri(Configuration["GrpcSettings:CatalogUrl"])
+            );
+
+            services.AddScoped<CatalogGrpcService>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

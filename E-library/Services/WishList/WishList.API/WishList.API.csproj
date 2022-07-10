@@ -11,10 +11,6 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controllers\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Protobuf Include="..\..\Catalog\Catalog.Grpc\Protos\catalog.proto" GrpcServices="Client">
 	    <Link>Protos\catalog.proto</Link>
 	  </Protobuf>

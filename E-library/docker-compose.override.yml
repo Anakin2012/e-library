@@ -1,6 +1,13 @@
 version: '3.4'
 
 services:
+
+  wishlistdb:
+    container_name: wishlistdb
+    restart: always
+    ports:
+      - "6379:6379"
+
   catalogdb:
     container_name: catalogdb
     restart: always
@@ -41,3 +48,25 @@ services:
       - identitydb
     ports:
       - "4000:80"
+
+  catalog.grpc:
+    container_name: catalog.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
+    ports:
+      - "8001:80"
+    depends_on:
+      - catalogdb
+
+  wishlist.api:
+    container_name: wishlist.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings:ConnectionString=wishlistdb:6379"
+      - "GrpcSettings:DiscountUrl=http://catalog.grpc"
+    depends_on:
+      - wishlistdb
+      - catalog.grpc
+    ports:
+      - "8002:80"

@@ -29,5 +29,6 @@ namespace Catalog.Grpc.Services
 
             return response;
         }
+
     }
 }

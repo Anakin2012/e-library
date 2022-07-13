@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WishList.API.GrpcServices;
+using WishList.API.Repositories;
+using WishList.API.Services;
 
 namespace WishList.API
 {
@@ -28,6 +30,11 @@ namespace WishList.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDistributedMemoryCache();
+
+            services.AddScoped<IWishListRepository, WishListRepository>();
+
+            services.AddScoped<IWishListService, WishListService>();
 
             services.AddGrpcClient<CatalogProtoService.CatalogProtoServiceClient>(
                 options => options.Address = new Uri(Configuration["GrpcSettings:CatalogUrl"])

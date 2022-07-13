@@ -12,12 +12,13 @@ namespace WishList.API.Controllers
     [Route("api/v1/[controller]")]
     public class WishListController : ControllerBase
     {
-        private readonly WishListRepository _repository;
-        private readonly WishListService _service;
+        private readonly IWishListRepository _repository;
+        private readonly IWishListService _service;
 
-        public WishListController(WishListRepository repository)
+        public WishListController(IWishListRepository repository, IWishListService service)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _service = service ?? throw new ArgumentNullException(nameof(repository));
         }
         [HttpGet("{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]

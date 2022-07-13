@@ -12,7 +12,13 @@ namespace WishList.API.Services
     {
 
         private readonly CatalogGrpcService _grpcService;
-        private readonly WishListRepository _repository;
+        private readonly IWishListRepository _repository;
+
+        public WishListService(CatalogGrpcService grpcService, IWishListRepository repository)
+        {
+            _grpcService = grpcService;
+            _repository = repository;
+        }
 
         public async Task<List<ListItem>> getRecommendations(string username){
             var allBooks = await _grpcService.GetBooks();

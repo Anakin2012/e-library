@@ -15,11 +15,14 @@ namespace WishList.API.GrpcServices
             _catalogProtoServiceClient = catalogProtoServiceClient ?? throw new ArgumentNullException(nameof(catalogProtoServiceClient));
         }
 
-        public async Task<GetBooksResponse> GetBooks() {
+        public async Task<GetBooksResponse> GetBooksByAuthor(string author) {
 
             var getBooksRequest = new GetBooksRequest();
 
-            return await _catalogProtoServiceClient.GetBooksAsync(getBooksRequest);
+            getBooksRequest.Author = author;
+
+
+            return await _catalogProtoServiceClient.GetBooksByAuthorAsync(getBooksRequest);
         }
     }
 }

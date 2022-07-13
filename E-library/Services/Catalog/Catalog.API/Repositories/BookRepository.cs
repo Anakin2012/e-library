@@ -39,6 +39,12 @@ namespace Catalog.API.Repositories
             return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
 
+        public async Task<IEnumerable<BookDTO>> GetBooksByAuthor(string author)
+        {
+            var books = await _context.Books.Find(b => b.Author == author).ToListAsync();
+            return _mapper.Map<IEnumerable<BookDTO>>(books);
+        }
+
         // todo: mozda treba fix
         public async Task CreateBook(CreateBookDTO bookDTO)
         {

@@ -21,7 +21,6 @@ namespace WishList.API.Services
         }
 
         public async Task<List<ListItem>> getRecommendations(string username){
-            var allBooks = await _grpcService.GetBooks();
 
             Dictionary<string, int> writerCounterMap = new Dictionary<string, int>();
 
@@ -30,7 +29,7 @@ namespace WishList.API.Services
             WishBookList usersBooks = await _repository.GetList(username);
 
             foreach (ListItem bookItem in usersBooks.WishedBooks) {
-                if (writerCounterMap.ContainsKey(bookItem.Writer))
+                if (!writerCounterMap.ContainsKey(bookItem.Writer))
                 {
                     writerCounterMap.Add(bookItem.Writer, 1);
                 }
@@ -48,14 +47,14 @@ namespace WishList.API.Services
                     recommendedWriter = writer;
             }
 
+            var allBooks = await _grpcService.GetBooksByAuthor(recommendedWriter);
+
             foreach (var book in allBooks.Books) {
-                if (book.Author.Equals(recommendedWriter)){
-                    ListItem item = new ListItem();
-                    item.BookId = book.Id;
-                    item.BookTitle = book.Title;
-                    item.Writer = book.Author;
-                    result.Add(item);
-                }
+                ListItem item = new ListItem();
+                item.BookId = book.Id;
+                item.BookTitle = book.Title;
+                item.Writer = book.Author;
+                result.Add(item);
             }
 
             return result;

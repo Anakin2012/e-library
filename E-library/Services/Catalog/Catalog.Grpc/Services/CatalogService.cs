@@ -16,12 +16,21 @@ namespace Catalog.Grpc.Services
         private readonly IBookRepository _repository;
         private readonly IMapper _mapper;
         private readonly ILogger<CatalogService> _logger;
-        public override async Task<GetBooksResponse> GetBooks(GetBooksRequest request, ServerCallContext context)
+
+        public CatalogService(IBookRepository repository, IMapper mapper, ILogger<CatalogService> logger)
+        {
+            _repository = repository;
+            _mapper = mapper;
+            _logger = logger;
+        }
+
+        public override async Task<GetBooksResponse> GetBooksByAuthor(GetBooksRequest request, ServerCallContext context)
         {
 
-            var books = await _repository.GetBooks();
+            var books = await _repository.GetBooksByAuthor(request.Author);
 
             var response = new GetBooksResponse();
+
 
             response.Books.AddRange(_mapper.Map<IEnumerable<GetBooksResponse.Types.Book>>(books));
 

@@ -31,7 +31,7 @@ namespace WishList.API.Controllers
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ListItem>>> GetRecommendations(string username)
         {
-            var recommendations = _service.getRecommendations(username);
+            var recommendations = await _service.getRecommendations(username);
             return Ok(recommendations);
         }
 

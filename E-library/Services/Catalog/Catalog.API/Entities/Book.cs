@@ -9,7 +9,9 @@ namespace Catalog.API.Entities
 {
     public class Book
     {
-        [BsonRepresentation(BsonType.ObjectId)] 
+        [BsonRepresentation(BsonType.ObjectId)]
+        //[BsonId]
+        //[BsonElement("_id")]
         public string Id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }

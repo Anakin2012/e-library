@@ -60,15 +60,15 @@ namespace Catalog.API.Controllers
         public async Task<ActionResult<BookDTO>> CreateBook([FromBody] CreateBookDTO bookDTO)
         {
             await _repository.CreateBook(bookDTO);
-            var book = await _repository.GetBook(bookDTO.Id);
-            return CreatedAtRoute("GetBook", new { id = book.Id }, book);
+
+            return CreatedAtRoute("GetBook", new { id = bookDTO.Id }, bookDTO);
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateBook([FromBody] UpdateBookDTO book)
+        public async Task<IActionResult> UpdateBook([FromBody] UpdateBookDTO bookDTO)
         {
-            return Ok(await _repository.UpdateBook(book));
+            return Ok(await _repository.UpdateBook(bookDTO));
         }
 
         [HttpDelete("{id:length(24)}", Name = "DeleteBook")]

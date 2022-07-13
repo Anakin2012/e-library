@@ -38,17 +38,30 @@ namespace Catalog.API.Repositories
             var books = await _context.Books.Find(b => b.Genre == genre).ToListAsync();
             return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
+    
 
-        // todo: mozda treba fix
         public async Task CreateBook(CreateBookDTO bookDTO)
         {
-            var book = _mapper.Map<Book>(bookDTO);
+            var book = new Book()
+            {
+  
+                Title = bookDTO.Title,
+                Author = bookDTO.Author,
+                Genre = bookDTO.Genre,
+                Language = bookDTO.Language,
+                Description = bookDTO.Description,
+                CoverImageFile = bookDTO.CoverImageFile,
+                IsAvailable = bookDTO.IsAvailable,
+                IsPremium = bookDTO.IsPremium
+            };
+
             await _context.Books.InsertOneAsync(book);
         }
 
         public async Task<bool> UpdateBook(UpdateBookDTO bookDTO)
         {
             var book = _mapper.Map<Book>(bookDTO);
+           
             var updateResult = await _context.Books.ReplaceOneAsync(b => b.Id == book.Id, book);
             return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
         }

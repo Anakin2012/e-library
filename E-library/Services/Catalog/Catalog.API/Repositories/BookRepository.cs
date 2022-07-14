@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using Catalog.API.DTOs;
 using AutoMapper;
+using MongoDB.Bson;
+using System.Text.RegularExpressions;
 
 namespace Catalog.API.Repositories
 {
@@ -35,16 +37,21 @@ namespace Catalog.API.Repositories
 
         public async Task<IEnumerable<BookDTO>> GetBooksByGenre(string genre)
         {
-            var books = await _context.Books.Find(b => b.Genre == genre).ToListAsync();
+            var books = await _context.Books.Find(b => b.Genre.ToLower().Contains(genre.ToLower())).ToListAsync();
             return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
 
         public async Task<IEnumerable<BookDTO>> GetBooksByAuthor(string author)
         {
-            var books = await _context.Books.Find(b => b.Author == author).ToListAsync();
+            var books = await _context.Books.Find(b => b.Author.ToLower().Contains(author.ToLower())  || b.Author.ToLower().StartsWith(author.ToLower())).ToListAsync();
             return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
 
+        public async Task<IEnumerable<BookDTO>> GetBooksByTitle(string title)
+        {
+            var books = await _context.Books.Find(b => b.Title.ToLower().Contains(title.ToLower()) || b.Title.ToLower().StartsWith(title.ToLower())).ToListAsync(); 
+            return _mapper.Map<IEnumerable<BookDTO>>(books);
+        }
 
         public async Task CreateBook(CreateBookDTO bookDTO)
         {

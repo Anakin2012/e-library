@@ -4,11 +4,14 @@ services:
   catalogdb:
     image: mongo
 
+  wishlistdb:
+    image: redis:alpine
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
-      dockerfile: Services/Catalog/Catalog.API/Dockerfile    
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
 
   identitydb:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -19,5 +22,19 @@ services:
       context: .
       dockerfile: Security/IdentityServer/Dockerfile
 
+  catalog.grpc:
+    image: ${DOCKER_REGISTRY-}cataloggrpc
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.Grpc/Dockerfile
+
+  wishlist.api:
+    image: ${DOCKER_REGISTRY-}wishlistapi
+    build:
+      context: .
+      dockerfile: Services/WishList/WishList.API/Dockerfile
+
 volumes:
+  mongo_data: 
   identitydb_data:
+

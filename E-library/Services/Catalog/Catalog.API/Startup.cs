@@ -1,4 +1,5 @@
 using Catalog.API.Data;
+using Catalog.API.Extensions;
 using Catalog.API.Repositories;
 using Catalog.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -29,8 +30,7 @@ namespace Catalog.API
         public void ConfigureServices(IServiceCollection services)
         {
             // dependency injection 
-            services.AddScoped<ICatalogContext, CatalogContext>();
-            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddCatalogServices();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Catalog.API.DTOs;
 using Catalog.API.Entities;
 using Catalog.API.Repositories.Interfaces;
@@ -27,19 +27,19 @@ namespace Catalog.API.Controllers
         }
 
 
-        [HttpGet] // koji http zahtev implementira ovaj metod
-        [ProducesResponseType(typeof(IEnumerable<Book>), StatusCodes.Status200OK)]
+        [HttpGet] 
+        [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
         // shema povratne vrednosti i ocekivani statusni kod 
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
+        public async Task<ActionResult<IEnumerable<BookDTO>>> GetBooks()
         {
             var books = await _repository.GetBooks();
             return Ok(books);
         }
 
         [HttpGet("{id}", Name = "GetBook")]
-        [ProducesResponseType(typeof(Book), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Book), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Book>> GetBookById(string id)
+        [ProducesResponseType(typeof(BookDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BookDTO), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<BookDTO>> GetBookById(string id)
         {
             var book = await _repository.GetBook(id);
             if (book == null)
@@ -51,8 +51,8 @@ namespace Catalog.API.Controllers
 
         [Route("[action]/{genre}")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Book>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooksByGenre(string genre)
+        [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<BookDTO>>> GetBooksByGenre(string genre)
         {
             var books = await _repository.GetBooksByGenre(genre);
             return Ok(books);
@@ -60,10 +60,20 @@ namespace Catalog.API.Controllers
 
         [Route("[action]/{author}")]
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Book>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooksByAuthor(string author)
+        [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<BookDTO>>> GetBooksByAuthor(string author)
         {
             var books = await _repository.GetBooksByAuthor(author);
+            return Ok(books);
+        }
+
+
+        [Route("[action]/{title}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<BookDTO>>> GetBooksByTitle(string title)
+        {
+            var books = await _repository.GetBooksByTitle(title);
             return Ok(books);
         }
 
@@ -92,7 +102,7 @@ namespace Catalog.API.Controllers
 
 
         [HttpDelete("{id:length(24)}", Name = "DeleteBook")]
-        [ProducesResponseType(typeof(Book), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BookDTO), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteBookById(string id)
         {
             return Ok(await _repository.DeleteBook(id));

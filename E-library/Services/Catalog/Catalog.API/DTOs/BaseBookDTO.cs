@@ -15,5 +15,6 @@ namespace Catalog.API.DTOs
         public string CoverImageFile { get; set; } // putanja do slike
         public bool IsAvailable { get; set; } // da li je knjiga dostupna za iznajmljivanje 
         public bool IsPremium { get; set; }
+        public int RentCount { get; set; }
     }
 }

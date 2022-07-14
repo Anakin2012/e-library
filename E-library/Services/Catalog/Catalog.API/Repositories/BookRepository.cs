@@ -1,4 +1,4 @@
-﻿using Catalog.API.Data;
+using Catalog.API.Data;
 using Catalog.API.Entities;
 using Catalog.API.Repositories.Interfaces;
 using System;
@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using Catalog.API.DTOs;
 using AutoMapper;
+using MongoDB.Bson;
+using System.Text.RegularExpressions;
 
 namespace Catalog.API.Repositories
 {
@@ -35,16 +37,21 @@ namespace Catalog.API.Repositories
 
         public async Task<IEnumerable<BookDTO>> GetBooksByGenre(string genre)
         {
-            var books = await _context.Books.Find(b => b.Genre == genre).ToListAsync();
+            var books = await _context.Books.Find(b => b.Genre.ToLower().Contains(genre.ToLower())).ToListAsync();
             return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
 
         public async Task<IEnumerable<BookDTO>> GetBooksByAuthor(string author)
         {
-            var books = await _context.Books.Find(b => b.Author == author).ToListAsync();
+            var books = await _context.Books.Find(b => b.Author.ToLower().Contains(author.ToLower())  || b.Author.ToLower().StartsWith(author.ToLower())).ToListAsync();
             return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
 
+        public async Task<IEnumerable<BookDTO>> GetBooksByTitle(string title)
+        {
+            var books = await _context.Books.Find(b => b.Title.ToLower().Contains(title.ToLower()) || b.Title.ToLower().StartsWith(title.ToLower())).ToListAsync(); 
+            return _mapper.Map<IEnumerable<BookDTO>>(books);
+        }
 
         public async Task CreateBook(CreateBookDTO bookDTO)
         {
@@ -58,7 +65,8 @@ namespace Catalog.API.Repositories
                 Description = bookDTO.Description,
                 CoverImageFile = bookDTO.CoverImageFile,
                 IsAvailable = bookDTO.IsAvailable,
-                IsPremium = bookDTO.IsPremium
+                IsPremium = bookDTO.IsPremium,
+                RentCount = bookDTO.RentCount
             };
 
             await _context.Books.InsertOneAsync(book);
@@ -67,7 +75,6 @@ namespace Catalog.API.Repositories
         public async Task<bool> UpdateBook(string id, UpdateBookDTO bookDTO)
         {
             var book = _mapper.Map<Book>(bookDTO);
-
             var updateResult = await _context.Books.ReplaceOneAsync(b => b.Id == id, book);
             return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
         }

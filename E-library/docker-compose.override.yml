@@ -49,6 +49,23 @@ services:
     ports:
       - "4000:80"
 
+
+  shoppingcartdb:
+    container_name: shoppingcartdb
+    restart: always
+    ports:
+      - "6379:6379"
+
+  shoppingcart.api:
+    container_name: shoppingcart.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings:ConnectionString=basketdb:6379"
+    depends_on:
+      - basketdb
+    ports:
+      - "8001:80"
+      
   catalog.grpc:
     container_name: catalog.grpc
     environment:

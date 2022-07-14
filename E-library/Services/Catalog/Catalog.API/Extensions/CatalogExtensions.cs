@@ -19,7 +19,9 @@ namespace Catalog.API.Extensions
 
             services.AddAutoMapper(configuration =>
                {
-                   configuration.CreateMap<BookDTO, Book>();
+                   configuration.CreateMap<BookDTO, Book>().ReverseMap();
+                   configuration.CreateMap<Book, UpdateBookDTO>().ReverseMap();
+ 
                });
 
         }

@@ -10,8 +10,9 @@ namespace Catalog.API.DTOs
     public class BaseIdentityBookDTO : BaseBookDTO
     {
         // [BsonId]
-        //[BsonRepresentation(BsonType.ObjectId)]
-       // [BsonElement("_id")]
+        // [BsonElement("_id")]
+
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
     }
 }

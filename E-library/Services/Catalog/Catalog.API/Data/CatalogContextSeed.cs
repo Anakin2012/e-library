@@ -26,7 +26,7 @@ namespace Catalog.API.Data
             {
                 new Book()
                 {
-                    Id = "602d2149e773f2a3990b47fa",
+                    Id = "602d2149e773f2a3990b47fb",
                     Title = "Nineteen Eighty-Four",
                     Author = "George Orwell",
                     Genre = "Fiction",
@@ -38,7 +38,7 @@ namespace Catalog.API.Data
                 },
                 new Book()
                 {
-                    Id = "602d2149e773f2a3990b47f8",
+                    Id = "602d2149e773f2a3990b47fc",
                     Title = "Algorithms to Live By: The Computer Science of Human Decisions",
                     Author = "Brian Christian",
                     Genre = "Computer Science",
@@ -50,13 +50,26 @@ namespace Catalog.API.Data
                 },
                 new Book()
                 {
-                    Id = "602d2149e773f2a3990b47f9",
+                    Id = "602d2149e773f2a3990b47f4",
                     Title = "Crime And Punishment",
                     Author = "Fyodor Dostoyevsky",
                     Genre = "Psychological fiction",
                     Language = "Russian",
                     Description = "Raskolnikov, a destitute and desperate former student, wanders through the slums of St Petersburg and commits a random murder without remorse or regret. He imagines himself to be a great man, a Napoleon: acting for a higher purpose beyond conventional moral law. But as he embarks on a dangerous game of cat and mouse with a suspicious police investigator, Raskolnikov is pursued by the growing voice of his conscience and finds the noose of his own guilt tightening around his neck. Only Sonya, a downtrodden sex worker, can offer the chance of redemption",
                     CoverImageFile = "Crime&PunishmentCover.png",
+                    IsAvailable = true,
+                    IsPremium = false
+                },
+
+                new Book()
+                {
+                    Id = "602d2149e773f2a3990b47f5",
+                    Title = "Crime time",
+                    Author = "Fyodor Dostoyevsky",
+                    Genre = "Fiction",
+                    Language = "English",
+                    Description = "Desc",
+                    CoverImageFile = "CrimeCover.png",
                     IsAvailable = true,
                     IsPremium = false
                 }

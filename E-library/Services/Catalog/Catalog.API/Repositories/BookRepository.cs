@@ -57,7 +57,7 @@ namespace Catalog.API.Repositories
         {
             var book = new Book()
             {
-  
+
                 Title = bookDTO.Title,
                 Author = bookDTO.Author,
                 Genre = bookDTO.Genre,
@@ -65,7 +65,8 @@ namespace Catalog.API.Repositories
                 Description = bookDTO.Description,
                 CoverImageFile = bookDTO.CoverImageFile,
                 IsAvailable = bookDTO.IsAvailable,
-                IsPremium = bookDTO.IsPremium
+                IsPremium = bookDTO.IsPremium,
+                RentCount = bookDTO.RentCount
             };
 
             await _context.Books.InsertOneAsync(book);

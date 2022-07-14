@@ -58,6 +58,15 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
+        [Route("[action]/{author}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Book>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksByAuthor(string author)
+        {
+            var books = await _repository.GetBooksByAuthor(author);
+            return Ok(books);
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status201Created)]
         public async Task<ActionResult<BookDTO>> CreateBook([FromBody] CreateBookDTO bookDTO)

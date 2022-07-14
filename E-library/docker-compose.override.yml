@@ -6,7 +6,7 @@ services:
     container_name: wishlistdb
     restart: always
     ports:
-      - "6379:6379"
+      - "6378:6379"
 
   catalogdb:
     container_name: catalogdb
@@ -62,9 +62,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=basketdb:6379"
     depends_on:
-      - basketdb
+      - shoppingcartdb
     ports:
-      - "8001:80"
+      - "8003:80"
       
   catalog.grpc:
     container_name: catalog.grpc

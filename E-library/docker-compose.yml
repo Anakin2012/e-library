@@ -7,6 +7,9 @@ services:
   wishlistdb:
     image: redis:alpine
 
+  shoppingcartdb:
+    image: redis:alpine
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
@@ -33,6 +36,12 @@ services:
     build:
       context: .
       dockerfile: Services/WishList/WishList.API/Dockerfile
+  
+  shoppingcart.api:
+     image: ${DOCKER_REGISTRY-}shoppingcartapi
+     build:
+        context: .
+        dockerfile: Services\ShoppingCart\ShoppingCart.API\Dockerfile
 
 volumes:
   mongo_data: 

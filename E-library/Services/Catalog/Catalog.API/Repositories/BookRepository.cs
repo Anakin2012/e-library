@@ -1,4 +1,4 @@
-﻿using Catalog.API.Data;
+using Catalog.API.Data;
 using Catalog.API.Entities;
 using Catalog.API.Repositories.Interfaces;
 using System;
@@ -75,7 +75,6 @@ namespace Catalog.API.Repositories
         public async Task<bool> UpdateBook(string id, UpdateBookDTO bookDTO)
         {
             var book = _mapper.Map<Book>(bookDTO);
-           
             var updateResult = await _context.Books.ReplaceOneAsync(b => b.Id == id, book);
             return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
         }
@@ -87,5 +86,5 @@ namespace Catalog.API.Repositories
         }
     }
 
-    
+
 }

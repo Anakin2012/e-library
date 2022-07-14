@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Catalog.API.DTOs;
 using Catalog.API.Entities;
 using Catalog.API.Repositories.Interfaces;
@@ -66,6 +66,7 @@ namespace Catalog.API.Controllers
             var books = await _repository.GetBooksByAuthor(author);
             return Ok(books);
         }
+
 
         [Route("[action]/{title}")]
         [HttpGet]

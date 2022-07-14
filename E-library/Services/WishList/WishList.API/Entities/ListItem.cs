@@ -2,7 +2,7 @@
 {
     public class ListItem
     {
-        public int BookId { get; set; }
+        public string BookId { get; set; }
 
         public string BookTitle { get; set; }
 

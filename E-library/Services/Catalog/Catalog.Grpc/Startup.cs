@@ -1,4 +1,5 @@
 ﻿using Catalog.API.DTOs;
+using Catalog.API.Entities;
 using Catalog.API.Extensions;
 using Catalog.Grpc.Services;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +26,7 @@ namespace Catalog.Grpc
             services.AddAutoMapper(configuration =>
             {
                 configuration.CreateMap<BookDTO, GetBooksResponse.Types.Book>().ReverseMap();
+                configuration.CreateMap<Book, BookDTO>().ReverseMap();
             });
         }
 

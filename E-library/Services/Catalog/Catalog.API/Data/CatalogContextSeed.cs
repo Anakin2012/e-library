@@ -1,4 +1,4 @@
-﻿using Catalog.API.Entities;
+using Catalog.API.Entities;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -76,6 +76,7 @@ namespace Catalog.API.Data
                     IsAvailable = true,
                     IsPremium = false, 
                     RentCount = 0
+
                 }
             };
         }

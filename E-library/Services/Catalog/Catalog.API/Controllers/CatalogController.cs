@@ -1,4 +1,5 @@
-﻿using Catalog.API.DTOs;
+﻿using AutoMapper;
+using Catalog.API.DTOs;
 using Catalog.API.Entities;
 using Catalog.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -17,10 +18,12 @@ namespace Catalog.API.Controllers
     public class CatalogController : ControllerBase
     {
         IBookRepository _repository;
+        private readonly IMapper _mapper;
 
-        public CatalogController(IBookRepository repository)
+        public CatalogController(IBookRepository repository, IMapper mapper)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
 
@@ -55,21 +58,38 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
+        [Route("[action]/{author}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Book>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksByAuthor(string author)
+        {
+            var books = await _repository.GetBooksByAuthor(author);
+            return Ok(books);
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status201Created)]
         public async Task<ActionResult<BookDTO>> CreateBook([FromBody] CreateBookDTO bookDTO)
         {
             await _repository.CreateBook(bookDTO);
-            var book = await _repository.GetBook(bookDTO.Id);
-            return CreatedAtRoute("GetBook", new { id = book.Id }, book);
+
+            return CreatedAtRoute("GetBook", new { id = bookDTO.Id }, bookDTO);
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateBook([FromBody] UpdateBookDTO book)
+        public async Task<IActionResult> UpdateBook(string id, [FromBody] UpdateBookDTO bookDTO)
         {
-            return Ok(await _repository.UpdateBook(book));
+            var book = await _repository.GetBook(id);
+            if (book is null)
+            {
+                return NotFound();
+            }
+            bookDTO.Id = book.Id;
+
+            return Ok(await _repository.UpdateBook(id, bookDTO));
         }
+
 
         [HttpDelete("{id:length(24)}", Name = "DeleteBook")]
         [ProducesResponseType(typeof(Book), StatusCodes.Status200OK)]

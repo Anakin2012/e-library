@@ -45,19 +45,33 @@ namespace Catalog.API.Repositories
             return _mapper.Map<IEnumerable<BookDTO>>(books);
         }
 
-        // todo: mozda treba fix
+
         public async Task CreateBook(CreateBookDTO bookDTO)
         {
-            var book = _mapper.Map<Book>(bookDTO);
+            var book = new Book()
+            {
+
+                Title = bookDTO.Title,
+                Author = bookDTO.Author,
+                Genre = bookDTO.Genre,
+                Language = bookDTO.Language,
+                Description = bookDTO.Description,
+                CoverImageFile = bookDTO.CoverImageFile,
+                IsAvailable = bookDTO.IsAvailable,
+                IsPremium = bookDTO.IsPremium
+            };
+
             await _context.Books.InsertOneAsync(book);
         }
 
-        public async Task<bool> UpdateBook(UpdateBookDTO bookDTO)
+        public async Task<bool> UpdateBook(string id, UpdateBookDTO bookDTO)
         {
             var book = _mapper.Map<Book>(bookDTO);
-            var updateResult = await _context.Books.ReplaceOneAsync(b => b.Id == book.Id, book);
+
+            var updateResult = await _context.Books.ReplaceOneAsync(b => b.Id == id, book);
             return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
         }
+
         public async Task<bool> DeleteBook(string id)
         {
             var deleteResult = await _context.Books.DeleteOneAsync(b => b.Id == id);
@@ -65,5 +79,5 @@ namespace Catalog.API.Repositories
         }
     }
 
-    
+
 }

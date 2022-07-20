@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{9EBD9A58-E741-4A21-85BC-A6B613BEF8B8}"
 EndProject
@@ -15,7 +15,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Grpc", "Services\Catalog\Catalog.Grpc\Catalog.Grpc.csproj", "{4F1015ED-7D12-4668-8EB8-57A6D3C19ADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Domain", "Services\Ordering\Ordering.Domain\Ordering.Domain.csproj", "{15C92595-501C-4293-A687-5C2A19989448}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Domain", "Services\Ordering\Ordering.Domain\Ordering.Domain.csproj", "{15C92595-501C-4293-A687-5C2A19989448}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Infrastructure", "..\Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{BB5F3E78-D670-4117-B330-19AADDC7E880}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{15C92595-501C-4293-A687-5C2A19989448}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15C92595-501C-4293-A687-5C2A19989448}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15C92595-501C-4293-A687-5C2A19989448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB5F3E78-D670-4117-B330-19AADDC7E880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB5F3E78-D670-4117-B330-19AADDC7E880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB5F3E78-D670-4117-B330-19AADDC7E880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB5F3E78-D670-4117-B330-19AADDC7E880}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

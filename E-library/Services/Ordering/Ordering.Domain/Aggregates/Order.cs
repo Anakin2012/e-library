@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Aggregates
 {
-    class Order:AggregateRoot
+    public class Order:AggregateRoot
     {
 
         public string CustomerId { get; private set; }

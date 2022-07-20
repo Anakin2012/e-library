@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Common
 {
-    class AggregateRoot : EntityBase
+    public class AggregateRoot : EntityBase
     {
     }
 }

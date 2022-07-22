@@ -56,6 +56,7 @@ namespace IdentityServer.Extensions
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddScoped<IdentityRepositoryInterface, IdentityRepository>();
+            services.AddScoped<RefreshTokenRepositoryInterface, RefreshTokenRepository>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             return services;

@@ -1,6 +1,7 @@
 ﻿using IdentityServer.Data;
 using IdentityServer.DTOs;
 using IdentityServer.Entities;
+using IdentityServer.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,11 +21,13 @@ namespace IdentityServer.AuthenticationServices
 
         private readonly UserManager<Member> _memberManager;
         private readonly IConfiguration _configuration;
+        private readonly RefreshTokenRepositoryInterface _repository;
 
-        public AuthenticationService(UserManager<Member> memberManager, IConfiguration configuration)
+        public AuthenticationService(UserManager<Member> memberManager, IConfiguration configuration, RefreshTokenRepositoryInterface repository)
         {
             _memberManager = memberManager ?? throw new ArgumentNullException(nameof(memberManager));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
         public async Task<Member> ValidateUser(MemberCredentialsDTO memberCredentials)
@@ -42,9 +46,22 @@ namespace IdentityServer.AuthenticationServices
         public async Task<AuthenticationModel> CreateAuthenticationModel(Member member)
         {
             var accessToken = await CreateAccessToken(member);
+            var refreshToken = await CreateRefreshToken();
 
-            return new AuthenticationModel { AccessToken = accessToken };
+            await _repository.AddRefreshTokenToMember(member, refreshToken);
+
+            return new AuthenticationModel { AccessToken = accessToken, RefreshToken = refreshToken.Token };
         }
+
+
+        public async Task RemoveRefreshToken(Member member, string refreshToken)
+        {
+
+            await _repository.RemoveRefreshTokens(member, refreshToken);
+
+        }
+
+
 
         private async Task<string> CreateAccessToken(Member member)
         {
@@ -96,6 +113,24 @@ namespace IdentityServer.AuthenticationServices
 
             return token;
         }
+
+        private async Task<RefreshToken> CreateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using var randomNumberGenerator = RandomNumberGenerator.Create();
+            randomNumberGenerator.GetBytes(randomNumber);
+
+            var token = new RefreshToken
+            {
+                Token = Convert.ToBase64String(randomNumber),
+                ExpiryTime = DateTime.Now.AddDays(Convert.ToDouble(_configuration.GetValue<string>("RefreshTokenExpires")))
+            };
+
+            await _repository.AddRefreshToken(token);
+
+            return token;
+        }
+
 
     }
 }

@@ -64,5 +64,11 @@ namespace IdentityServer.Repositories
         }
 
 
+        public async Task<Member> FindMember(string UserName) {
+            var member =  await _memberManager.FindByNameAsync(UserName);
+            return member;
+        }
+
+
     }
 }

@@ -11,6 +11,8 @@ namespace IdentityServer.Entities
         
         public string Name { get; set; }
         public string Surname { get; set; }
+        public List<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+
 
         public Member()
         {

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IdentityServer.Controllers
 {
@@ -37,5 +38,52 @@ namespace IdentityServer.Controllers
 
             return Ok(await _authenticationService.CreateAuthenticationModel(user));
         }
+
+
+        [HttpPost("[action]")]
+        [ProducesResponseType(typeof(AuthenticationModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<AuthenticationModel>> Refresh([FromBody] RefreshTokenModel refreshTokenCredentials)
+        {
+            var member = await _repository.FindMember(refreshTokenCredentials.UserName);
+
+            if (member == null)
+            {
+                return Forbid();
+            }
+
+            var refreshToken = member.RefreshTokens.FirstOrDefault(r => r.Token == refreshTokenCredentials.RefreshToken);
+            if (refreshToken == null)
+            {
+                return Unauthorized();
+            }
+
+            if (refreshToken.ExpiryTime < DateTime.Now)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(await _authenticationService.CreateAuthenticationModel(member));
+        }
+
+        [Authorize]
+        [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> Logout([FromBody] RefreshTokenModel refreshTokenCredentials)
+        {
+            var member = await _repository.FindMember(refreshTokenCredentials.UserName);
+            if (member == null)
+            {
+                return Forbid();
+            }
+
+            await _authenticationService.RemoveRefreshToken(member, refreshTokenCredentials.RefreshToken);
+
+            return Accepted();
+        }
+
+
     }
 }

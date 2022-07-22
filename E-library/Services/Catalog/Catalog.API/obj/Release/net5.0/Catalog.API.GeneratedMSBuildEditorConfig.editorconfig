@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = Catalog.API
-build_property.ProjectDir = C:\Users\Ryzen\Desktop\PROJEKTI\E-library\E-library\Services\Catalog\Catalog.API\
+build_property.ProjectDir = C:\Users\bojan\Source\Repos\e-library\E-library\Services\Catalog\Catalog.API\

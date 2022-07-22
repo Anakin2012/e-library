@@ -12,6 +12,7 @@ namespace IdentityServer.Data
 {
     public class IdentityContext : IdentityDbContext<Member, Role, int>
     {
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
 
         public IdentityContext(DbContextOptions options) : base(options)
@@ -21,6 +22,7 @@ namespace IdentityServer.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new MemberConfiguration());
 
             base.OnModelCreating(builder);
         }

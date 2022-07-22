@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.ValueObjects
 {
-    public class Address: ValueObject
+    class Address: ValueObject
     {
         public string Street { get; private set; }
         public string City { get; private set; }

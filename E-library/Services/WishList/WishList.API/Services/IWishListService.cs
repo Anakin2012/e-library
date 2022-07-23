@@ -9,7 +9,9 @@ namespace WishList.API.Services
     public interface IWishListService
     {
 
-        public Task<List<ListItem>> getRecommendations(string username);
+        public Task<List<ListItem>> getRecommendationsByAuthor(string username);
+
+        public Task<List<ListItem>> getRecommendationsByGenre(string username);
 
     }
 }

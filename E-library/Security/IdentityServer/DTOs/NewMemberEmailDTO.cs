@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace IdentityServer.DTOs
 {
-    public class NewMemberDTO
+    public class NewMemberEmailDTO
     {
-        // Korisnik se registruje putem mejla. Dodati mogucnost da se registruje putem mobilnog telefona.
+        // Korisnik se registruje putem mejla.
 
         [Required(ErrorMessage = "First Name is required.")]
         public string Name { get; set; }
@@ -22,6 +22,7 @@ namespace IdentityServer.DTOs
         [Required(ErrorMessage = "Password is required.")]
         public string Password { get; set; }
 
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [Required(ErrorMessage = "Email is required.")]
         public string Email { get; set; }
     }

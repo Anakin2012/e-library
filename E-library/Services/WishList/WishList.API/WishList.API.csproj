@@ -14,6 +14,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Catalog\Catalog.Grpc\Catalog.Grpc.csproj" />
+  </ItemGroup>
+
 	<ItemGroup>
 	  <Protobuf Include="..\..\Catalog\Catalog.Grpc\Protos\catalog.proto" GrpcServices="Client">
 	    <Link>Protos\catalog.proto</Link>

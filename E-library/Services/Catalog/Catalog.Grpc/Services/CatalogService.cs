@@ -39,5 +39,20 @@ namespace Catalog.Grpc.Services
             return response;
         }
 
+        public override async Task<GetBooksByGenreResponse> GetBooksByGenre(GetBooksByGenreRequest request, ServerCallContext context)
+        {
+
+            var books = await _repository.GetBooksByGenre(request.Genre);
+
+            var response = new GetBooksByGenreResponse();
+
+
+            response.Books.AddRange(_mapper.Map<IEnumerable<GetBooksByGenreResponse.Types.Book>>(books));
+
+            _logger.LogInformation("Books successfully retrieved from catalog");
+
+            return response;
+        }
+
     }
 }

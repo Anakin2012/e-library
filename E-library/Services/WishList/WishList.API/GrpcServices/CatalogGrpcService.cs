@@ -24,5 +24,16 @@ namespace WishList.API.GrpcServices
 
             return await _catalogProtoServiceClient.GetBooksByAuthorAsync(getBooksRequest);
         }
+
+        public async Task<GetBooksByGenreResponse> GetBooksByGenre(string genre)
+        {
+
+            var getBooksRequest = new GetBooksByGenreRequest();
+
+            getBooksRequest.Genre = genre;
+
+
+            return await _catalogProtoServiceClient.GetBooksByGenreAsync(getBooksRequest);
+        }
     }
 }

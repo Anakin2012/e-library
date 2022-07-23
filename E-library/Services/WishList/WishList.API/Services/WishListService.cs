@@ -28,14 +28,14 @@ namespace WishList.API.Services
             WishBookList usersBooks = await _repository.GetList(username);
 
             foreach (ListItem bookItem in usersBooks.WishedBooks) {
-                if (!writerCounterMap.ContainsKey(bookItem.Writer))
+                if (!writerCounterMap.ContainsKey(bookItem.Author))
                 {
-                    writerCounterMap.Add(bookItem.Writer, 1);
+                    writerCounterMap.Add(bookItem.Author, 1);
                 }
                 else {
-                    int currCounter = writerCounterMap[bookItem.Writer];
+                    int currCounter = writerCounterMap[bookItem.Author];
                     currCounter += 1;
-                    writerCounterMap[bookItem.Writer] = currCounter;
+                    writerCounterMap[bookItem.Author] = currCounter;
                 }
             }
 
@@ -52,7 +52,7 @@ namespace WishList.API.Services
                 ListItem item = new ListItem();
                 item.BookId = book.Id;
                 item.BookTitle = book.Title;
-                item.Writer = book.Author;
+                item.Author = book.Author;
                 result.Add(item);
             }
 
@@ -61,7 +61,7 @@ namespace WishList.API.Services
 
         public async Task<List<ListItem>> getRecommendationsByGenre(string username)
         {
-            Dictionary<string, int> writerCounterMap = new Dictionary<string, int>();
+            Dictionary<string, int> genreCounterMap = new Dictionary<string, int>();
 
             List<ListItem> result = new List<ListItem>();
             WishBookList usersBooks = await _repository.GetList(username);
@@ -69,34 +69,35 @@ namespace WishList.API.Services
             //TODO umesto Writer treba dodati Genre
             foreach (ListItem bookItem in usersBooks.WishedBooks)
             {
-                if (!writerCounterMap.ContainsKey(bookItem.Writer))
+                if (!genreCounterMap.ContainsKey(bookItem.Genre))
                 {
-                    writerCounterMap.Add(bookItem.Writer, 1);
+                    genreCounterMap.Add(bookItem.Genre, 1);
                 }
                 else
                 {
-                    int currCounter = writerCounterMap[bookItem.Writer];
+                    int currCounter = genreCounterMap[bookItem.Genre];
                     currCounter += 1;
-                    writerCounterMap[bookItem.Writer] = currCounter;
+                    genreCounterMap[bookItem.Genre] = currCounter;
                 }
             }
 
-            string recommendedWriter = "";
-            int max = writerCounterMap.Values.Max();
-            foreach (string writer in writerCounterMap.Keys)
+            string recommendedGenre = "";
+            int max = genreCounterMap.Values.Max();
+            foreach (string genre in genreCounterMap.Keys)
             {
-                if (writerCounterMap[writer] == max)
-                    recommendedWriter = writer;
+                if (genreCounterMap[genre] == max)
+                    recommendedGenre = genre;
             }
 
-            var allBooks = await _grpcService.GetBooksByAuthor(recommendedWriter);
+            var allBooks = await _grpcService.GetBooksByGenre(recommendedGenre);
 
             foreach (var book in allBooks.Books)
             {
                 ListItem item = new ListItem();
                 item.BookId = book.Id;
                 item.BookTitle = book.Title;
-                item.Writer = book.Author;
+                item.Author = book.Author;
+                item.Genre = book.Genre;
                 result.Add(item);
             }
 

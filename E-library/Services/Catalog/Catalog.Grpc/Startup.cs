@@ -26,6 +26,7 @@ namespace Catalog.Grpc
             services.AddAutoMapper(configuration =>
             {
                 configuration.CreateMap<BookDTO, GetBooksResponse.Types.Book>().ReverseMap();
+                configuration.CreateMap<BookDTO, GetBooksByGenreResponse.Types.Book>().ReverseMap();
                 configuration.CreateMap<Book, BookDTO>().ReverseMap();
             });
         }

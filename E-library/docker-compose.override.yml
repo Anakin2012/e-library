@@ -20,7 +20,7 @@ services:
      container_name: librarydb
      restart: always
      ports:
-        - "27019:27017"
+        - "27018:27018"
      volumes:
         - librarydb_data:/data/db
 
@@ -38,7 +38,7 @@ services:
      container_name: library.api
      environment:
        - ASPNETCORE_ENVIRONMENT=Development
-       - "DatabaseSettings:ConnectionString=mongodb://librarydb:27019"
+       - "DatabaseSettings:ConnectionString=mongodb://librarydb:27018"
      depends_on:
       - librarydb
      ports:

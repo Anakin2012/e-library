@@ -31,6 +31,7 @@ namespace Library.API.Repositories
         public async Task AddLibraryItem(LibraryItemDTO libraryItemDTO)
         {
             var libraryItem = new LibraryItem();
+            libraryItem.Id = libraryItemDTO.Id;
             libraryItem.Username = libraryItemDTO.Username;
             libraryItem.Title = libraryItemDTO.Title;
             libraryItem.Genre = libraryItemDTO.Genre;
@@ -48,9 +49,12 @@ namespace Library.API.Repositories
             await _context.LibraryItems.DeleteOneAsync(b => b.Id == libraryItemId);
         }
 
-        public Task DeleteLibraryItems(string username)
+        public async Task<bool> DeleteLibraryItems(string username)
         {
-            throw new NotImplementedException();
+
+            var deleteResult = await _context.LibraryItems.DeleteManyAsync(b => b.Username == username);
+
+            return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
         }
 
     }

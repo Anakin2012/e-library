@@ -14,7 +14,7 @@ namespace Library.API.Repositories
 
         public Task AddLibraryItem(LibraryItemDTO book);
 
-        public Task DeleteLibraryItems(string username);
+        public Task<bool> DeleteLibraryItems(string username);
 
         public Task DeleteLibraryItem(string libraryItemId, string username);
 

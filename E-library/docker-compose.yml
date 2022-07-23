@@ -51,6 +51,7 @@ services:
   
   librarydb:
      image: mongo
+     command: mongod --port 27018
   
 
 volumes:

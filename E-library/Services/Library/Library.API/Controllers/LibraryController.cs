@@ -33,12 +33,18 @@ namespace Library.API.Controllers
             return Ok(libraryItems);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> AddLibraryItem(string id, [FromBody] LibraryItemDTO libraryDTO) {
+        [HttpPost]
+        public async Task<IActionResult> AddLibraryItem([FromBody] LibraryItemDTO libraryDTO) {
 
             await _repository.AddLibraryItem(libraryDTO);
 
-            return CreatedAtRoute("GetBooksForUser", new { id = libraryDTO.Id,libraryDTO});
+            return CreatedAtRoute("GetBooksForUser", new { Username = libraryDTO.Username }, libraryDTO);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> CleanLibraryForUser(string username) {
+
+            return Ok(await _repository.DeleteLibraryItems(username));
         }
     }
 }

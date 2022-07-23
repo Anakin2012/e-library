@@ -15,7 +15,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Grpc", "Services\Catalog\Catalog.Grpc\Catalog.Grpc.csproj", "{4F1015ED-7D12-4668-8EB8-57A6D3C19ADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Domain", "Services\Ordering\Ordering.Domain\Ordering.Domain.csproj", "{15C92595-501C-4293-A687-5C2A19989448}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Domain", "Services\Ordering\Ordering.Domain\Ordering.Domain.csproj", "{15C92595-501C-4293-A687-5C2A19989448}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Application", "Services\Ordering\Ordering.Application\Ordering.Application.csproj", "{21E01AA6-8331-4CC5-AAF7-5E4861A14A90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{15C92595-501C-4293-A687-5C2A19989448}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15C92595-501C-4293-A687-5C2A19989448}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15C92595-501C-4293-A687-5C2A19989448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21E01AA6-8331-4CC5-AAF7-5E4861A14A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21E01AA6-8331-4CC5-AAF7-5E4861A14A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21E01AA6-8331-4CC5-AAF7-5E4861A14A90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21E01AA6-8331-4CC5-AAF7-5E4861A14A90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

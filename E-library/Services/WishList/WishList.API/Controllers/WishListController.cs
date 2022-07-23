@@ -27,11 +27,19 @@ namespace WishList.API.Controllers
             return Ok(basket ?? new WishBookList(username));
         }
 
-        [HttpGet("recommend/{username}")]
+        [HttpGet("recommendByAuthor/{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<ListItem>>> GetRecommendations(string username)
+        public async Task<ActionResult<List<ListItem>>> GetRecommendationsByAuthor(string username)
         {
-            var recommendations = await _service.getRecommendations(username);
+            var recommendations = await _service.getRecommendationsByAuthor(username);
+            return Ok(recommendations);
+        }
+        
+        [HttpGet("recommendByGenre/{username}")]
+        [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<ListItem>>> GetRecommendationsByGenre(string username)
+        {
+            var recommendations = await _service.getRecommendationsByGenre(username);
             return Ok(recommendations);
         }
 

@@ -244,15 +244,15 @@
           "dependencies": {
             "Grpc.AspNetCore": {
               "target": "Package",
-              "version": "[2.32.0, )"
+              "version": "[2.34.0, )"
             },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
-              "version": "[1.11.1, )"
+              "version": "[1.15.1, )"
             },
             "MongoDB.Driver": {
               "target": "Package",
-              "version": "[2.15.0, )"
+              "version": "[2.15.1, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -260,7 +260,7 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[6.3.1, )"
             }
           },
           "imports": [

@@ -16,6 +16,14 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  librarydb:
+     container_name: librarydb
+     restart: always
+     ports:
+        - "27019:27017"
+     volumes:
+        - librarydb_data:/data/db
+
   catalog.api:
     container_name: catalog.api
     environment:
@@ -26,6 +34,15 @@ services:
     ports:
       - "8000:80"
 
+  library.api:
+     container_name: library.api
+     environment:
+       - ASPNETCORE_ENVIRONMENT=Development
+       - "DatabaseSettings:ConnectionString=mongodb://librarydb:27019"
+     depends_on:
+      - librarydb
+     ports:
+      - "8085:80"
 
   identitydb:
     container_name: identitydb

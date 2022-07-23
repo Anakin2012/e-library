@@ -43,7 +43,18 @@ services:
         context: .
         dockerfile: Services\ShoppingCart\ShoppingCart.API\Dockerfile
 
+  library.api:
+     image: ${DOCKER_REGISTRY-}libraryapi
+     build:
+        context: .
+        dockerfile: Services/Library/Library.API/Dockerfile
+  
+  librarydb:
+     image: mongo
+  
+
 volumes:
   mongo_data: 
   identitydb_data:
+  librarydb_data: 
 

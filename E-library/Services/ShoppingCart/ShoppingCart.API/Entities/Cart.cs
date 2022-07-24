@@ -17,17 +17,11 @@ namespace ShoppingCart.API.Entities
             Username = username ?? throw new ArgumentNullException(nameof(username));
         }
 
-        public decimal cumulativePrice
+        public List<CartItem> deleteCartItem(string bookId)
         {
-            get
-            {
-                decimal cumulativePrice = 0;
-                foreach (var item in Items)
-                {
-                    cumulativePrice += item.Price * item.Quantity;
-                }
-                return cumulativePrice;
-            }
+            Items.RemoveAll(i => i.bookId == bookId);
+            return Items;
         }
+
     }
 }

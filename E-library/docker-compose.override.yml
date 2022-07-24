@@ -71,17 +71,27 @@ services:
     container_name: shoppingcartdb
     restart: always
     ports:
-      - "6379:6379"
+      - "6000:6000"
 
   shoppingcart.api:
     container_name: shoppingcart.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "CacheSettings:ConnectionString=basketdb:6379"
+      - "CacheSettings:ConnectionString=shoppingcartdb:6000"
     depends_on:
       - shoppingcartdb
     ports:
       - "8003:80"
+
+  shoppingcart.grpc:
+    container_name: shoppingcart.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://shoppingcartdb:27017"
+    ports:
+      - "8004:80"
+    depends_on:
+      - shoppingcartdb
       
   catalog.grpc:
     container_name: catalog.grpc

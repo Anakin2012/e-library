@@ -25,6 +25,7 @@ namespace ShoppingCart.API.Controllers
             var cart = await _repository.GetCart(username);
             return Ok(cart ?? new Cart(username));
         }
+
         [HttpPut]
         [ProducesResponseType(typeof(Cart), StatusCodes.Status200OK)]
         public async Task<ActionResult<Cart>> UpdateCart([FromBody] Cart cart)

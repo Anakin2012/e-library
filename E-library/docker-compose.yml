@@ -43,6 +43,12 @@ services:
         context: .
         dockerfile: Services\ShoppingCart\ShoppingCart.API\Dockerfile
 
+  shoppingcart.grpc:
+    image: ${DOCKER_REGISTRY-}shoppingcartgrpc
+    build:
+      context: .
+      dockerfile: Services/ShoppingCart/ShoppingCart.Grpc/Dockerfile
+
   library.api:
      image: ${DOCKER_REGISTRY-}libraryapi
      build:

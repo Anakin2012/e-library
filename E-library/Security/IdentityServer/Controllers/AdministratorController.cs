@@ -43,25 +43,6 @@ namespace IdentityServer.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-        [HttpPost("[action]")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterAdministratorPhone([FromBody] NewMemberPhoneDTO newMember)
-        {
-            var result = await _repository.RegisterAdministratorPhone(newMember);
-            if (!result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.TryAddModelError(error.Code, error.Description);
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return StatusCode(StatusCodes.Status201Created);
-        }
-
 
     }
 }

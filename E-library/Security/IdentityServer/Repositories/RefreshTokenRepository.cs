@@ -14,7 +14,13 @@ namespace IdentityServer.Repositories
         private readonly IdentityContext _context;
         private readonly UserManager<Member> _memberManager;
 
-         public async Task AddRefreshToken(RefreshToken refreshToken) {
+        public RefreshTokenRepository(IdentityContext context, UserManager<Member> memberManager)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _memberManager = memberManager ?? throw new ArgumentNullException(nameof(memberManager));
+        }
+
+        public async Task AddRefreshToken(RefreshToken refreshToken) {
             _context.RefreshTokens.Add(refreshToken);
             await _context.SaveChangesAsync();
 

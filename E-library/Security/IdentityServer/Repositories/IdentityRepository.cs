@@ -48,25 +48,6 @@ namespace IdentityServer.Repositories
         }
 
 
-        private async Task<IdentityResult> RegisterPhone(NewMemberPhoneDTO newMember, IEnumerable<string> roles)
-        {
-            var user = _mapper.Map<Member>(newMember);
-
-            IdentityResult result = await _memberManager.CreateAsync(user, newMember.Password);
-            if (!result.Succeeded)
-                return result;
-
-
-            // dodeljivanje uloga tom korisniku
-            foreach (var role in roles)
-            {
-                var roleExists = await _roleManager.RoleExistsAsync(role);
-                if (roleExists)
-                    await _memberManager.AddToRoleAsync(user, role);
-            }
-
-            return result;
-        }
 
 
         public async Task<IdentityResult> RegisterAdministratorEmail(NewMemberEmailDTO newMember)
@@ -74,30 +55,17 @@ namespace IdentityServer.Repositories
             return await RegisterEmail(newMember, new string[] { "Administrator" });
         }
 
-        public async Task<IdentityResult> RegisterAdministratorPhone(NewMemberPhoneDTO newMember)
-        {
-            return await RegisterPhone(newMember, new string[] { "Administrator" });
-        }
 
         public async Task<IdentityResult> RegisterMemberEmail(NewMemberEmailDTO newMember)
         {
             return await RegisterEmail(newMember, new string[] { "Member" });
         }
 
-        public async Task<IdentityResult> RegisterMemberPhone(NewMemberPhoneDTO newMember)
-        {
-            return await RegisterPhone(newMember, new string[] { "Member" });
-        }
 
 
         public async Task<IdentityResult> RegisterPremiumMemberEmail(NewMemberEmailDTO newMember)
         {
             return await RegisterEmail(newMember, new string[] { "PremiumMember" });
-        }
-
-        public async Task<IdentityResult> RegisterPremiumMemberPhone(NewMemberPhoneDTO newMember)
-        {
-            return await RegisterPhone(newMember, new string[] { "PremiumMember" });
         }
 
 

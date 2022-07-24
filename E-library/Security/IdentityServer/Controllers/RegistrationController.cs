@@ -46,26 +46,6 @@ namespace IdentityServer.Controllers
         }
 
 
-        [HttpPost("[action]")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterMemberPhone([FromBody] NewMemberPhoneDTO newMember)
-        {
-            var result = await _repository.RegisterMemberPhone(newMember);
-            if (!result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.TryAddModelError(error.Code, error.Description);
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return StatusCode(StatusCodes.Status201Created);
-
-        }
-
 
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -86,25 +66,6 @@ namespace IdentityServer.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-
-        [HttpPost("[action]")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterPremiumMemberPhone([FromBody] NewMemberPhoneDTO newMember)
-        {
-            var result = await _repository.RegisterPremiumMemberPhone(newMember);
-            if (!result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.TryAddModelError(error.Code, error.Description);
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return StatusCode(StatusCodes.Status201Created);
-        }
 
 
     }

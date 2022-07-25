@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Entites
 {
-    class OrderItem :EntityBase
+    public class OrderItem :EntityBase
     {
 
         public string BookId { get; private set; }

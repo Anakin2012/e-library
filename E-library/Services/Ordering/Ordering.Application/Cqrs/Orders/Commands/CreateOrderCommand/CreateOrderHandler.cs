@@ -36,11 +36,13 @@ namespace Ordering.Application.Cqrs.Orders.Commands.CreateOrderCommand
 
             _logger.LogInformation($"Order {newOrder.Id} is successfully created.");
 
-            await SendMail(newOrder);
+            //await SendMail(newOrder);
 
             return newOrder.Id;
         }
 
+        //TODO
+        /*
         private async Task SendMail(Order newOrder)
         {
             var email = new Email
@@ -60,5 +62,6 @@ namespace Ordering.Application.Cqrs.Orders.Commands.CreateOrderCommand
                 _logger.LogError($"Sending email for order {newOrder.Id} failed due to error: {e.Message}");
             }
         }
+        */
     }
 }

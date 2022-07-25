@@ -3,6 +3,7 @@ using IdentityServer.DTOs;
 using IdentityServer.Entities;
 using IdentityServer.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,6 +83,15 @@ namespace IdentityServer.Repositories
             return member;
         }
 
+        public async Task<IEnumerable<MemberDetailsDTO>> GetMembers() {
+            var members = await _memberManager.Users.ToListAsync();
+            return _mapper.Map<IEnumerable<MemberDetailsDTO>>(members);
+        }
+
+        public async Task<MemberDetailsDTO> GetMember(string UserName) {
+            var member = await _memberManager.Users.FirstOrDefaultAsync(member => member.UserName == UserName);
+            return _mapper.Map<MemberDetailsDTO>(member);
+        }
 
     }
 }

@@ -12,6 +12,8 @@ namespace IdentityServer.Mapper
     {
         public IdentityProfile()
         {
-            CreateMap<Member, NewMemberEmailDTO>().ReverseMap();        }
+            CreateMap<Member, NewMemberEmailDTO>().ReverseMap();
+            CreateMap<Member, MemberDetailsDTO>().ReverseMap();
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace IdentityServer.Repositories.Interfaces
         public Task<IdentityResult> RegisterPremiumMemberEmail(NewMemberEmailDTO newMember);
         public Task<IdentityResult> RegisterAdministratorEmail(NewMemberEmailDTO newMember);
         public Task<Member> FindMember(string UserName);
-
+        public Task<IEnumerable<MemberDetailsDTO>> GetMembers();
+        public Task<MemberDetailsDTO> GetMember(string UserName);
     }
 }

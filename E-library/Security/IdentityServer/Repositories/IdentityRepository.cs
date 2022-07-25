@@ -29,9 +29,17 @@ namespace IdentityServer.Repositories
 
         private async Task<IdentityResult> RegisterEmail(NewMemberEmailDTO newMember, IEnumerable<string> roles)
         {
-            var user = _mapper.Map<Member>(newMember);
+            var member = _mapper.Map<Member>(newMember);
 
-            IdentityResult result = await _memberManager.CreateAsync(user, newMember.Password);
+            var memberUserName = _memberManager.FindByNameAsync(member.UserName);
+            if (memberUserName != null) {
+                IdentityError[] errors = new IdentityError[] { };
+                errors.Append(new IdentityErrorDescriber().DuplicateUserName(member.UserName));
+
+                return IdentityResult.Failed(errors);
+            }
+
+            IdentityResult result = await _memberManager.CreateAsync(member, newMember.Password);
             if (!result.Succeeded)
                 return result;
 
@@ -41,7 +49,7 @@ namespace IdentityServer.Repositories
             {
                 var roleExists = await _roleManager.RoleExistsAsync(role);
                 if (roleExists)
-                    await _memberManager.AddToRoleAsync(user, role);
+                    await _memberManager.AddToRoleAsync(member, role);
             }
 
             return result;

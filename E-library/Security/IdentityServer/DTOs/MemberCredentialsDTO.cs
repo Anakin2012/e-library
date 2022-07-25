@@ -8,8 +8,8 @@ namespace IdentityServer.DTOs
 {
     public class MemberCredentialsDTO
     {
-        [Required(ErrorMessage = "User name is required")]
-        public string UserName { get; set; }
+        [Required(ErrorMessage = "Username or email address is required")]
+        public string LoginName { get; set; } // email adresa ili username
 
         [Required(ErrorMessage = "Password name is required")]
         public string Password { get; set; }

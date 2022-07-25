@@ -32,8 +32,20 @@ namespace IdentityServer.AuthenticationServices
 
         public async Task<Member> ValidateUser(MemberCredentialsDTO memberCredentials)
         {
-            // dodati da moze da credentials sadrzi i mejl, pa da korisnik moze da se prijavljuje i putem mejla
-            var member = await _memberManager.FindByNameAsync(memberCredentials.UserName);
+            bool isEmail = false;
+            
+            if (memberCredentials.LoginName.Contains('@')) {
+                isEmail = true;
+            }
+
+            Member member;
+
+            if (isEmail) {
+                member = await _memberManager.FindByEmailAsync(memberCredentials.LoginName);
+            }
+            else {
+                member = await _memberManager.FindByNameAsync(memberCredentials.LoginName);
+            }
 
             if (member == null || !await _memberManager.CheckPasswordAsync(member, memberCredentials.Password))
             {

@@ -43,6 +43,7 @@ namespace IdentityServer.Extensions
                 options.Password.RequiredLength = 8; // lozinka mora da sadrzi: mala slova, velika slova i broj
                 options.Password.RequireNonAlphanumeric = false;
                 options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._+";
             }).AddEntityFrameworkStores<IdentityContext>()
             .AddDefaultTokenProviders();
 

@@ -71,7 +71,7 @@ services:
     container_name: shoppingcartdb
     restart: always
     ports:
-      - "6000:6000"
+      - "6379:6379"
 
   shoppingcart.api:
     container_name: shoppingcart.api

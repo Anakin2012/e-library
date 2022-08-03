@@ -6,7 +6,7 @@ namespace ShoppingCart.API.Entities
     public class Cart
     {
         public string Username { get; set; }
-        List<CartItem> Items { get; set; }
+        List<CartItem> Items { get; set; } = new List<CartItem>();
 
         public Cart()
         {

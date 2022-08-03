@@ -20,7 +20,7 @@ namespace ShoppingCart.API.Controllers
 
         [HttpGet("{username}")]
         [ProducesResponseType(typeof(Cart), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Cart>> GetBasket(string username)
+        public async Task<ActionResult<Cart>> GetCart(string username)
         {
             var cart = await _repository.GetCart(username);
             return Ok(cart ?? new Cart(username));

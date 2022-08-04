@@ -6,7 +6,7 @@ namespace ShoppingCart.API.Entities
     public class Cart
     {
         public string Username { get; set; }
-        List<CartItem> Items { get; set; } = new List<CartItem>();
+        public List<CartItem> Items { get; set; }
 
         public Cart()
         {
@@ -17,11 +17,13 @@ namespace ShoppingCart.API.Entities
             Username = username ?? throw new ArgumentNullException(nameof(username));
         }
 
-        public List<CartItem> deleteCartItem(string bookId)
+        public decimal TotalBooks
         {
-            Items.RemoveAll(i => i.bookId == bookId);
-            return Items;
-        }
+            get
+            {
+                return Items.Count;
+            }
 
+        }
     }
 }

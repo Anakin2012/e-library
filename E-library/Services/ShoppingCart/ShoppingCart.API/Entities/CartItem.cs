@@ -9,6 +9,5 @@ namespace ShoppingCart.API.Entities
     {
         public string bookId { get; set; }
         public string bookTitle { get; set; }
-
     }
 }

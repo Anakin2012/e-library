@@ -36,5 +36,7 @@ namespace ShoppingCart.API.Repositories
         {
             await _cache.RemoveAsync(username);
         }
+
+    
     }
 }

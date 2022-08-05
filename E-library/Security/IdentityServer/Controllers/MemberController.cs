@@ -11,17 +11,9 @@ namespace IdentityServer.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class MemberController : ControllerBase
     {
         IdentityRepositoryInterface _repository;
-
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<MemberDetailsDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<MemberDetailsDTO>>> GetAllMembers()
-        {
-            var membersDetails = await _repository.GetMembers();
-            return Ok(membersDetails);
-        }
 
         [HttpGet("{UserName}")]
         [ProducesResponseType(typeof(MemberDetailsDTO), StatusCodes.Status200OK)]

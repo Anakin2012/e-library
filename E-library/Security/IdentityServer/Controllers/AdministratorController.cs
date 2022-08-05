@@ -44,5 +44,15 @@ namespace IdentityServer.Controllers
         }
 
 
+
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<MemberDetailsDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<MemberDetailsDTO>>> GetAllMembers()
+        {
+            var membersDetails = await _repository.GetMembers();
+            return Ok(membersDetails);
+        }
+
+
     }
 }

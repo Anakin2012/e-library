@@ -109,5 +109,23 @@ namespace IdentityServer.Repositories
             }
         }
 
+        public async Task<IdentityResult> ChangePassword(string username, string currentPassword, string newPassword)
+        {
+            var member = await _memberManager.FindByNameAsync(username);
+            if (member == null)
+            {
+                IdentityError[] errors = new IdentityError[] { };
+                errors.Append(new IdentityErrorDescriber().InvalidUserName(username));
+
+                return IdentityResult.Failed(errors);
+
+            }
+            else
+            {
+                var result = await _memberManager.ChangePasswordAsync(member, currentPassword, newPassword);
+                return result;
+            }
+        }
+
     }
 }

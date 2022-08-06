@@ -28,7 +28,7 @@ namespace IdentityServer.Repositories
 
 
 
-        private async Task<IdentityResult> RegisterEmail(NewMemberEmailDTO newMember, IEnumerable<string> roles)
+        private async Task<IdentityResult> RegisterEmail(NewMemberDTO newMember, IEnumerable<string> roles)
         {
             var member = _mapper.Map<Member>(newMember);
 
@@ -59,20 +59,20 @@ namespace IdentityServer.Repositories
 
 
 
-        public async Task<IdentityResult> RegisterAdministratorEmail(NewMemberEmailDTO newMember)
+        public async Task<IdentityResult> RegisterAdministratorEmail(NewMemberDTO newMember)
         {
             return await RegisterEmail(newMember, new string[] { "Administrator" });
         }
 
 
-        public async Task<IdentityResult> RegisterMemberEmail(NewMemberEmailDTO newMember)
+        public async Task<IdentityResult> RegisterMemberEmail(NewMemberDTO newMember)
         {
             return await RegisterEmail(newMember, new string[] { "Member" });
         }
 
 
 
-        public async Task<IdentityResult> RegisterPremiumMemberEmail(NewMemberEmailDTO newMember)
+        public async Task<IdentityResult> RegisterPremiumMemberEmail(NewMemberDTO newMember)
         {
             return await RegisterEmail(newMember, new string[] { "PremiumMember" });
         }
@@ -91,6 +91,22 @@ namespace IdentityServer.Repositories
         public async Task<MemberDetailsDTO> GetMember(string UserName) {
             var member = await _memberManager.Users.FirstOrDefaultAsync(member => member.UserName == UserName);
             return _mapper.Map<MemberDetailsDTO>(member);
+        }
+
+        public async Task<IdentityResult> DeleteMember(string username) {
+            var member = await _memberManager.FindByNameAsync(username);
+            if (member == null)
+            {
+                IdentityError[] errors = new IdentityError[] { };
+                errors.Append(new IdentityErrorDescriber().InvalidUserName(username));
+
+                return IdentityResult.Failed(errors);
+
+            }
+            else {
+                var result = await _memberManager.DeleteAsync(member);
+                return result;
+            }
         }
 
     }

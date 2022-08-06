@@ -10,11 +10,12 @@ namespace IdentityServer.Repositories.Interfaces
 {
     public interface IdentityRepositoryInterface
     {
-        public Task<IdentityResult> RegisterMemberEmail(NewMemberEmailDTO newMember);
-        public Task<IdentityResult> RegisterPremiumMemberEmail(NewMemberEmailDTO newMember);
-        public Task<IdentityResult> RegisterAdministratorEmail(NewMemberEmailDTO newMember);
+        public Task<IdentityResult> RegisterMemberEmail(NewMemberDTO newMember);
+        public Task<IdentityResult> RegisterPremiumMemberEmail(NewMemberDTO newMember);
+        public Task<IdentityResult> RegisterAdministratorEmail(NewMemberDTO newMember);
         public Task<Member> FindMember(string UserName);
         public Task<IEnumerable<MemberDetailsDTO>> GetMembers();
         public Task<MemberDetailsDTO> GetMember(string UserName);
+        public Task<IdentityResult> DeleteMember(string username);
     }
 }

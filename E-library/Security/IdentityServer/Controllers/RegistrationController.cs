@@ -28,7 +28,7 @@ namespace IdentityServer.Controllers
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterMemberEmail([FromBody] NewMemberEmailDTO newMember)
+        public async Task<IActionResult> RegisterMember([FromBody] NewMemberDTO newMember)
         {
             var result = await _repository.RegisterMemberEmail(newMember);
             if (!result.Succeeded)
@@ -50,7 +50,7 @@ namespace IdentityServer.Controllers
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterPremiumMemberEmail([FromBody] NewMemberEmailDTO newMember)
+        public async Task<IActionResult> RegisterPremiumMember([FromBody] NewMemberDTO newMember)
         {
             var result = await _repository.RegisterPremiumMemberEmail(newMember);
             if (!result.Succeeded)

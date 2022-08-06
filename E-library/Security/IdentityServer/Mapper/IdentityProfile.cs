@@ -12,7 +12,7 @@ namespace IdentityServer.Mapper
     {
         public IdentityProfile()
         {
-            CreateMap<Member, NewMemberEmailDTO>().ReverseMap();
+            CreateMap<Member, NewMemberDTO>().ReverseMap();
             CreateMap<Member, MemberDetailsDTO>().ReverseMap();
         }
     }

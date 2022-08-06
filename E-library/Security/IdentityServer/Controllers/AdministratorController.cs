@@ -27,7 +27,7 @@ namespace IdentityServer.Controllers
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterAdministratorEmail([FromBody] NewMemberEmailDTO newMember)
+        public async Task<IActionResult> RegisterAdministrator([FromBody] NewMemberDTO newMember)
         {
             var result = await _repository.RegisterAdministratorEmail(newMember);
             if (!result.Succeeded)
@@ -43,9 +43,7 @@ namespace IdentityServer.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-
-
-        [HttpGet]
+        [HttpGet("[action]")]
         [ProducesResponseType(typeof(IEnumerable<MemberDetailsDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<MemberDetailsDTO>>> GetAllMembers()
         {

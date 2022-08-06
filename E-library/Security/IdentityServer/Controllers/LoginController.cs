@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace IdentityServer.Controllers
 {
+    [Route("api/v1/[controller]")]
+    [ApiController]
     public class LoginController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;

@@ -64,12 +64,12 @@ namespace IdentityServer.Controllers
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordDTO cp) {
+        public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordDTO changepassword) {
             
             
             string username = Environment.UserName; 
 
-            var result = await _repository.ChangePassword(username, cp.password, cp.newPassword);
+            var result = await _repository.ChangePassword(username, changepassword.password, changepassword.newPassword);
 
             if (!result.Succeeded)
             {
@@ -83,6 +83,31 @@ namespace IdentityServer.Controllers
 
             return StatusCode(StatusCodes.Status200OK);
             
+        }
+
+        [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> ChangeUserName([FromBody] ChangeUserNameDTO changeusername)
+        {
+
+
+            string username = Environment.UserName;
+
+            var result = await _repository.ChangeUserName(username, changeusername.newUserName);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            return StatusCode(StatusCodes.Status200OK);
+
         }
 
 

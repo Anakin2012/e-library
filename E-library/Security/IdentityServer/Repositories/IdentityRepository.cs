@@ -127,5 +127,27 @@ namespace IdentityServer.Repositories
             }
         }
 
+        // proveriti da li je onda u redu logovanje
+        public async Task<IdentityResult> ChangeUserName(string currentUsername, string newUsername) {
+
+            var exists_new_username = await _memberManager.FindByNameAsync(newUsername);
+
+            if (exists_new_username != null) {
+                IdentityError[] errors = new IdentityError[] { };
+                errors.Append(new IdentityErrorDescriber().DuplicateUserName(newUsername));
+
+                return IdentityResult.Failed(errors);
+            }
+
+            Member member = await _memberManager.FindByNameAsync(currentUsername);
+
+            member.UserName = newUsername;
+
+            var result = await _memberManager.UpdateAsync(member);
+
+            return result;
+
+        }
+
     }
 }

@@ -78,7 +78,7 @@ namespace IdentityServer.Controllers
 
         }
 
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> ChangePassword([FromBody] ChangePassword changepassword) {
@@ -102,7 +102,7 @@ namespace IdentityServer.Controllers
             
         }
 
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> ChangeUserName([FromBody] ChangeUserName changeusername)

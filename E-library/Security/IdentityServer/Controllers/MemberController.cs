@@ -1,5 +1,6 @@
 ﻿using IdentityServer.DTOs;
 using IdentityServer.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,7 +22,7 @@ namespace IdentityServer.Controllers
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-
+        [Authorize]
         [HttpGet("{UserName}")]
         [ProducesResponseType(typeof(MemberDetailsDTO), StatusCodes.Status200OK)]
         public async Task<ActionResult<MemberDetailsDTO>> GetMember(string UserName)
@@ -31,7 +32,7 @@ namespace IdentityServer.Controllers
         }
 
 
-        
+        [Authorize]
         [HttpPut("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -54,8 +55,8 @@ namespace IdentityServer.Controllers
             return StatusCode(StatusCodes.Status200OK);
 
         }
-        
 
+        [Authorize]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -78,6 +79,7 @@ namespace IdentityServer.Controllers
 
         }
 
+        [Authorize]
         [HttpPut("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -102,6 +104,7 @@ namespace IdentityServer.Controllers
             
         }
 
+        [Authorize]
         [HttpPut("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

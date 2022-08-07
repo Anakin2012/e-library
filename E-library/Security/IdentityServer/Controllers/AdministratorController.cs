@@ -2,6 +2,7 @@ using AutoMapper;
 using IdentityServer.DTOs;
 using IdentityServer.Entities;
 using IdentityServer.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace IdentityServer.Controllers
 {
     [Route("/api/v1/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Administrator")]
     public class AdministratorController : ControllerBase
     {
         private readonly IdentityRepositoryInterface _repository;

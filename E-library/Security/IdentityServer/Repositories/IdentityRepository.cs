@@ -145,6 +145,31 @@ namespace IdentityServer.Repositories
 
             var result = await _memberManager.UpdateAsync(member);
 
+
+            return result;
+        }
+
+        public async Task<IdentityResult> Pay(string username) {
+            var member = await _memberManager.FindByNameAsync(username);
+
+            IList<string> roles = await _memberManager.GetRolesAsync(member);
+
+            bool premium = false;
+            foreach (string _role in roles) {
+                if (_role == "PremiumMember")
+                    premium = true;
+            }
+
+            if (premium)
+            { // clanarina kosta 1500 dinara 
+                member.Credentials = member.Credentials - 1500;
+            }
+            else { // clanarina kosta 750 dinara 
+                member.Credentials = member.Credentials - 750;
+            }
+
+            var result = await _memberManager.UpdateAsync(member);
+
             return result;
 
         }

@@ -31,13 +31,30 @@ namespace IdentityServer.Controllers
         }
 
 
-        /*
+        
         [HttpPut("[action]")]
-        [ProducesResponseType()]
-        public async Task<ActionResult> Pay([FromBody] string UserName)
-        {   
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> Pay()
+        {
+            string username = Environment.UserName;
+
+            var result = await _repository.Pay(username);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            return StatusCode(StatusCodes.Status200OK);
+
         }
-        */
+        
 
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]

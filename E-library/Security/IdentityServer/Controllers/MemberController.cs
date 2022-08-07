@@ -64,7 +64,7 @@ namespace IdentityServer.Controllers
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordDTO changepassword) {
+        public async Task<ActionResult> ChangePassword([FromBody] ChangePassword changepassword) {
             
             
             string username = Environment.UserName; 
@@ -88,7 +88,7 @@ namespace IdentityServer.Controllers
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangeUserName([FromBody] ChangeUserNameDTO changeusername)
+        public async Task<ActionResult> ChangeUserName([FromBody] ChangeUserName changeusername)
         {
 
 

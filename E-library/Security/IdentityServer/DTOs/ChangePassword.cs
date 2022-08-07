@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IdentityServer.DTOs
 {
-    public class ChangePasswordDTO
+    public class ChangePassword
     {
         [Required(ErrorMessage = "Current password is required")]
         public string password { get; set; }

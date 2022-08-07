@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32519.379
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{9EBD9A58-E741-4A21-85BC-A6B613BEF8B8}"
 EndProject
@@ -21,7 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Application", "Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.API", "Services\Library\Library.API\Library.API.csproj", "{9F690345-3A50-465D-9B85-D395C246206E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Grpc", "Services\ShoppingCart\ShoppingCart.Grpc\ShoppingCart.Grpc.csproj", "{66F43243-1FA3-46A5-8643-28BCAF713416}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.Grpc", "Services\ShoppingCart\ShoppingCart.Grpc\ShoppingCart.Grpc.csproj", "{66F43243-1FA3-46A5-8643-28BCAF713416}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{0E06E8D8-8AAC-470E-A7BB-CA0E29EB35DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPAGateway", "ApiGateways\SPAGateway\SPAGateway.csproj", "{961AC159-83A5-4310-9358-D4C122D8420C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,9 +73,16 @@ Global
 		{66F43243-1FA3-46A5-8643-28BCAF713416}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66F43243-1FA3-46A5-8643-28BCAF713416}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66F43243-1FA3-46A5-8643-28BCAF713416}.Release|Any CPU.Build.0 = Release|Any CPU
+		{961AC159-83A5-4310-9358-D4C122D8420C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{961AC159-83A5-4310-9358-D4C122D8420C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{961AC159-83A5-4310-9358-D4C122D8420C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{961AC159-83A5-4310-9358-D4C122D8420C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{961AC159-83A5-4310-9358-D4C122D8420C} = {0E06E8D8-8AAC-470E-A7BB-CA0E29EB35DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {52F037B3-7F4E-4731-83BC-2B0AA5E76E69}

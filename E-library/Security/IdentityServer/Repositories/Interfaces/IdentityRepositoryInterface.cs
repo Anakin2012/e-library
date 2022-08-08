@@ -14,11 +14,12 @@ namespace IdentityServer.Repositories.Interfaces
         public Task<IdentityResult> RegisterPremiumMemberEmail(NewMemberDTO newMember);
         public Task<IdentityResult> RegisterAdministratorEmail(NewMemberDTO newMember);
         public Task<Member> FindMember(string UserName);
+        public Task<Member> FindMemberByEmailOrUsename(string LoginName);
         public Task<IEnumerable<MemberDetailsDTO>> GetMembers();
         public Task<MemberDetailsDTO> GetMember(string UserName);
         public Task<IdentityResult> DeleteMember(string username);
         public Task<IdentityResult> ChangePassword(string username, string currentPassword, string newPassword);
-        public Task<IdentityResult> ChangeUserName(string currentUsername, string newUsername);
         public Task<IdentityResult> Pay(string username);
+        public Task<IdentityResult> AddCredentialsToMember(string username, double add);
     }
 }

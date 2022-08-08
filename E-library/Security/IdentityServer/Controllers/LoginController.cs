@@ -31,14 +31,14 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]  // korisnik nije uspeo da se autentifikuje
         public async Task<IActionResult> Login([FromBody]MemberCredentialsDTO memberCredentials)
         {
-            var user = await _authenticationService.ValidateUser(memberCredentials);
-            if (user == null)
+            var member = await _authenticationService.ValidateUser(memberCredentials);
+            if (member == null)
             {
                 // Authentication failed. Wrong username or password.
                 return Unauthorized();
             }
 
-            return Ok(await _authenticationService.CreateAuthenticationModel(user));
+            return Ok(await _authenticationService.CreateAuthenticationModel(member));
         }
 
 
@@ -48,7 +48,7 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<AuthenticationModel>> Refresh([FromBody] RefreshTokenModel refreshTokenCredentials)
         {
-            var member = await _repository.FindMember(refreshTokenCredentials.UserName);
+            var member = await _repository.FindMemberByEmailOrUsename(refreshTokenCredentials.LoginName);
 
             if (member == null)
             {
@@ -75,7 +75,7 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Logout([FromBody] RefreshTokenModel refreshTokenCredentials)
         {
-            var member = await _repository.FindMember(refreshTokenCredentials.UserName);
+            var member = await _repository.FindMemberByEmailOrUsename(refreshTokenCredentials.LoginName);
             if (member == null)
             {
                 return Forbid();

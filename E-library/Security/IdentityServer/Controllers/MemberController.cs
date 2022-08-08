@@ -1,10 +1,12 @@
 ﻿using IdentityServer.DTOs;
 using IdentityServer.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IdentityServer.Controllers
@@ -21,7 +23,7 @@ namespace IdentityServer.Controllers
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-
+        [Authorize]
         [HttpGet("{UserName}")]
         [ProducesResponseType(typeof(MemberDetailsDTO), StatusCodes.Status200OK)]
         public async Task<ActionResult<MemberDetailsDTO>> GetMember(string UserName)
@@ -31,13 +33,17 @@ namespace IdentityServer.Controllers
         }
 
 
-        
+        [Authorize]
         [HttpPut("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Pay()
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> Pay(string username)
         {
-            string username = Environment.UserName;
+            if (User.FindFirstValue(ClaimTypes.Name) != username)
+            {
+                return Forbid();
+            }
 
             var result = await _repository.Pay(username);
 
@@ -54,14 +60,21 @@ namespace IdentityServer.Controllers
             return StatusCode(StatusCodes.Status200OK);
 
         }
-        
 
+
+
+
+        [Authorize]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> DeleteAccount()
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> DeleteAccount(string username)
         {
-            string username = Environment.UserName;  // vraca username trenutnog korisnika
+            if (User.FindFirstValue(ClaimTypes.Name) != username)
+            {
+                return Forbid();
+            }
 
             var result = await _repository.DeleteMember(username);
 
@@ -78,15 +91,19 @@ namespace IdentityServer.Controllers
 
         }
 
+        [Authorize]
         [HttpPut("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult> ChangePassword([FromBody] ChangePassword changepassword) {
-            
-            
-            string username = Environment.UserName; 
 
-            var result = await _repository.ChangePassword(username, changepassword.password, changepassword.newPassword);
+            if (User.FindFirstValue(ClaimTypes.Name) != changepassword.username)
+            {
+                return Forbid();
+            }
+
+            var result = await _repository.ChangePassword(changepassword.username, changepassword.password, changepassword.newPassword);
 
             if (!result.Succeeded)
             {
@@ -100,31 +117,6 @@ namespace IdentityServer.Controllers
 
             return StatusCode(StatusCodes.Status200OK);
             
-        }
-
-        [HttpPut("[action]")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangeUserName([FromBody] ChangeUserName changeusername)
-        {
-
-
-            string username = Environment.UserName;
-
-            var result = await _repository.ChangeUserName(username, changeusername.newUserName);
-
-            if (!result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.TryAddModelError(error.Code, error.Description);
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return StatusCode(StatusCodes.Status200OK);
-
         }
 
 

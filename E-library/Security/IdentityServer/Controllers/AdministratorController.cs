@@ -54,5 +54,26 @@ namespace IdentityServer.Controllers
         }
 
 
+        [HttpPut("[action]")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> AddCredentialsToMember(string UserName, double add)
+        {
+            var result = await _repository.AddCredentialsToMember(UserName, add);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            return StatusCode(StatusCodes.Status200OK);
+        }
+
+
     }
 }

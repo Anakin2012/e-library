@@ -87,6 +87,28 @@ namespace IdentityServer.Repositories
             return member;
         }
 
+        public async Task<Member> FindMemberByEmailOrUsename(string LoginName) {
+            bool isEmail = false;
+
+            if (LoginName.Contains('@')) {
+                isEmail = true;
+            }
+
+            Member member;
+
+            if (isEmail)
+            {
+                member = await _memberManager.FindByEmailAsync(LoginName);
+            }
+            else
+            {
+                member = await _memberManager.FindByNameAsync(LoginName);
+            }
+
+            return member;
+        }
+
+
         public async Task<IEnumerable<MemberDetailsDTO>> GetMembers() {
             var members = await _memberManager.Users.ToListAsync();
             return _mapper.Map<IEnumerable<MemberDetailsDTO>>(members);
@@ -132,29 +154,6 @@ namespace IdentityServer.Repositories
             }
         }
 
-        // proveriti da li je onda u redu logovanje
-        public async Task<IdentityResult> ChangeUserName(string currentUsername, string newUsername) {
-
-            var exists_new_username = await _memberManager.FindByNameAsync(newUsername);
-
-            if (exists_new_username != null) {
-
-
-                IEnumerable<IdentityError> errors = Enumerable.Empty<IdentityError>();
-                errors = errors.Append(new IdentityErrorDescriber().DuplicateUserName(newUsername));
-
-                return IdentityResult.Failed(errors.ToArray());
-            }
-
-            Member member = await _memberManager.FindByNameAsync(currentUsername);
-
-            member.UserName = newUsername;
-
-            var result = await _memberManager.UpdateAsync(member);
-
-
-            return result;
-        }
 
         public async Task<IdentityResult> Pay(string username) {
             var member = await _memberManager.FindByNameAsync(username);
@@ -180,6 +179,18 @@ namespace IdentityServer.Repositories
             return result;
 
         }
+
+
+        public async Task<IdentityResult> AddCredentialsToMember(string username, double add) {
+            var member = await _memberManager.FindByNameAsync(username);
+
+            member.Credentials = member.Credentials + add;
+
+            var result = await _memberManager.UpdateAsync(member);
+
+            return result;
+        }
+
 
     }
 }

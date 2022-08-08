@@ -1,6 +1,6 @@
 {
   "Routes": [
-    //Catalog API
+    
     {
       "DownstreamPathTemplate": "/api/v1/Catalog/{everything}",
       "DownstreamScheme": "http",
@@ -13,7 +13,7 @@
       "UpstreamPathTemplate": "api/v1/Catalog/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
-    // ShoppingCart API
+  
     {
       "DownstreamPathTemplate": "/api/v1/Cart/{everything}",
       "DownstreamScheme": "http",
@@ -26,7 +26,7 @@
       "UpstreamPathTemplate": "/api/v1/Cart/{everything}",
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
     },
-    // WishList API
+    
     {
       "DownstreamPathTemplate": "/api/v1/WishList/{everything}",
       "DownstreamScheme": "http",
@@ -38,8 +38,7 @@
       ],
       "UpstreamPathTemplate": "/api/v1/WishList/{everything}",
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
-    },
-    // 
-   
+    }
+  
   ]
 }

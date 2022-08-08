@@ -1,3 +1,69 @@
 {
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/v1/Catalog/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Catalog/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
 
+    {
+      "DownstreamPathTemplate": "/api/v1/Cart/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shoppingcart.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Cart/{everything}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/WishList/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "wishlist.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/WishList/{everything}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/Library/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "library.api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Library/{everything}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/Identity/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Identity/{everything}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+    }
+
+  ]
 }

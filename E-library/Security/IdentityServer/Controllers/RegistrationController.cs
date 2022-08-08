@@ -5,6 +5,7 @@ using IdentityServer.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,13 @@ namespace IdentityServer.Controllers
     {
 
         private readonly IdentityRepositoryInterface _repository;
+        private readonly ILogger<RegistrationController> _logger;
 
-        public RegistrationController(IdentityRepositoryInterface repository)
+        public RegistrationController(IdentityRepositoryInterface repository, ILogger<RegistrationController> logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-
 
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -31,6 +33,7 @@ namespace IdentityServer.Controllers
         public async Task<IActionResult> RegisterMember([FromBody] NewMemberDTO newMember)
         {
             var result = await _repository.RegisterMemberEmail(newMember);
+
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)

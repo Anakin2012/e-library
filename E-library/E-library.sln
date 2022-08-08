@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{0BA0D5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Messages", "Common\EventBus.Messages\EventBus.Messages.csproj", "{30906349-7068-4568-9CE2-1AEBF8607B5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailService", "..\MailService\MailService.csproj", "{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{30906349-7068-4568-9CE2-1AEBF8607B5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30906349-7068-4568-9CE2-1AEBF8607B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30906349-7068-4568-9CE2-1AEBF8607B5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

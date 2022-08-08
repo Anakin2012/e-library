@@ -121,3 +121,18 @@ services:
       - catalog.grpc
     ports:
       - "8002:80"
+
+  spagateway:
+    container_name: ocelotapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - catalog.api
+      - shoppingcart.api
+      - library.api
+      - identityserver
+      - wishlist.api
+      # TODO: ordering.api
+    ports:
+      - "8010:80"
+

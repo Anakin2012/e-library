@@ -1,3 +1,5 @@
+using MailService.Data;
+using MailService.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +27,9 @@ namespace MailService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddScoped<IMailContext, MailContext>();
+            services.AddScoped<IMailRepository, MailRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

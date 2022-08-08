@@ -60,8 +60,29 @@ services:
      command: mongod --port 27018
   
 
+<<<<<<< Updated upstream
+=======
+  spagateway:
+    image: ${DOCKER_REGISTRY-}spagateway
+    build:
+      context: .
+      dockerfile: ApiGateways/SPAGateway/Dockerfile
+
+  mailservice:
+    image: ${DOCKER_REGISTRY-}mailservice
+    build:
+      context: .
+      dockerfile: Services/MailService/Dockerfile
+
+  maildb:
+    image: mongo
+
+
+>>>>>>> Stashed changes
 volumes:
   mongo_data: 
   identitydb_data:
   librarydb_data: 
+  maildb_data:
+
 

@@ -113,4 +113,42 @@ services:
       - wishlistdb
       - catalog.grpc
     ports:
+<<<<<<< Updated upstream
       - "8002:80"
+=======
+      - "8002:80"
+
+  spagateway:
+    container_name: ocelotapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - catalog.api
+      - shoppingcart.api
+      - library.api
+      - identityserver
+      - wishlist.api
+      # TODO: ordering.api
+    ports:
+      - "8010:80"
+
+  maildb:
+    container_name: maildb
+    restart: always
+    ports:
+      - "27019:27019"
+    volumes:
+      - maildb_data:/data/db
+
+  mailservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    depends_on:
+      - maildb
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+>>>>>>> Stashed changes

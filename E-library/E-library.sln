@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.API", "Services\Lib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.Grpc", "Services\ShoppingCart\ShoppingCart.Grpc\ShoppingCart.Grpc.csproj", "{66F43243-1FA3-46A5-8643-28BCAF713416}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{0E06E8D8-8AAC-470E-A7BB-CA0E29EB35DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPAGateway", "ApiGateways\SPAGateway\SPAGateway.csproj", "{961AC159-83A5-4310-9358-D4C122D8420C}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailService", "..\MailService\MailService.csproj", "{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}"
 EndProject
 Global
@@ -71,6 +75,10 @@ Global
 		{66F43243-1FA3-46A5-8643-28BCAF713416}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66F43243-1FA3-46A5-8643-28BCAF713416}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66F43243-1FA3-46A5-8643-28BCAF713416}.Release|Any CPU.Build.0 = Release|Any CPU
+		{961AC159-83A5-4310-9358-D4C122D8420C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{961AC159-83A5-4310-9358-D4C122D8420C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{961AC159-83A5-4310-9358-D4C122D8420C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{961AC159-83A5-4310-9358-D4C122D8420C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -78,6 +86,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{961AC159-83A5-4310-9358-D4C122D8420C} = {0E06E8D8-8AAC-470E-A7BB-CA0E29EB35DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {52F037B3-7F4E-4731-83BC-2B0AA5E76E69}

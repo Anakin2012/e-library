@@ -8,6 +8,10 @@ namespace IdentityServer.DTOs
 {
     public class ChangePassword
     {
+
+        [Required(ErrorMessage = "Username is required")]
+        public string username { get; set; }
+
         [Required(ErrorMessage = "Current password is required")]
         public string password { get; set; }
 

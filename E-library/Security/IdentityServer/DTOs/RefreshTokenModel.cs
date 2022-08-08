@@ -7,7 +7,7 @@ namespace IdentityServer.DTOs
 {
     public class RefreshTokenModel
     {
-        public string UserName { get; set; }
+        public string LoginName { get; set; }  // username ili email
         public string RefreshToken { get; set; }
     }
 }

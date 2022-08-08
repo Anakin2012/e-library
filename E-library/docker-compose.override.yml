@@ -146,7 +146,7 @@ services:
 
 
   mailservice:
-    container_name: maildb
+    container_name: mailservice
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=mongodb://maildb:27019"

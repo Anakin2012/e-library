@@ -3,6 +3,7 @@ using IdentityServer.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,13 @@ namespace IdentityServer.Controllers
     [ApiController]
     public class MemberController : ControllerBase
     {
-        IdentityRepositoryInterface _repository;
-        
+        private IdentityRepositoryInterface _repository;
+        private ILogger<MemberController> _loger;
 
-        public MemberController(IdentityRepositoryInterface repository)
+        public MemberController(IdentityRepositoryInterface repository, ILogger<MemberController> loger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _loger = loger ?? throw new ArgumentNullException(nameof(loger));
         }
 
         [Authorize]
@@ -38,14 +40,14 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> Pay(string username)
+        public async Task<ActionResult> Pay([FromBody] UserNameDTO userNameDTO)
         {
-            if (User.FindFirstValue(ClaimTypes.Name) != username)
+            if (User.FindFirstValue(ClaimTypes.Name) != userNameDTO.UserName)
             {
                 return Forbid();
             }
 
-            var result = await _repository.Pay(username);
+            var result = await _repository.Pay(userNameDTO.UserName);
 
             if (!result.Succeeded)
             {
@@ -102,6 +104,7 @@ namespace IdentityServer.Controllers
             {
                 return Forbid();
             }
+
 
             var result = await _repository.ChangePassword(changepassword.username, changepassword.password, changepassword.newPassword);
 

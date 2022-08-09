@@ -93,9 +93,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=shoppingcartdb:6000"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+      - "GrpcSettings:CatalogUrl=http://catalog.grpc" 
     depends_on:
       - shoppingcartdb
       - rabbitmq
+      - catalog.grpc
     ports:
       - "8003:80"
 
@@ -124,7 +126,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=wishlistdb:6379"
-      - "GrpcSettings:DiscountUrl=http://catalog.grpc"
+      - "GrpcSettings:CatalogUrl=http://catalog.grpc"
     depends_on:
       - wishlistdb
       - catalog.grpc

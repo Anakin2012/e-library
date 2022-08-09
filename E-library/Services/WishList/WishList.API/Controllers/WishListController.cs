@@ -34,7 +34,15 @@ namespace WishList.API.Controllers
             var recommendations = await _service.getRecommendationsByAuthor(username);
             return Ok(recommendations);
         }
-        
+
+        [HttpPut("/addBookToWishList/{username}/{bookId}")]
+        [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
+        public async Task<ActionResult<WishBookList>> AddToWishList(string username, string bookId)
+        {
+
+            return Ok(await _service.addBookToWishList(username, bookId));
+        }
+
         [HttpGet("recommendByGenre/{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ListItem>>> GetRecommendationsByGenre(string username)

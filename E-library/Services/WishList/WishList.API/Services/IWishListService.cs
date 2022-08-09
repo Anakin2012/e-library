@@ -13,5 +13,6 @@ namespace WishList.API.Services
 
         public Task<List<ListItem>> getRecommendationsByGenre(string username);
 
+        public Task<List<ListItem>> addBookToWishList(string username, string bookId);
     }
 }

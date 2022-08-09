@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Models
 {
-    class EmailConfiguration
+    public class EmailConfiguration
     {
         public string Mail { get; set; }
         public string DisplayName { get; set; }

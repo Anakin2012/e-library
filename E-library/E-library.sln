@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{9EBD9A58-E741-4A21-85BC-A6B613BEF8B8}"
 EndProject
@@ -25,13 +25,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.Grpc", "Servic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{0BA0D56E-1A8B-4DEC-91AF-721FEAAF5DFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Messages", "Common\EventBus.Messages\EventBus.Messages.csproj", "{30906349-7068-4568-9CE2-1AEBF8607B5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.Messages", "Common\EventBus.Messages\EventBus.Messages.csproj", "{30906349-7068-4568-9CE2-1AEBF8607B5B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{0E06E8D8-8AAC-470E-A7BB-CA0E29EB35DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPAGateway", "ApiGateways\SPAGateway\SPAGateway.csproj", "{961AC159-83A5-4310-9358-D4C122D8420C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPAGateway", "ApiGateways\SPAGateway\SPAGateway.csproj", "{961AC159-83A5-4310-9358-D4C122D8420C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailService", "Services\MailService\MailService.csproj", "{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailService", "Services\MailService\MailService.csproj", "{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.API", "Services\Ordering\Ordering.API\Ordering.API.csproj", "{13F4FD79-337E-456B-99C8-881BFB2C0291}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infrastructure", "Services\Ordering\Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{A85E7802-8B70-4EE7-A585-388DBCFD8F49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +95,14 @@ Global
 		{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D701AAF7-7D0A-49B0-8B93-162DE3D7CD7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13F4FD79-337E-456B-99C8-881BFB2C0291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13F4FD79-337E-456B-99C8-881BFB2C0291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13F4FD79-337E-456B-99C8-881BFB2C0291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13F4FD79-337E-456B-99C8-881BFB2C0291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A85E7802-8B70-4EE7-A585-388DBCFD8F49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A85E7802-8B70-4EE7-A585-388DBCFD8F49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A85E7802-8B70-4EE7-A585-388DBCFD8F49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A85E7802-8B70-4EE7-A585-388DBCFD8F49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

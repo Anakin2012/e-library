@@ -13,7 +13,7 @@ namespace Ordering.Application.Cqrs.Orders.Queries.DTOs
         // Relevant information from OrderItem
         public string BookTitle { get; set; }
         public string BookId { get; set; }
-
+        
     }
 
 }

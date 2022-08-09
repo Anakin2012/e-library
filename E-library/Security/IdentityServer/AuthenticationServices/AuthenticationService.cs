@@ -98,6 +98,7 @@ namespace IdentityServer.AuthenticationServices
             {
                 new Claim(ClaimTypes.Name, member.UserName),
                 new Claim(ClaimTypes.Email, member.Email),
+                new Claim(ClaimTypes.Expired, (!member.IsMembershipPaid).ToString())
             };
 
             // token ce imati i informacije o ulogama

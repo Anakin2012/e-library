@@ -1,6 +1,6 @@
 {
   "Routes": [
-    
+
     {
       "DownstreamPathTemplate": "/api/v1/Catalog/{everything}",
       "DownstreamScheme": "http",
@@ -13,7 +13,7 @@
       "UpstreamPathTemplate": "api/v1/Catalog/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
-  
+
     {
       "DownstreamPathTemplate": "/api/v1/Cart/{everything}",
       "DownstreamScheme": "http",
@@ -26,7 +26,7 @@
       "UpstreamPathTemplate": "/api/v1/Cart/{everything}",
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
     },
-    
+
     {
       "DownstreamPathTemplate": "/api/v1/WishList/{everything}",
       "DownstreamScheme": "http",
@@ -38,7 +38,98 @@
       ],
       "UpstreamPathTemplate": "/api/v1/WishList/{everything}",
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/Library/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "5003"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Library/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/Ordering/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "5004"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Ordering/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/IdentityServer/Administrator/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "4000"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/IdentityServer/Administrator/{everything}",
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/IdentityServer/Login/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "4000"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/IdentityServer/Login/{everything}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/IdentityServer/Member/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "4000"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/IdentityServer/Member/{everything}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/IdentityServer/Registration/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "4000"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/IdentityServer/Registration/{everything}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/MailService/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "5051"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/MailService/{everything}",
+      "UpstreamHttpMethod": [ "GET" ]
     }
-  
+
   ]
 }

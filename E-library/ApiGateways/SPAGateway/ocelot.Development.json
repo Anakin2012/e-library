@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "catalog.api",
-          "Port": 80
+          "Port": "80"
         }
       ],
       "UpstreamPathTemplate": "/api/v1/Catalog/{everything}",
@@ -19,7 +19,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "shoppingcart.api",
-          "Port": 80
+          "Port": "80"
         }
       ],
       "UpstreamPathTemplate": "/api/v1/Cart/{everything}",
@@ -32,7 +32,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "wishlist.api",
-          "Port": 80
+          "Port": "80"
         }
       ],
       "UpstreamPathTemplate": "/api/v1/WishList/{everything}",
@@ -45,25 +45,92 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "library.api",
-          "Port": 80
+          "Port": "80"
         }
       ],
       "UpstreamPathTemplate": "/api/v1/Library/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ]
     },
 
+
     {
-      "DownstreamPathTemplate": "/api/v1/Identity/{everything}",
+      "DownstreamPathTemplate": "/api/v1/Ordering/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ordering.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/Ordering/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST"]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/IdentityServer/Administrator/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "identityserver",
-          "Port": 80
+          "Port": "80"
         }
       ],
-      "UpstreamPathTemplate": "/api/v1/Identity/{everything}",
+      "UpstreamPathTemplate": "/api/v1/IdentityServer/Administrator/{everything}",
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/IdentityServer/Login/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/IdentityServer/Login/{everything}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/IdentityServer/Member/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/IdentityServer/Member/{everything}",
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/IdentityServer/Registration/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/IdentityServer/Registration/{everything}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/MailService/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mailservice",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/MailService/{everything}",
+      "UpstreamHttpMethod": [ "GET" ]
     }
+
 
   ]
 }

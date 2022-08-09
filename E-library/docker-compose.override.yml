@@ -141,7 +141,8 @@ services:
       - library.api
       - identityserver
       - wishlist.api
-      # TODO: ordering.api
+      - ordering.api
+      - mailservice
     ports:
       - "8010:80"
 

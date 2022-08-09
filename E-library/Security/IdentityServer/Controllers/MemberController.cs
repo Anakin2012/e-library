@@ -120,5 +120,34 @@ namespace IdentityServer.Controllers
         }
 
 
+        [Authorize]
+        [HttpPut("[action]")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> CancelMembership(string username)
+        {
+            if (User.FindFirstValue(ClaimTypes.Name) != username)
+            {
+                return Forbid();
+            }
+
+            var result = await _repository.CancelMembership(username);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            return StatusCode(StatusCodes.Status200OK);
+
+        }
+
+
     }
 }

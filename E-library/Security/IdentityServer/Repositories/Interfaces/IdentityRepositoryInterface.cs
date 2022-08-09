@@ -20,6 +20,7 @@ namespace IdentityServer.Repositories.Interfaces
         public Task<IdentityResult> DeleteMember(string username);
         public Task<IdentityResult> ChangePassword(string username, string currentPassword, string newPassword);
         public Task<IdentityResult> Pay(string username);
+        public Task<IdentityResult> CancelMembership(string username);
         public Task<IdentityResult> AddCredentialsToMember(string username, double add);
     }
 }

@@ -81,7 +81,6 @@ services:
     ports:
       - "4000:80"
 
-
   shoppingcartdb:
     container_name: shoppingcartdb
     restart: always
@@ -93,8 +92,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=shoppingcartdb:6000"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - shoppingcartdb
+      - rabbitmq
     ports:
       - "8003:80"
 

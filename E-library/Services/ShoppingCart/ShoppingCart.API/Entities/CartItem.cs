@@ -7,7 +7,7 @@ namespace ShoppingCart.API.Entities
 {
     public class CartItem
     {
-        public string bookId { get; set; }
-        public string bookTitle { get; set; }
+        public string BookTitle { get; set; }
+        public string BookId { get; set; }
     }
 }

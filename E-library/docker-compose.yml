@@ -69,9 +69,20 @@ services:
       context: .
       dockerfile: ApiGateways/SPAGateway/Dockerfile
 
+  maildb:
+    image: mongo
+
+  mailservice:
+    image: ${DOCKER_REGISTRY-}mailservice
+    build:
+      context: .
+      dockerfile: Services/MailService/Dockerfile
+
 volumes:
   mongo_data: 
   identitydb_data:
   librarydb_data: 
+  maildb_data:
+
 
 

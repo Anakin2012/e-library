@@ -12,6 +12,8 @@ namespace IdentityServer.Entities
         public string Name { get; set; }
         public string Surname { get; set; }
         public double Credentials { get; set; }
+        public DateTime DateMembership { get; set; }
+        public bool IsMembershipPaid { get; set; }
         public List<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 
 

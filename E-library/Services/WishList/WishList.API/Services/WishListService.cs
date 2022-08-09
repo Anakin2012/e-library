@@ -20,6 +20,35 @@ namespace WishList.API.Services
             _repository = repository;
         }
 
+        public async Task<List<ListItem>> addBookToWishList(string username, string bookId)
+        {
+            var book = await _grpcService.GetBookById(bookId);
+
+            WishBookList wishList;
+            if (await _repository.GetList(username) != null)
+            {
+                wishList = await _repository.GetList(username);
+            }
+            else
+            {
+                wishList = new WishBookList(username);
+            }
+
+
+
+            ListItem item = new ListItem();
+            item.BookId = book.Book.Id;
+            item.BookTitle = book.Book.Title;
+            item.Author = book.Book.Author;
+            wishList.WishedBooks.Add(item);
+
+            await _repository.UpdateList(wishList);
+
+            return wishList.WishedBooks;
+
+
+        }
+
         public async Task<List<ListItem>> getRecommendationsByAuthor(string username){
 
             Dictionary<string, int> writerCounterMap = new Dictionary<string, int>();

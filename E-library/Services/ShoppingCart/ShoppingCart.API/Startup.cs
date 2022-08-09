@@ -1,4 +1,8 @@
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+using MassTransit;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +16,10 @@ using ShoppingCart.API.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using System.Text;
+using System.Reflection;
+
 using System.Threading.Tasks;
 
 namespace ShoppingCart.API
@@ -42,6 +49,7 @@ namespace ShoppingCart.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShoppingCart.API", Version = "v1" });
             });
 
+
             // JWT Security
             var jwtSettings = Configuration.GetSection("JwtSettings");
             var secretKey = jwtSettings.GetSection("secretKey").Value;
@@ -61,6 +69,21 @@ namespace ShoppingCart.API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
             });
+
+            // AutoMapper
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            // EventBus
+            services.AddMassTransit(config =>
+            {
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                });
+            });
+
+           // services.AddMassTransitHostedService();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

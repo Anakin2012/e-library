@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.32126.317
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32630.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{9EBD9A58-E741-4A21-85BC-A6B613BEF8B8}"
 EndProject
@@ -20,8 +20,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Application", "Services\Ordering\Ordering.Application\Ordering.Application.csproj", "{21E01AA6-8331-4CC5-AAF7-5E4861A14A90}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.API", "Services\Library\Library.API\Library.API.csproj", "{9F690345-3A50-465D-9B85-D395C246206E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.Grpc", "Services\ShoppingCart\ShoppingCart.Grpc\ShoppingCart.Grpc.csproj", "{66F43243-1FA3-46A5-8643-28BCAF713416}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{0BA0D56E-1A8B-4DEC-91AF-721FEAAF5DFF}"
 EndProject
@@ -79,10 +77,6 @@ Global
 		{9F690345-3A50-465D-9B85-D395C246206E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F690345-3A50-465D-9B85-D395C246206E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F690345-3A50-465D-9B85-D395C246206E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66F43243-1FA3-46A5-8643-28BCAF713416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66F43243-1FA3-46A5-8643-28BCAF713416}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66F43243-1FA3-46A5-8643-28BCAF713416}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66F43243-1FA3-46A5-8643-28BCAF713416}.Release|Any CPU.Build.0 = Release|Any CPU
 		{30906349-7068-4568-9CE2-1AEBF8607B5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30906349-7068-4568-9CE2-1AEBF8607B5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30906349-7068-4568-9CE2-1AEBF8607B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU

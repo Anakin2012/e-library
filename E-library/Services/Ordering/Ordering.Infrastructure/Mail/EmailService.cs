@@ -9,6 +9,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Options;
 
 namespace Ordering.Infrastructure.Mail
 {
@@ -17,10 +18,10 @@ namespace Ordering.Infrastructure.Mail
         private readonly ILogger<EmailService> _logger;
         private readonly EmailConfiguration _mailConfiguration;
 
-        public EmailService(ILogger<EmailService> logger, EmailConfiguration mailConfiguration)
+        public EmailService(ILogger<EmailService> logger, IOptions<EmailConfiguration> mailConfiguration)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _mailConfiguration = mailConfiguration ?? throw new ArgumentNullException(nameof(mailConfiguration));
+            _mailConfiguration = mailConfiguration.Value ?? throw new ArgumentNullException(nameof(mailConfiguration));
         }
 
         public async Task<bool> SendEmail(Email emailRequest) {

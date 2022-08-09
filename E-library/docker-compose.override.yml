@@ -71,6 +71,18 @@ services:
     volumes: 
       - identitydb_data:/var/opt/mssql/data
 
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderingConnectionString=Server=mssql;Database=OrderDb;User Id=sa;Password=MATF12345678rs2;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    depends_on:
+      - mssql
+      - rabbitmq
+    ports:
+      - "8004:80"
+
   identityserver:
     container_name: identityserver
     environment:
@@ -100,16 +112,6 @@ services:
       - catalog.grpc
     ports:
       - "8003:80"
-
-  shoppingcart.grpc:
-    container_name: shoppingcart.grpc
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=mongodb://shoppingcartdb:27017"
-    ports:
-      - "8004:80"
-    depends_on:
-      - shoppingcartdb
       
   catalog.grpc:
     container_name: catalog.grpc

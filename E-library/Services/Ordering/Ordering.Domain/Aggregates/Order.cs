@@ -33,7 +33,15 @@ namespace Ordering.Domain.Aggregates
         }
 
         public Order(int id , string  customerId, string username, Address address)
-            :this(customerId, username, address)
+        {
+            CustomerId = customerId ?? throw new ArgumentNullException(nameof(customerId));
+            Username = username ?? throw new ArgumentNullException(nameof(username));
+            Address = address ?? throw new ArgumentNullException(nameof(address));
+            OrderDate = DateTime.Now;
+            Id = id;
+        }
+
+        public Order(int id)
         {
             Id = id;
         }

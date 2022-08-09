@@ -20,7 +20,7 @@ namespace Ordering.Application.Cqrs.Orders.Commands.CreateOrderCommand
 
         public string CustomerId { get; set; }
         public string Username { get; set; }
-        public IEnumerable<OrderItemDTO> OrderItems { get; set; }
+        public IEnumerable<ItemDTO> OrderItems { get; set; }
 
     }
 }

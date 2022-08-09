@@ -16,10 +16,18 @@ namespace Ordering.Application.Cqrs.Orders.Queries.GetOrders
 
         private readonly IOrderRepository _repository;
         private readonly IOrderDTOFactory _factory;
+
+        public GetOrdersHandler(IOrderRepository repository, IOrderDTOFactory factory)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _factory = factory ?? throw new ArgumentNullException(nameof(factory));
+        }
         public async Task<List<OrderDTO>> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
         {
+
             var orderList = await _repository.GetOrdersByUsername(request.Username);
             return orderList.Select(order => _factory.CreateOrderDTO(order)).ToList();
+
         }
     }
 }

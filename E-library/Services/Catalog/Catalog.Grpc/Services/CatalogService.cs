@@ -54,5 +54,20 @@ namespace Catalog.Grpc.Services
             return response;
         }
 
+        public override async Task<GetBookByIdResponse> GetBookById(GetBookByIdRequest request, ServerCallContext context)
+        {
+
+            var book = await _repository.GetBook(request.Id);
+
+            var response = new GetBookByIdResponse();
+
+
+            response.Book = _mapper.Map<GetBookByIdResponse.Types.Book>(book);
+
+            _logger.LogInformation("Book with id " + book.Id + " successfully retrieved from catalog");
+
+            return response;
+        }
+
     }
 }

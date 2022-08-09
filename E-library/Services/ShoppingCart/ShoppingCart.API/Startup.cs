@@ -1,4 +1,5 @@
 
+using Catalog.Grpc.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 using MassTransit;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ShoppingCart.API.GrpcClientServices;
 using ShoppingCart.API.Repositories;
 using System;
 using System.Collections.Generic;
@@ -42,6 +44,12 @@ namespace ShoppingCart.API
             });
 
             services.AddScoped<ICartRepo, CartRepo>();
+
+            services.AddGrpcClient<CatalogProtoService.CatalogProtoServiceClient>(
+                options => options.Address = new Uri(Configuration["GrpcSettings:CatalogUrl"])
+            );
+
+            services.AddScoped<CatalogGrpcService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

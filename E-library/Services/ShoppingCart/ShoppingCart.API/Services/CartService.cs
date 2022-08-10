@@ -22,6 +22,10 @@ namespace ShoppingCart.API.Services
         public async Task<List<CartItem>> AddBookToCart(string username, string bookId)
         {
             var book = await _grpcService.GetBookById(bookId);
+            if (book.Book.IsAvailable == false)
+            {
+                return null;
+            }
 
             Cart cart;
             if (await _repository.GetCart(username) != null)
@@ -36,7 +40,7 @@ namespace ShoppingCart.API.Services
             CartItem item = new CartItem();
             item.BookId = book.Book.Id;
             item.BookTitle = book.Book.Title;
-          
+
             cart.Items.Add(item);
 
             await _repository.UpdateCart(cart);
@@ -61,7 +65,7 @@ namespace ShoppingCart.API.Services
             CartItem item = new CartItem();
             item.BookId = book.Book.Id;
             item.BookTitle = book.Book.Title;
-
+            
             cart.Items.Remove(item);
 
             await _repository.UpdateCart(cart);

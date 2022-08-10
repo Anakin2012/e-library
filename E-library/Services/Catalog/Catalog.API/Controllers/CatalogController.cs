@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Catalog.API.Controllers
 {
+    [Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     // nalepice Catalog umesto sablona u uglastima zagradama
@@ -27,7 +28,6 @@ namespace Catalog.API.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        [Authorize]
         [Route("[action]")]
         [HttpGet] 
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -38,7 +38,6 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
-        [Authorize]
         [Route("[action]/{id}")]
         [HttpGet]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status200OK)]
@@ -61,7 +60,6 @@ namespace Catalog.API.Controllers
             return Ok(book);
         }
 
-        [Authorize]
         [Route("[action]/{genre}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -71,7 +69,6 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
-        [Authorize]
         [Route("[action]/{author}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -81,8 +78,6 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
-
-        [Authorize]
         [Route("[action]/{title}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -93,7 +88,6 @@ namespace Catalog.API.Controllers
         }
 
         [Route("[action]")]
-        [Authorize]
         [HttpPost]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status201Created)]
         public async Task<ActionResult<BookDTO>> CreateBook([FromBody] CreateBookDTO bookDTO)
@@ -104,7 +98,6 @@ namespace Catalog.API.Controllers
         }
 
         [Route("[action]")]
-        [Authorize]
         [HttpPut]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateBook(string id, [FromBody] UpdateBookDTO bookDTO)
@@ -119,7 +112,6 @@ namespace Catalog.API.Controllers
             return Ok(await _repository.UpdateBook(id, bookDTO));
         }
 
-        [Authorize]
         [Route("[action]/{id:length(24)}")]
         [HttpDelete]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status200OK)]

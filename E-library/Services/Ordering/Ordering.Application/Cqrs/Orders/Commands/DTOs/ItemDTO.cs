@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Cqrs.Orders.Commands.DTOs
 {
-    public class OrderItemDTO
+    public class ItemDTO
     {
         public string BookTitle { get; set; }
         public string BookId { get; set; }

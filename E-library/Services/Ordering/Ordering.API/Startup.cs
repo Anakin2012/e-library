@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Ordering.API.EventBusConsumers;
 using Ordering.Application;
 using Ordering.Infrastructure;
 using System;
@@ -50,7 +51,7 @@ namespace Ordering.API
                 });
             });
             
-            // services.AddMassTransitHostedService();
+            //services.AddMassTransitHostedService();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

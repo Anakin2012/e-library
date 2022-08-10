@@ -46,23 +46,22 @@ services:
         context: .
         dockerfile: Services\ShoppingCart\ShoppingCart.API\Dockerfile
 
-  shoppingcart.grpc:
-    image: ${DOCKER_REGISTRY-}shoppingcartgrpc
-    build:
-      context: .
-      dockerfile: Services/ShoppingCart/ShoppingCart.Grpc/Dockerfile
-
   library.api:
      image: ${DOCKER_REGISTRY-}libraryapi
      build:
         context: .
         dockerfile: Services/Library/Library.API/Dockerfile
   
+  ordering.api:
+     image: ${DOCKER_REGISTRY-}orderingapi
+     build:
+        context: .
+        dockerfile: Services/Ordering/Ordering.API/Dockerfile
+
   librarydb:
      image: mongo
      command: mongod --port 27018
-  
-
+ 
   spagateway:
     image: ${DOCKER_REGISTRY-}spagateway
     build:

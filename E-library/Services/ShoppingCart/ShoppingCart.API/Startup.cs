@@ -23,6 +23,7 @@ using System.Text;
 using System.Reflection;
 
 using System.Threading.Tasks;
+using ShoppingCart.API.Services;
 
 namespace ShoppingCart.API
 {
@@ -44,6 +45,7 @@ namespace ShoppingCart.API
             });
 
             services.AddScoped<ICartRepo, CartRepo>();
+            services.AddScoped<ICartService, CartService>();
 
             services.AddGrpcClient<CatalogProtoService.CatalogProtoServiceClient>(
                 options => options.Address = new Uri(Configuration["GrpcSettings:CatalogUrl"])

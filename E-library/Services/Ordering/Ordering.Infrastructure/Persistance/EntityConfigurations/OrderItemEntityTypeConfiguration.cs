@@ -17,10 +17,6 @@ namespace Ordering.Infrastructure.Persistance.EntityConfigurations
             builder.HasKey(o => o.Id);
             builder.Property(o => o.Id).UseHiLo("orderitemseq");
 
-            builder.Property<string>("ProductId")
-                .HasColumnType("VARCHAR(24)")
-                .HasColumnName("ProductId")
-                .IsRequired();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Ordering.Infrastructure
                 c.DisplayName = config["DisplayName"];
                 c.Password = config["Password"];
                 c.Host = config["Host"];
-                c.Port = int.Parse(config["Port"]);
+//                c.Port = int.Parse(config["Port"]);
             });
 
             services.AddTransient<IEmailService, EmailService>();

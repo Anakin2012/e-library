@@ -75,7 +75,7 @@ services:
     container_name: ordering.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:OrderingConnectionString=Server=identitydb;Database=OrderDb;User Id=sa;Password=MATF12345678rs2;"
+      - "ConnectionStrings:OrderingConnectionString=Server=identitydb;Database=OrderDb;User Id=sa;Password=ID2022Entity;"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - mssql

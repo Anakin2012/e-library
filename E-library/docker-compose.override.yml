@@ -75,7 +75,7 @@ services:
     container_name: ordering.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:OrderingConnectionString=Server=mssql;Database=OrderDb;User Id=sa;Password=MATF12345678rs2;"
+      - "ConnectionStrings:OrderingConnectionString=Server=identitydb;Database=OrderDb;User Id=sa;Password=MATF12345678rs2;"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - mssql
@@ -87,7 +87,7 @@ services:
     container_name: identityserver
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "IdentityConnectionString:Server=identitydb;Database=Identitydb;User Id=sa;Password=ID2022Entity;"
+      - "IdentityConnectionString=Server=identitydb;Database=Identitydb;User Id=sa;Password=ID2022Entity;"
     depends_on:
       - identitydb
     ports:

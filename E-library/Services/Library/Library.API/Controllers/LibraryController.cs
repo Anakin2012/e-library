@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Library.API.DTOs;
 using Library.API.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Library.API.Controllers
 {
+    [Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class LibraryController : ControllerBase
@@ -23,6 +25,7 @@ namespace Library.API.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+
         [HttpGet("{username}", Name="GetBooksForUser")]
         [ProducesResponseType(typeof(LibraryItemDTO), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(IEnumerable<LibraryItemDTO>), StatusCodes.Status200OK)]
@@ -32,6 +35,7 @@ namespace Library.API.Controllers
                 return NotFound(null);
             return Ok(libraryItems);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> AddLibraryItem([FromBody] LibraryItemDTO libraryDTO) {

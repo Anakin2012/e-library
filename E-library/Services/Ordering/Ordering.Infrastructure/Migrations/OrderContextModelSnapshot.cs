@@ -94,11 +94,6 @@ namespace Ordering.Infrastructure.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(24)")
-                        .HasColumnName("ProductId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");

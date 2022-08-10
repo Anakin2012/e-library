@@ -54,7 +54,7 @@
 
 
     {
-      "DownstreamPathTemplate": "/api/v1/Ordering/{everything}",
+      "DownstreamPathTemplate": "/api/v1/Order/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -62,7 +62,7 @@
           "Port": "80"
         }
       ],
-      "UpstreamPathTemplate": "/api/v1/Ordering/{everything}",
+      "UpstreamPathTemplate": "/api/v1/Order/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST"]
     },
 

@@ -78,7 +78,7 @@ services:
       - "ConnectionStrings:OrderingConnectionString=Server=mssql;Database=OrderDb;User Id=sa;Password=MATF12345678rs2;"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
-      - mssql
+      - identitydb
       - rabbitmq
     ports:
       - "8004:80"

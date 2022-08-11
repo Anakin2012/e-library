@@ -24,14 +24,6 @@ services:
      volumes:
         - librarydb_data:/data/db
 
-  maildb:
-   container_name: maildb
-   restart: always
-   ports:
-     - "27019:27019"
-   volumes:
-     - maildb_data:/data/db
-
   rabbitmq:
      container_name: rabbitmq
      restart: always
@@ -155,9 +147,7 @@ services:
     container_name: mailservice
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=mongodb://maildb:27019"
     ports:
       - "5051:80"
-    depends_on:
-      - maildb
+
 

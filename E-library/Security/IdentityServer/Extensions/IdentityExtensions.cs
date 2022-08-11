@@ -3,6 +3,7 @@ using IdentityServer.Data;
 using IdentityServer.Entities;
 using IdentityServer.Repositories;
 using IdentityServer.Repositories.Interfaces;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -53,12 +54,14 @@ namespace IdentityServer.Extensions
 
         public static IServiceCollection ConfigureMiscellaneousServices(this IServiceCollection services)
         {
-            // AutoMapper
+            
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 
             services.AddScoped<IdentityRepositoryInterface, IdentityRepository>();
             services.AddScoped<RefreshTokenRepositoryInterface, RefreshTokenRepository>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+
 
             return services;
         }

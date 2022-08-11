@@ -1,5 +1,8 @@
+using EventBus.Messages.Constants;
 using MailService.Data;
+using MailService.EventBusConsumers;
 using MailService.Repositories;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MailService
@@ -28,8 +32,17 @@ namespace MailService
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddScoped<IMailContext, MailContext>();
-            services.AddScoped<IMailRepository, MailRepository>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddMassTransit(config => {
+                config.AddConsumer<MembershipExpiringConsumer>();
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                    cfg.ReceiveEndpoint(EventBusConstants.MembershipQueue, c => {
+                        c.ConfigureConsumer<MembershipExpiringConsumer>(ctx);
+                    });
+                });
+            });
+            services.AddMassTransitHostedService();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

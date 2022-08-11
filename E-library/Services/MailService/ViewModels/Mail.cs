@@ -13,7 +13,8 @@ namespace MailService.Entities
         public string Id { get; set; }
         public string EmailAddress { get; set; }
         public string Sender { get; set; }
-        public string MessageBody { get; set;  }
+        public string Subject { get; set; }
+        public string MailBody { get; set;  }
         public bool isRead { get; set;  }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]

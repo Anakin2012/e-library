@@ -1,7 +1,5 @@
 using EventBus.Messages.Constants;
-using MailService.Data;
 using MailService.EventBusConsumers;
-using MailService.Repositories;
 using MailService.SendingMailsService;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;

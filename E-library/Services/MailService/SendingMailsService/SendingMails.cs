@@ -8,7 +8,7 @@ namespace MailService.SendingMailsService
 {
     public class SendingMails : ISendingMails
     {
-        public async Task<bool> SendMembershipExparingMail(MembershipExpiringModel membershipExpiringModel) {
+        public async Task<bool> SendMembershipExpiringMail(MembershipExpiringModel membershipExpiringModel) {
             return true;  // implementirati kasnije
         }
     }

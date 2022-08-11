@@ -8,7 +8,7 @@ namespace MailService.SendingMailsService
 {
     public interface ISendingMails
     {
-        public Task<bool> SendMembershipExparingMail(MembershipExpiringModel membershipExpiringModel);
+        public Task<bool> SendMembershipExpiringMail(MembershipExpiringModel membershipExpiringModel);
 
     }
 }

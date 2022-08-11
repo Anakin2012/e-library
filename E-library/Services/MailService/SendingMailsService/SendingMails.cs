@@ -1,5 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MailService.Models;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace MailService.SendingMailsService
     {
         private readonly MailSettings _mailSettings;
 
-        public SendingMails(MailSettings mailSettings)
+        public SendingMails(IOptions<MailSettings> mailSettings)
         {
-            _mailSettings = mailSettings ?? throw new ArgumentNullException(nameof(mailSettings));
+            _mailSettings = mailSettings.Value ?? throw new ArgumentNullException(nameof(mailSettings));
         }
 
         public async Task<bool> SendMembershipExpiringMail(MembershipExpiringModel membershipExpiringModel) {

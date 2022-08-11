@@ -12,6 +12,8 @@ namespace MailService.Controllers
     [Route("api/v1/[controller]")]
     public class MailController : ControllerBase
     {
-
+        public MailController()
+        {
+        }
     }
 }

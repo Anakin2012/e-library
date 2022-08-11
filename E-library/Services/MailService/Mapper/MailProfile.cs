@@ -10,7 +10,6 @@ namespace MailService.Mapper
 {
     public class MailProfile : Profile
     {
-        // preslikavanje izmedju MembershipExpiringEvent-a i Komande
         public MailProfile()
         {
             CreateMap<MembershipExpiringModel, MembershipExpiringEvent>().ReverseMap();

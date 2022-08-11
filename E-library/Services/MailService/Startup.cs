@@ -2,6 +2,7 @@ using EventBus.Messages.Constants;
 using MailService.Data;
 using MailService.EventBusConsumers;
 using MailService.Repositories;
+using MailService.SendingMailsService;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,6 +44,8 @@ namespace MailService
                 });
             });
             services.AddMassTransitHostedService();
+
+            services.AddScoped<ISendingMails, SendingMails>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

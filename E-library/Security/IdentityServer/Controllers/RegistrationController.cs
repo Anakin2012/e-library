@@ -22,16 +22,11 @@ namespace IdentityServer.Controllers
 
         private readonly IdentityRepositoryInterface _repository;
         private readonly ILogger<RegistrationController> _logger;
-        
-        private readonly IMapper _mapper;
-        private readonly IPublishEndpoint _publishEndpoint;  // za slanje eventa na red poruka
 
-        public RegistrationController(IdentityRepositoryInterface repository, ILogger<RegistrationController> logger, IMapper mapper, IPublishEndpoint publishEndpoint)
+        public RegistrationController(IdentityRepositoryInterface repository, ILogger<RegistrationController> logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         [HttpPost("[action]")]
@@ -76,19 +71,7 @@ namespace IdentityServer.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-        [HttpPost("[action]")]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SendMembershipExpiringMail([FromBody] MemberDetailsDTO memberDetailsDTO) {
-            // salje se 3 dana pre isteka clanarine
-
-            MembershipExpiringEvent membershipExpiring = new MembershipExpiringEvent(memberDetailsDTO.Email, "ELibrary@elibrary.com", memberDetailsDTO.FirstName, memberDetailsDTO.LastName, memberDetailsDTO.UserName);
-
-            await _publishEndpoint.Publish(membershipExpiring);
-
-
-            return Accepted();
-        }
+        
 
 
 

@@ -1,7 +1,9 @@
 using AutoMapper;
+using EventBus.Messages.Events;
 using IdentityServer.DTOs;
 using IdentityServer.Entities;
 using IdentityServer.Repositories.Interfaces;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -19,12 +21,13 @@ namespace IdentityServer.Controllers
     public class AdministratorController : ControllerBase
     {
         private readonly IdentityRepositoryInterface _repository;
+        private readonly IPublishEndpoint _publishEndpoint;  // za slanje eventa na red poruka
 
-        public AdministratorController(IdentityRepositoryInterface repository)
+        public AdministratorController(IdentityRepositoryInterface repository, IPublishEndpoint publishEndpoint)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
-
 
         [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -105,6 +108,21 @@ namespace IdentityServer.Controllers
                 return Forbid();
             }
 
+        }
+
+        [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> SendMembershipExpiringMail([FromBody] MemberDetailsDTO memberDetailsDTO)
+        {
+            // salje se 3 dana pre isteka clanarine
+
+            MembershipExpiringEvent membershipExpiring = new MembershipExpiringEvent(memberDetailsDTO.Email, "ELibrary@elibrary.com", memberDetailsDTO.FirstName, memberDetailsDTO.LastName, memberDetailsDTO.UserName);
+
+            await _publishEndpoint.Publish(membershipExpiring);
+
+
+            return Accepted();
         }
 
 

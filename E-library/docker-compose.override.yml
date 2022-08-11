@@ -80,8 +80,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "IdentityConnectionString=Server=identitydb;Database=Identitydb;User Id=sa;Password=ID2022Entity;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - identitydb
+      - rabbitmq
     ports:
       - "4000:80"
 
@@ -147,6 +149,9 @@ services:
     container_name: mailservice
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    depends_on:
+      - rabbitmq
     ports:
       - "5051:80"
 

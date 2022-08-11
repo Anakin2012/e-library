@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["Services/MailService/MailService.csproj", "Services/MailService/"]
+COPY ["Common/EventBus.Messages/EventBus.Messages.csproj", "Common/EventBus.Messages/"]
 RUN dotnet restore "Services/MailService/MailService.csproj"
 COPY . .
 WORKDIR "/src/Services/MailService"

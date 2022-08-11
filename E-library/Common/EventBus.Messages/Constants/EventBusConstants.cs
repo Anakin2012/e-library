@@ -9,5 +9,7 @@ namespace EventBus.Messages.Constants
     public static class EventBusConstants
     {
         public const string CartCheckoutQueue = "cartcheckout-queue";
+
+        public const string MembershipQueue = "membership-queue";
     }
 }

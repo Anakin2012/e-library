@@ -1,7 +1,6 @@
 using EventBus.Messages.Constants;
-using MailService.Data;
 using MailService.EventBusConsumers;
-using MailService.Repositories;
+using MailService.Models;
 using MailService.SendingMailsService;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +32,18 @@ namespace MailService
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.Configure<MailSettings>(c =>
+            {
+                c.EmailAddress = Configuration["MailSettings:EmailAddress"];
+                c.DisplayName = Configuration["MailSettings:DisplayName"];
+                c.Password = Configuration["MailSettings:Password"];
+                c.Host = Configuration["MailSettings:Host"];
+                c.Port = int.Parse(Configuration["MailSettings:Port"]);
+            });
+
+            services.AddScoped<ISendingMails, SendingMails>();
+
             services.AddMassTransit(config => {
                 config.AddConsumer<MembershipExpiringConsumer>();
                 config.UsingRabbitMq((ctx, cfg) => {
@@ -45,7 +55,8 @@ namespace MailService
             });
             services.AddMassTransitHostedService();
 
-            services.AddScoped<ISendingMails, SendingMails>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

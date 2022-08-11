@@ -1,5 +1,4 @@
-﻿using MailService.Entities;
-using MailService.Repositories;
+﻿using MailService.SendingMailsService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,7 +12,6 @@ namespace MailService.Controllers
     [Route("api/v1/[controller]")]
     public class MailController : ControllerBase
     {
-        
 
     }
 }

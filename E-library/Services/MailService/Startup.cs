@@ -46,10 +46,16 @@ namespace MailService
 
             services.AddMassTransit(config => {
                 config.AddConsumer<MembershipExpiringConsumer>();
+                config.AddConsumer<PayingConsumer>();
+                config.AddConsumer<DeletingAccountConsumer>();
+                config.AddConsumer<ChangePasswordConsumer>();
                 config.UsingRabbitMq((ctx, cfg) => {
                     cfg.Host(Configuration["EventBusSettings:HostAddress"]);
                     cfg.ReceiveEndpoint(EventBusConstants.MembershipQueue, c => {
                         c.ConfigureConsumer<MembershipExpiringConsumer>(ctx);
+                        c.ConfigureConsumer<PayingConsumer>(ctx);
+                        c.ConfigureConsumer<DeletingAccountConsumer>(ctx);
+                        c.ConfigureConsumer<ChangePasswordConsumer>(ctx);
                     });
                 });
             });

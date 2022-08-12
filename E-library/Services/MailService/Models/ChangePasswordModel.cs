@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace MailService.Models
 {
-    public class MembershipExpiringModel
+    public class ChangePasswordModel
     {
         [EmailAddress]
         public string To { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string MemberUsername { get; set; }
+        public string OldPassword { get; set; }
+        public string NewPassword { get; set; }
+
     }
 }

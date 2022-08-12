@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace MailService.Models
 {
-    public class MembershipExpiringModel
+    public class PayingModel
     {
         [EmailAddress]
         public string To { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string MemberUsername { get; set; }
     }
 }

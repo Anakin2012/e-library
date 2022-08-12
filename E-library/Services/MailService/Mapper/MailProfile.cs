@@ -13,7 +13,10 @@ namespace MailService.Mapper
         public MailProfile()
         {
             CreateMap<MembershipExpiringModel, MembershipExpiringEvent>().ReverseMap();
-        
+            CreateMap<PayingModel, PayingEvent>().ReverseMap();
+            CreateMap<ChangePasswordModel, ChangePasswordEvent>().ReverseMap();
+            CreateMap<DeletingAccountModel, DeletingAccountEvent>().ReverseMap();
+
         }
     }
 }

@@ -35,7 +35,7 @@ import { BasketComponent } from './basket/basket.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule, 
+    FormsModule
     
   ],
   providers: [],

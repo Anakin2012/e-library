@@ -11,6 +11,7 @@ const appRoute: Routes = [
   {path: 'Home', component: HomepageComponent},
   {path: 'Books', component: CatalogComponent}, // catalog
   {path: 'Basket', component: BasketComponent},
+  { path: 'identity', loadChildren: () => import('./identity/identity.module').then(m => m.IdentityModule) },
 ]
 
 @NgModule({

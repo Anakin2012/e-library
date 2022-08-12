@@ -1,0 +1,54 @@
+.card {
+    display: flex;
+    flex: 50%;
+    max-width: 240px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+  }
+  
+  .card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .details{
+    font-weight: 700;
+  }
+
+  .wish{
+    background-color: #4f9ac9;
+  }
+  
+  .show-det{
+    background-color: rgb(249, 195, 95);
+  }
+  .card button:hover {
+    opacity: 0.7;
+  }
+
+.image-container{
+    background-color: #fff;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+}
+.detail-container{
+    display: flex;
+}
+.title-container{
+    margin: 0px 20px;
+    font-size: medium;
+    font-weight: 200;
+}
+
+.cont{
+    display: flex;
+    flex-wrap: wrap;}

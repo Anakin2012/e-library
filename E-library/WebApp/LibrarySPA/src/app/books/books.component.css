@@ -1,0 +1,39 @@
+.book-container{
+    display: flex;
+    margin: 15px 0px;
+    padding: 5px 5px;
+    border-radius: 5px;
+}
+.image-container{
+    background-color: #fff;
+    height: 50px;
+    width: 40px;
+    text-align: center;
+}
+.detail-container{
+    display: flex;
+    margin: 0px 20px;
+    font-size: small;
+    font-style: normal;
+}
+.title-container{
+    margin: 0px 20px;
+    font-size: medium;
+    font-weight: 200;
+}
+.details{
+    width: 140px;
+}
+.options{
+    width: 220px;
+    margin-left: 80px;
+}
+.btn{
+    border-radius: none;
+    margin: 0px 5px;
+    padding: 2px 10px;
+    font-size: 12px;
+}
+
+
+

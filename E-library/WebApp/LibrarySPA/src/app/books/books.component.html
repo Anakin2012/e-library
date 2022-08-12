@@ -1,0 +1,21 @@
+<div *ngFor="let b of books; let i = index">
+    <!-- <p>{{i}}</p> -->
+    <div class="book-container" [ngStyle]="{backgroundColor: b.IsAvailable===true ? '#D5F5E3' : '#FADBD8'}">
+        <div class="image-container"><img [src]="b.CoverImageFile" alt="" style="max-height: 50px; max-width: 50px;"></div>
+        <div>
+            <div class="title-container"><h6>{{b.Title}}</h6></div>
+            <div class="detail-container">
+                <div class="details">{{b.Author}}</div>
+                <div class="details" [ngStyle]="{color: b.IsAvailable===true ? 'Green' : 'Red'}">{{b.IsAvailable==true ? 'Available' : 'Not available'}}</div>
+                <div class="details" [ngStyle]="{color: b.IsPremium===true ? 'Orange' : 'Black'}">{{b.IsPremium==true ? 'Premium' : 'Standard'}}</div>
+            </div>
+        </div>
+        <div class="options">
+            <button class="btn btn-success"> Show Details</button>
+            <button class="btn btn-warning" *ngIf="b.IsAvailable===true; else notifyme"> Rent now</button>
+            <ng-template #notifyme>
+                <button class="btn btn-danger">Notify me</button>
+            </ng-template>
+        </div>
+    </div>
+</div>

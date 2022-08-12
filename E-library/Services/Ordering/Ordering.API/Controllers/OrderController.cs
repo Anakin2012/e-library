@@ -7,6 +7,7 @@ using Ordering.Application.Cqrs.Orders.Queries.GetOrders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Ordering.API.Controllers
@@ -35,6 +36,10 @@ namespace Ordering.API.Controllers
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         public async Task<ActionResult<int>> CheckoutOrder(CreateOrderCommand command)
         {
+            if (User.FindFirstValue(ClaimTypes.Expired) == "True")
+            {
+                return Forbid();
+            }
             var result = await _mediator.Send(command);
             return Ok(result);
         }

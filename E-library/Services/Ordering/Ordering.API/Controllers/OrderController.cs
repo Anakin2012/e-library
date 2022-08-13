@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Cqrs.Orders.Commands.CreateOrderCommand;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.API.Controllers
 {
+    [Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class OrderController : ControllerBase

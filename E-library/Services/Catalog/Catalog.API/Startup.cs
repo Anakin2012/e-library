@@ -8,6 +8,10 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Reflection;
+using MassTransit;
+using EventBus.Messages.Constants;
+using Catalog.API.EventBusConsumers;
 
 namespace Catalog.API
 {
@@ -61,6 +65,23 @@ namespace Catalog.API
                     ValidAudience = jwtSettings.GetSection("validAudience").Value,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
+            });
+
+            // AutoMapper
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            // EventBus
+            services.AddMassTransit(config =>
+            {
+                config.AddConsumer<CartCheckoutConsumer>();
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                    cfg.ReceiveEndpoint(EventBusConstants.UpdateCatalogQueue, c =>
+                    {
+                        c.ConfigureConsumer<CartCheckoutConsumer>(ctx);
+                    });
+                });
             });
         }
 

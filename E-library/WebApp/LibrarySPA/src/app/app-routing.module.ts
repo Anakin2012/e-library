@@ -12,11 +12,8 @@ const appRoute: Routes = [
   {path: 'Home', component: HomepageComponent},
   {path: 'Books', component: CatalogComponent}, // catalog
   {path: 'Basket', component: BasketComponent},
-<<<<<<< Updated upstream
-=======
   { path: 'identity', loadChildren: () => import('./identity/identity.module').then(m => m.IdentityModule) },
   {path: 'Books/:id', component: BookDetailsComponent}
->>>>>>> Stashed changes
 ]
 
 @NgModule({

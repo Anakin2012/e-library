@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using EventBus.Messages.Events;
 using IdentityServer.DTOs;
 using IdentityServer.Entities;
 using IdentityServer.Repositories.Interfaces;
+using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -68,6 +70,8 @@ namespace IdentityServer.Controllers
 
             return StatusCode(StatusCodes.Status201Created);
         }
+
+        
 
 
 

@@ -39,11 +39,7 @@ import { BooksService } from './Services/books.service';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-<<<<<<< Updated upstream
-    FormsModule, 
-=======
-    FormsModule,
->>>>>>> Stashed changes
+    FormsModule
     
   ],
   providers: [BooksService],

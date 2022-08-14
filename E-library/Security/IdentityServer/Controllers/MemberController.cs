@@ -1,5 +1,7 @@
-﻿using IdentityServer.DTOs;
+﻿using EventBus.Messages.Events;
+using IdentityServer.DTOs;
 using IdentityServer.Repositories.Interfaces;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +20,13 @@ namespace IdentityServer.Controllers
     {
         private IdentityRepositoryInterface _repository;
         private ILogger<MemberController> _loger;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public MemberController(IdentityRepositoryInterface repository, ILogger<MemberController> loger)
+        public MemberController(IdentityRepositoryInterface repository, ILogger<MemberController> loger, IPublishEndpoint publishEndpoint)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _loger = loger ?? throw new ArgumentNullException(nameof(loger));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         [Authorize]
@@ -59,6 +63,12 @@ namespace IdentityServer.Controllers
                 return BadRequest(ModelState);
             }
 
+            var member = await _repository.FindMember(userNameDTO.UserName);
+
+            PayingEvent payingEvent = new PayingEvent(member.Email, member.Name, member.Surname);
+
+            await _publishEndpoint.Publish(payingEvent);
+
             return StatusCode(StatusCodes.Status200OK);
 
         }
@@ -89,6 +99,13 @@ namespace IdentityServer.Controllers
                 return BadRequest(ModelState);
             }
 
+            var member = await _repository.FindMember(username);
+
+            DeletingAccountEvent deletingAccountEvent = new DeletingAccountEvent(member.Email, member.Name, member.Surname);
+
+            await _publishEndpoint.Publish(deletingAccountEvent);
+
+
             return StatusCode(StatusCodes.Status200OK);
 
         }
@@ -117,6 +134,12 @@ namespace IdentityServer.Controllers
 
                 return BadRequest(ModelState);
             }
+
+            var member = await _repository.FindMember(changepassword.username);
+
+            ChangePasswordEvent changePasswordEvent = new ChangePasswordEvent(member.Email, member.Name, member.Surname, changepassword.password, changepassword.newPassword);
+
+            await _publishEndpoint.Publish(changePasswordEvent);
 
             return StatusCode(StatusCodes.Status200OK);
             

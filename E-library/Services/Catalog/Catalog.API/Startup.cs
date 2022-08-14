@@ -32,6 +32,17 @@ namespace Catalog.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog.API", Version = "v1" });
             });
 
+            // CORS
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options =>
+                {
+                    options.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
+            
             // JWT Security
             var jwtSettings = Configuration.GetSection("JwtSettings");
             var secretKey = jwtSettings.GetSection("secretKey").Value;
@@ -63,6 +74,7 @@ namespace Catalog.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog.API v1"));
             }
 
+            app.UseCors("AllowOrigin");
             app.UseRouting();
 
             app.UseAuthentication();
@@ -71,7 +83,7 @@ namespace Catalog.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
+            });            
         }
     }
 }

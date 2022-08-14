@@ -4,6 +4,10 @@
     background-color: #333;
 }
 
+.search-div b{
+    padding-left: 20px;
+}
+
 input[type=text]{
     width: 240px;
     height: 30px;

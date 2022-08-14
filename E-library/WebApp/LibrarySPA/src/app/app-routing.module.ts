@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BasketComponent } from './basket/basket.component';
+import { BookDetailsComponent } from './book/book-details/book-details.component';
 import { BookComponent } from './book/book.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { ContainerComponent } from './Container/container.component';
@@ -12,6 +13,7 @@ const appRoute: Routes = [
   {path: 'Books', component: CatalogComponent}, // catalog
   {path: 'Basket', component: BasketComponent},
   { path: 'identity', loadChildren: () => import('./identity/identity.module').then(m => m.IdentityModule) },
+  {path: 'Books/:id', component: BookDetailsComponent}
 ]
 
 @NgModule({

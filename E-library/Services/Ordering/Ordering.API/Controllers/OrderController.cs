@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Cqrs.Orders.Commands.CreateOrderCommand;
@@ -7,10 +8,12 @@ using Ordering.Application.Cqrs.Orders.Queries.GetOrders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Ordering.API.Controllers
 {
+    [Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class OrderController : ControllerBase
@@ -35,6 +38,10 @@ namespace Ordering.API.Controllers
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         public async Task<ActionResult<int>> CheckoutOrder(CreateOrderCommand command)
         {
+            if (User.FindFirstValue(ClaimTypes.Expired) == "True")
+            {
+                return Forbid();
+            }
             var result = await _mediator.Send(command);
             return Ok(result);
         }

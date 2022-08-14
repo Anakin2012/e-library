@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Catalog.API.Controllers
 {
-    [Authorize(Roles = "Member")]
+  //  [Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     // nalepice Catalog umesto sablona u uglastima zagradama

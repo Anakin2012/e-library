@@ -53,6 +53,17 @@ namespace ShoppingCart.API
 
             services.AddScoped<CatalogGrpcService>();
 
+            // CORS
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options =>
+                {
+                    options.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -106,6 +117,7 @@ namespace ShoppingCart.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShoppingCart.API v1"));
             }
 
+            app.UseCors("AllowOrigin");
             app.UseRouting();
 
             app.UseAuthentication();

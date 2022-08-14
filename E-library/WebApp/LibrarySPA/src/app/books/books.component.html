@@ -1,20 +1,20 @@
-<div *ngFor="let b of books; let i = index">
+<div *ngFor="let b of newBooks; let i = index">
     <!-- <p>{{i}}</p> -->
-    <div class="book-container" [ngStyle]="{backgroundColor: b.IsAvailable===true ? '#D5F5E3' : '#FADBD8'}">
-        <div class="image-container"><img [src]="b.CoverImageFile" alt="" style="max-height: 50px; max-width: 50px;"></div>
+    <div class="book-container" [ngStyle]="{backgroundColor: b.isAvailable===true ? '#D5F5E3' : '#FADBD8'}">
+        <div class="image-container"><img [src]="b.coverImageFile" alt="" style="max-height: 50px; max-width: 50px;"></div>
         <div>
-            <div class="title-container"><h6>{{b.Title}}</h6></div>
+            <div class="title-container"><h6>{{b.title}}</h6></div>
             <div class="detail-container">
-                <div class="details">{{b.Author}}</div>
-                <div class="details" [ngStyle]="{color: b.IsAvailable===true ? 'Green' : 'Red'}">{{b.IsAvailable==true ? 'Available' : 'Not available'}}</div>
-                <div class="details" [ngStyle]="{color: b.IsPremium===true ? 'Orange' : 'Black'}">{{b.IsPremium==true ? 'Premium' : 'Standard'}}</div>
+                <div class="details">{{b.author}}</div>
+                <div class="details" [ngStyle]="{color: b.isAvailable===true ? 'Green' : 'Red'}">{{b.isAvailable==true ? 'Available' : 'Not available'}}</div>
+                <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
             </div>
         </div>
         <div class="options">
-            <button class="btn btn-success"> Show Details</button>
-            <button class="btn btn-warning" *ngIf="b.IsAvailable===true; else notifyme"> Rent now</button>
+            <button class="btn " style="background-color: rgb(249, 195, 95); color: white;" routerLink="/Books/{{b.id}}"> Show Details</button>
+            <button style="background-color: #1d6f58; color:white;" class="btn" *ngIf="b.isAvailable===true; else notifyme">Borrow</button>
             <ng-template #notifyme>
-                <button class="btn btn-danger">Notify me</button>
+                <button class="btn btn-danger">Borrow</button>
             </ng-template>
         </div>
     </div>

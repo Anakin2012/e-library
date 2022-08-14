@@ -24,6 +24,8 @@ namespace Catalog.API.Extensions
  
                });
 
+            
+
         }
     }
 }

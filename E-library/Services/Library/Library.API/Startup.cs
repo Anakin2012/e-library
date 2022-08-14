@@ -1,4 +1,7 @@
+using EventBus.Messages.Constants;
+using Library.API.EventBusConsumers;
 using Library.API.Extensions;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -68,6 +72,23 @@ namespace Library.API
                     ValidAudience = jwtSettings.GetSection("validAudience").Value,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
+            });
+
+            // AutoMapper
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            // EventBus
+            services.AddMassTransit(config =>
+            {
+                config.AddConsumer<CartCheckoutConsumer>();
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                    cfg.ReceiveEndpoint(EventBusConstants.AddToLibraryQueue, c =>
+                    {
+                        c.ConfigureConsumer<CartCheckoutConsumer>(ctx);
+                    });
+                });
             });
 
         }

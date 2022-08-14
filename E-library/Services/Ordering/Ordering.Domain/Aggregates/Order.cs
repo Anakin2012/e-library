@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Aggregates
 {
-    public class Order:AggregateRoot
+    public class Order : AggregateRoot
     {
 
-        public string CustomerId { get; private set; }
 
         public string Username { get; private set; }
 
@@ -23,18 +22,16 @@ namespace Ordering.Domain.Aggregates
         private readonly List<OrderItem> _orderItems = new List<OrderItem>();
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
-        public Order(string customerId, string username, Address address)
+        public Order(string username, Address address)
         {
-            CustomerId = customerId ?? throw new ArgumentNullException(nameof(customerId));
             Username = username ?? throw new ArgumentNullException(nameof(username));
             Address = address ?? throw new ArgumentNullException(nameof(address));
             OrderDate = DateTime.Now;
 
         }
 
-        public Order(int id , string  customerId, string username, Address address)
+        public Order(int id, string username, Address address)
         {
-            CustomerId = customerId ?? throw new ArgumentNullException(nameof(customerId));
             Username = username ?? throw new ArgumentNullException(nameof(username));
             Address = address ?? throw new ArgumentNullException(nameof(address));
             OrderDate = DateTime.Now;
@@ -46,7 +43,8 @@ namespace Ordering.Domain.Aggregates
             Id = id;
         }
 
-        public void AddOrderItem(string bookId, string bookTitle, string author, string genre) {
+        public void AddOrderItem(string bookId, string bookTitle, string author, string genre)
+        {
 
             var existingOrderForBook = OrderItems.Where(o => o.BookId == bookId).SingleOrDefault();
 

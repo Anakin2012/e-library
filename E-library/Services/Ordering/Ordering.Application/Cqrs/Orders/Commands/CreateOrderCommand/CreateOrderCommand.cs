@@ -17,8 +17,6 @@ namespace Ordering.Application.Cqrs.Orders.Commands.CreateOrderCommand
         public string ZipCode { get; set; }
         public string EmailAddress { get; set; }
 
-
-        public string CustomerId { get; set; }
         public string Username { get; set; }
         public IEnumerable<ItemDTO> OrderItems { get; set; }
 

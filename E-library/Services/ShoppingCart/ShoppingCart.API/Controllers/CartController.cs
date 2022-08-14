@@ -1,6 +1,6 @@
 
-﻿using Microsoft.AspNetCore.Authorization;
-﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 using EventBus.Messages.Events;
 using MassTransit;
 
@@ -16,7 +16,7 @@ using ShoppingCart.API.Services;
 
 namespace ShoppingCart.API.Controllers
 {
-    [Authorize(Roles="Member")]
+    [Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class CartController : ControllerBase
@@ -81,12 +81,12 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Checkout([FromBody] CartCheckout cartCheckout)
         {
-            if (User.FindFirst(ClaimTypes.Name).Value != cartCheckout.MemberUsername)
+            if (User.FindFirst(ClaimTypes.Name).Value != cartCheckout.Username)
             {
                 return Forbid();
             }
 
-            var cart = await _repository.GetCart(cartCheckout.MemberUsername);
+            var cart = await _repository.GetCart(cartCheckout.Username);
             if (cart == null)
             {
                 return BadRequest();
@@ -95,7 +95,7 @@ namespace ShoppingCart.API.Controllers
             var eventMessage = _mapper.Map<CartCheckoutEvent>(cartCheckout);
             await _publishEndpoint.Publish(eventMessage);
 
-            await _repository.DeleteCart(cartCheckout.MemberUsername);
+            await _repository.DeleteCart(cartCheckout.Username);
 
             return Accepted();
         }

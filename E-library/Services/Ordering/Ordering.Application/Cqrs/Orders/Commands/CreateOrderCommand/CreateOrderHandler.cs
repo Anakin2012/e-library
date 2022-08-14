@@ -36,32 +36,7 @@ namespace Ordering.Application.Cqrs.Orders.Commands.CreateOrderCommand
 
             _logger.LogInformation($"Order {newOrder.Id} is successfully created.");
 
-            //await SendMail(newOrder);
-
             return newOrder.Id;
         }
-
-        //TODO
-        /*
-        private async Task SendMail(Order newOrder)
-        {
-            var email = new Email
-            {
-                Receiver = newOrder.Address.EmailAddress,
-                Title = $"Order {newOrder.Id} is sent",
-                Body = "You have placed a new order on Webstore."
-            };
-
-            try
-            {
-                await _emailService.SendEmail(email);
-                _logger.LogInformation($"Email successfully sent.");
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Sending email for order {newOrder.Id} failed due to error: {e.Message}");
-            }
-        }
-        */
     }
 }

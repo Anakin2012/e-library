@@ -46,8 +46,10 @@ services:
      environment:
        - ASPNETCORE_ENVIRONMENT=Development
        - "DatabaseSettings:ConnectionString=mongodb://librarydb:27018"
+       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
      depends_on:
       - librarydb
+      - rabbitmq
      ports:
       - "8085:80"
 
@@ -97,7 +99,7 @@ services:
     container_name: shoppingcart.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "CacheSettings:ConnectionString=shoppingcartdb:6000"
+      - "CacheSettings:ConnectionString=shoppingcartdb:6379"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
       - "GrpcSettings:CatalogUrl=http://catalog.grpc" 
     depends_on:
@@ -121,7 +123,7 @@ services:
     container_name: wishlist.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "CacheSettings:ConnectionString=wishlistdb:6379"
+      - "CacheSettings:ConnectionString=wishlistdb:6378"
       - "GrpcSettings:CatalogUrl=http://catalog.grpc"
     depends_on:
       - wishlistdb

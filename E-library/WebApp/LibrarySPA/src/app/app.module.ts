@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContainerComponent } from './Container/container.component';
@@ -14,6 +14,8 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { RouterModule } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { BasketComponent } from './basket/basket.component';
+import { BookDetailsComponent } from './book/book-details/book-details.component';
+import { BooksService } from './Services/books.service';
 
 
   //  {path: 'Cart', component: CartComponent}
@@ -30,15 +32,21 @@ import { BasketComponent } from './basket/basket.component';
     BookComponent,
     CatalogComponent,
     HomepageComponent,
-    BasketComponent
+    BasketComponent,
+    BookDetailsComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
+<<<<<<< Updated upstream
     FormsModule, 
+=======
+    FormsModule,
+>>>>>>> Stashed changes
     
   ],
-  providers: [],
+  providers: [BooksService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

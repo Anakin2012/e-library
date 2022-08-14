@@ -42,6 +42,17 @@ namespace WishList.API
 
             services.AddScoped<CatalogGrpcService>();
 
+            // CORS
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options =>
+                {
+                    options.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -59,6 +70,7 @@ namespace WishList.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WishList.API v1"));
             }
 
+            app.UseCors("AllowOrigin");
             app.UseRouting();
 
             app.UseAuthorization();

@@ -53,6 +53,18 @@ namespace Ordering.API
                     });
                 });
             });
+            
+
+            // CORS
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options =>
+                {
+                    options.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
 
             //services.AddMassTransitHostedService();
             //JWT Secutiry
@@ -91,6 +103,7 @@ namespace Ordering.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ordering.API v1"));
             }
 
+            app.UseCors("AllowOrigin");
             app.UseRouting();
 
             app.UseAuthorization();

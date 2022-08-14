@@ -1,18 +1,16 @@
-<div *ngFor="let b of books; let i = index">
+<div *ngFor="let b of allBooks; let i = index">
     <!-- <p>{{i}}</p> -->
-  <div class="cont">
     <div class="card">
-            <img [src]="b.CoverImageFile">
-            <h5>{{b.Title}}</h5>
-            <h6>{{b.Author}}</h6>
-            <div class="details" [ngStyle]="{color: b.IsAvailable===true ? 'Green' : 'Red'}">{{b.IsAvailable==true ? 'Available' : 'Not available'}}</div>
-            <div class="details" [ngStyle]="{color: b.IsPremium===true ? 'Orange' : 'Black'}">{{b.IsPremium==true ? 'Premium' : 'Standard'}}</div>
+            <img [src]="b.coverImageFile">
+            <h5>{{b.title}}</h5>
+            <h6>{{b.author}}</h6>
+            <div class="details" [ngStyle]="{color: b.isAvailable===true ? 'Green' : 'Red'}">{{b.isAvailable==true ? 'Available' : 'Not available'}}</div>
+            <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
             <p><button class="btn wish">Add to Wishlist </button></p>
-            <p><button class="btn show-det"> Show Details</button></p>
-            <p><button class="btn btn-success" *ngIf="b.IsAvailable===true; else notifyme"> Rent now</button></p>
+            <p><button class="btn show-det" routerLink="/Books/{{b.id}}"> Show Details</button></p>
+            <p><button class="btn btn-success" style="background-color: #1d6f58;" *ngIf="b.isAvailable===true; else notifyme"> Borrow</button></p>
             <ng-template #notifyme>
-                <button class="btn btn-danger">Notify me</button>
+                <button class="btn btn-danger">Borrow</button>
             </ng-template>
         </div>  
-    </div>
 </div>

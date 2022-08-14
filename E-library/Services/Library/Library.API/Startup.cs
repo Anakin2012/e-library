@@ -38,6 +38,17 @@ namespace Library.API
             });
 
 
+            // CORS
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options =>
+                {
+                    options.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
+
             // JWT Security
 
             var jwtSettings = Configuration.GetSection("JwtSettings");
@@ -58,6 +69,7 @@ namespace Library.API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +82,7 @@ namespace Library.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Library.API v1"));
             }
 
+            app.UseCors("AllowOrigin");
             app.UseRouting();
 
             app.UseAuthentication();

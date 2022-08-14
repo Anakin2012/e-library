@@ -3,10 +3,12 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["Services/Library/Library.API/Library.API.csproj", "Services/Library/Library.API/"]
+COPY ["Common/EventBus.Messages/EventBus.Messages.csproj", "Common/EventBus.Messages/"]
 RUN dotnet restore "Services/Library/Library.API/Library.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Library/Library.API"

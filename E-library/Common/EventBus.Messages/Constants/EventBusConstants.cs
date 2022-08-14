@@ -10,6 +10,8 @@ namespace EventBus.Messages.Constants
     {
         public const string CartCheckoutQueue = "cartcheckout-queue";
 
+        public const string AddToLibraryQueue = "addtolibrary-queue";
+
         public const string MembershipQueue = "membership-queue";
     }
 }

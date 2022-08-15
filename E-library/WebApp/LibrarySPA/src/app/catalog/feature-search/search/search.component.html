@@ -1,7 +1,6 @@
-<div class="search-div">
-    
+<div class="search-div">   
     <!-- EVENT BINDING: <input type="text" (input)="changeSearchValue($event)"> -->
-    <input type="text" placeholder="Search for a book..." [(ngModel)] = "searchValue" [ngClass]="{changeBackground: searchValue != ''}" (input)="onSearchTextChanged()">
+    <input style=" font-size: medium; width:300px; height: 40px;" type="text" placeholder=" Search by title, author, genre... " [(ngModel)] = "enteredSearchValue" (input)="onSearchTextChanged($event)">
     <!-- <span *ngIf="searchValue !=''">You searched for "{{searchValue}}"</span>  -->
     <button type="submit" class="search-button">
         <img src="./assets/search.png" width="25px" height="25px">

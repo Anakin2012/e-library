@@ -1,4 +1,7 @@
-<div *ngFor="let b of allBooks; let i = index">
+<app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+
+<div *ngFor="let b of someBooks; let i = index">
+    <div> 
     <!-- <p>{{i}}</p> -->
     <div class="card">
             <img [src]="b.coverImageFile">
@@ -13,4 +16,6 @@
                 <button class="btn btn-danger">Borrow</button>
             </ng-template>
         </div>  
+
+    </div>
 </div>

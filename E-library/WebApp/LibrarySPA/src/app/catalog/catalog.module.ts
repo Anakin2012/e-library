@@ -7,12 +7,15 @@ import { BookListComponent } from './feature-show-books/book-list/book-list.comp
 import { BooksService } from './domain/infrastructure/Services/books.service';
 import { FormsModule } from '@angular/forms';
 import { CatalogRoutingModule } from './catalog-routing.module';
+import { NavComponent } from '../nav/nav.component';
+import { SearchComponent } from './feature-search/search/search.component';
 
 @NgModule({
   declarations: [
     CatalogComponent,
     BookDetailsComponent,
-    BookListComponent
+    BookListComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +23,6 @@ import { CatalogRoutingModule } from './catalog-routing.module';
     FormsModule,
     CatalogRoutingModule
   ],
-  providers: [BooksService]
+  providers: [BooksService, NavComponent]
 })
 export class CatalogModule { }

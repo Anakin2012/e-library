@@ -19,13 +19,21 @@
                         <input type="text" formControlName="username" class="form-control" placeholder="Username">
                     </div>
                     <div class="form-group" style = "margin-bottom: 10px; ">
-                        <input type="text" formControlName="password" class="form-control" placeholder="Password">
-                    </div>
-                    <div class="form-group" style = "margin-bottom: 10px; ">
                         <input type="text" formControlName="email" class="form-control" placeholder="Email address">
                     </div>
                     <div class="form-group" style = "margin-bottom: 10px; ">
                         <input type="text" formControlName="credentials" class="form-control" placeholder="Credentials">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" formControlName="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="form-group" style = "margin-top: 10px; margin-bottom: 10px;">
+                        
+                        <select name="membership" formControlName="membership" class="form-control" id="membership"  style="color: #04AA6D;">
+                            <option value="" disabled selected hidden >Choose membership:</option>
+                            <option value="regular" selected="selected">Regular membership</option>
+                            <option value="regular">Premium membership</option>
+                          </select>
                     </div>
                 
                     <div>

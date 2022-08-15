@@ -39,9 +39,7 @@ import { BooksService } from './Services/books.service';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-    
+    FormsModule
   ],
   providers: [BooksService],
   bootstrap: [AppComponent]

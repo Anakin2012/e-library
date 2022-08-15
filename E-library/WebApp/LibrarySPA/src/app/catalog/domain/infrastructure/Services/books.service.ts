@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { IBook } from '../book/book';
+import { IBook } from '../../models/book';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class BooksService {
 
   constructor(private http: HttpClient) { }

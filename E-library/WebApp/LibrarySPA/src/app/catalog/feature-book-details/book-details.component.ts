@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { withLatestFrom } from 'rxjs';
-import { BooksService } from 'src/app/Services/books.service';
+import { BooksService } from 'src/app/catalog/domain/infrastructure/Services/books.service';
+
 
 @Component({
   selector: 'app-book-details',

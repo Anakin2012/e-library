@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AppComponent } from '../app.component';
-import { BooksService } from '../Services/books.service';
-import { IBook } from './book';
+import { BooksService } from '../../domain/infrastructure/Services/books.service';
+import { IBook } from '../../domain/models/book';
 
 @Component({
-  selector: 'app-book',
-  templateUrl: './book.component.html',
-  styleUrls: ['./book.component.css']
+  selector: 'app-book-list',
+  templateUrl: './book-list.component.html',
+  styleUrls: ['./book-list.component.css']
 })
-export class BookComponent implements OnInit {
+export class BookListComponent implements OnInit {
 
   allBooks: IBook[] = [];
 

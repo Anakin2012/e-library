@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { BooksService } from 'src/app/catalog/domain/infrastructure/Services/books.service';
+import { BooksFacadeService } from '../domain/app-services/books-facade.service';
+import { IBook } from '../domain/models/book';
 
 
 @Component({
@@ -10,27 +13,21 @@ import { BooksService } from 'src/app/catalog/domain/infrastructure/Services/boo
 })
 export class BookDetailsComponent implements OnInit {
 
-  book;
+  public book: IBook;
   bookId;
   RouteParamObs;
 
-  constructor(private activatedRoute: ActivatedRoute, private service: BooksService) { }
+  constructor(private activatedRoute: ActivatedRoute, private service: BooksFacadeService) { }
 
   ngOnInit(): void {
-   // this.bookId = this.activatedRoute.snapshot.paramMap.get('id');
-   // this.book = this.service.books.find(x => x.Id == this.bookId);
-    this.RouteParamObs = this.activatedRoute.paramMap.subscribe((param) => {
+  
+  this.RouteParamObs = this.activatedRoute.paramMap.subscribe((param) => {
       this.bookId = param.get('id');
-      this.service.getAllBooks().subscribe((books) => {
-        console.log(books);
-        this.book = books.find(x => x.id == this.bookId);
+      this.service.getBook(this.bookId).subscribe((book) => {
+        console.log(book);
+        this.book = book;
       });
     });
- 
-  }
-
-  ngOnDestroy() {
-    this.RouteParamObs.unsubscribe();
   }
 
 }

@@ -22,9 +22,11 @@ import { HomepageComponent } from './homepage/homepage.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+
     FormsModule,
     HttpClientModule,
     RouterModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

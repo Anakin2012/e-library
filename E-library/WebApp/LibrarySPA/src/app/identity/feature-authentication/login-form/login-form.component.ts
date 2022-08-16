@@ -33,6 +33,7 @@ export class LoginFormComponent implements OnInit {
     }
 
     const data : ILoginFormData = this.loginForm.value as ILoginFormData;
+
     this.authenticationService.Login(data.loginName, data.password).subscribe((success: boolean) => {
       if(success==true) {
         window.alert('Login is successfull!');

@@ -5,7 +5,7 @@
 <ng-container *ngIf="searchText===''; else some">
 <div *ngFor="let b of allBooks">
         <div class="card">
-            <img [src]="b.coverImageFile">
+            <img src="{{b.coverImageFile}}">
             <h5>{{b.title}}</h5>
             <h6>{{b.author}}</h6>
             <div class="details" [ngStyle]="{color: b.isAvailable===true ? 'Green' : 'Red'}">{{b.isAvailable==true ? 'Available' : 'Not available'}}</div>

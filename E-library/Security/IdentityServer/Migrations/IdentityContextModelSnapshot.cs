@@ -155,21 +155,21 @@ namespace IdentityServer.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "c6bb440a-033a-4670-b648-12473bf27dd2",
+                            ConcurrencyStamp = "f522f25f-c1dd-4870-aede-c684e9260a8c",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "7dae4b72-ff96-43b8-9e7f-202f5949a8e3",
+                            ConcurrencyStamp = "d6e581d3-cf46-4378-adbd-09e6ff7288e8",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "f22789da-1813-4d05-b9d9-deba1a24db1e",
+                            ConcurrencyStamp = "5d978f9c-dbb6-454e-b2de-7dc74772ac69",
                             Name = "PremiumMember",
                             NormalizedName = "PREMIUMMEMBER"
                         });

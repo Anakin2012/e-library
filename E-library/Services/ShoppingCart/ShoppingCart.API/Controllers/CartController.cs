@@ -114,7 +114,15 @@ namespace ShoppingCart.API.Controllers
             {
                 return Forbid();
             }
-
+/*
+            if (book.IsPremium)
+            {
+                if (!User.IsInRole("PremiumMember"))
+                {
+                    return Forbid();
+                }
+            }
+*/
             return Ok(await _service.AddBookToCart(username, bookId));
         }
 

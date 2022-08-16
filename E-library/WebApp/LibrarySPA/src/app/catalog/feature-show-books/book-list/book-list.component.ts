@@ -24,7 +24,9 @@ export class BookListComponent implements OnInit {
 
   onSearchTextEntered(searchValue: string) {
     this.searchText = searchValue;
-    this.getSearched(this.searchText);
+    this.getTitle(this.searchText);
+    this.getAuthor(this.searchText);
+    this.getGenre(this.searchText);
     console.log(this.someBooks);
   }
   
@@ -36,16 +38,25 @@ export class BookListComponent implements OnInit {
     });
   }
 
-  private getSearched(text: string) {
+  private getTitle(text: string) {
     this.service.getBooksByTitle(text).subscribe((books) => {
     this.someBooks = books;
     });
-  /*  this.service.getBooksByAuthor(text).subscribe((books) => {
-     this.someBooks = books;
-    });
-    this.service.getBooksByGenre(text).subscribe((books) => {
-      this.someBooks = books;
-    }); */
   }
 
+  private getAuthor(author: string) {
+    this.service.getBooksByAuthor(author).subscribe((books) => {
+      if (this.someBooks.length == 0) {
+         this.someBooks = books;
+      }
+     });
+  }
+
+  private getGenre(genre: string) {
+    this.service.getBooksByGenre(genre).subscribe((books) => {
+      if (this.someBooks.length == 0) {
+         this.someBooks = books;
+      }
+     });
+  }
 }

@@ -10,6 +10,9 @@
           <h3>Create a Book</h3>
           <form #booksForm="ngForm" (ngSubmit)="onBookCreate(booksForm.value)">
             
+            <label>ID</label>
+            <input type="text" name="id" ngModel>
+
             <label>Title</label>
             <input type="text" name="title" ngModel>
         
@@ -28,36 +31,52 @@
             <label>Cover Image Url</label>
             <input type="text" name="coverImageFile" ngModel>
 
-            <label> Premium </label>
-            <input type="checkbox" name="isPremium" ngModel>
+            <label>Rent Count:</label> 
+            <input style="width: 40px; margin: 10px;" type="number" name="rentCount" ngModel>
 
+            <label style="padding-bottom: 20px;"> Premium </label>
+            <input type="checkbox" style="width: 30px; height: 20px;" name="isPremium" ngModel>
+
+            <label style="padding-bottom: 20px;"> Available </label>
+            <input type="checkbox" style="width: 30px; height: 20px;" name="isAvailable" ngModel>
         
             <input type="submit" value="Add Book">
           </form>
         </div>
   
         <!--Display product area-->
-        <div class="product-display-area">
+        <div class="book-display-area">
           <h3>All Books</h3>
+          <div
+          class="datatable-inner"
+          mdbScrollbar
+          style="position: relative;"
+           >
           <table id="books">
             <tr>
-              <th>ID</th>
+              <th>#</th>
               <th>Title</th>
-              <th>Author</th>
+              <th></th>
+              <th></th>
+              <th></th>
               <th></th>
             </tr>
-            <tr>
-              <td>1</td>
-              <td>iPhone</td>
-              <td>iPhone Pro 11</td>
-              <td>$1299</td>
-              <td><button class="btn-delete">Delete</button></td>
+            <tr *ngIf="allBooks.length < 1">
+                <td colspan="7"> No books in database</td>
+            </tr>
+            <tr *ngFor="let book of allBooks; index as i">
+              <td>{{i + 1}}</td>
+              <td>{{book.title}}</td>
+              <td></td>
+              <td><button class="btn-details" routerLink="/catalog/books/{{book.id}}">Details</button></td>
+              <td><button class="btn-edit" (click)="onBookEdit(book.id)">Edit</button></td>
+              <td><button class="btn-delete" (click)="onBookDelete(book.id)">X</button></td>
             </tr>
           </table>
+          </div>
           <hr>
           <div class="action-btn-container">
-            <button class="btn-fetch">Fetch Product</button>
-            <button class="btn-clear">Clear Product</button>
+            <button type="submit" value="Fetch Book" class="btn-fetch" (click)="onBooksFetch()">Reload Books</button>
           </div>
         </div>
       </div>

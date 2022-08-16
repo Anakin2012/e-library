@@ -11,11 +11,11 @@
 }
 .header{
     text-align: center;
-    color: #21618C;
+    color: #04AA6D;
     padding: 0px 20px;
 }
 h3{
-    color: #21618C;
+    color: #04AA6D;
     margin: 10px 0px;
 }
 hr{
@@ -35,6 +35,11 @@ hr{
     width: 50%;
     padding: 10px 15px;
 }
+
+.book-display-area img{
+  width: 30px;
+  height: 40px;
+}
 input[type=text], select {
     width: 100%;
     padding: 12px 20px;
@@ -47,7 +52,7 @@ input[type=text], select {
   
   input[type=submit] {
     width: 30%;
-    background-color: #48C9B0;
+    background-color: #04AA6D;
     color: white;
     padding: 14px 20px;
     margin: 8px 5px;
@@ -83,20 +88,61 @@ input[type=text], select {
   }
 
   button{
-    border: none;
+    border: #FB5027;
     padding: 8px 15px;
     margin: 0px 5px;
   }
 
   .btn-delete{
+    text-align: center;
     background-color: #FB5027;
+    color: white;
+    height: 34px;
+    width: 34px;
+    padding-bottom: 30px;
+    padding-right: 23px;
+  }
+
+  .btn-delete:hover {
+    background-color: #961e00;
+  }
+
+  .btn-details{
+    background-color: #555c5a;
+    color: white;
+    width: 100px;
+    text-align: center;
+    height: 34px;
+    padding-bottom: 30px;
+  }
+
+  .btn-details:hover{
+    background-color: rgba(212, 188, 49, 0.982);;
+  }
+
+.btn-edit{
+  background-color: #555c5a;
+  color: white;
+    width: 100px;
+    text-align: center;
+    height: 34px;
+    padding-bottom: 30px;
+}
+
+.btn-edit:hover{
+  background-color: #3498DB;
+
+}
+
+  .btn-fetch{
+    background-color: #04AA6D;
     color: white;
   }
 
-  .btn-fetch{
-    background-color: #3498DB;
-    color: white;
+  .btn-fetch:hover{
+    background-color: #1ABC9C;
   }
+
 
   .btn-clear{
     background-color: #F5B041;

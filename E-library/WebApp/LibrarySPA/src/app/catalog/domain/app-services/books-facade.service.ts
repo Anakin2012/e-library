@@ -14,6 +14,14 @@ export class BooksFacadeService {
     return this.booksService.createBook(body);
   }
 
+  public updateBook(id: string, body) {
+    return this.booksService.updateBook(id, body);
+  }
+
+  public deleteBook(id: string) {
+    return this.booksService.deleteBook(id);
+  }
+
   public getBooks(): Observable<IBook[]> {
     return this.booksService.getAllBooks();
   }

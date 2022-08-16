@@ -20,7 +20,7 @@ export class AppStateService {
   private restoreFromLocalStorage() : void {
     const appState : IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
     if(appState !== null) {
-      this.appState = new AppState(appState.accessToken, appState.refreshToken, appState.userName, appState.roles);
+      this.appState = new AppState(appState.accessToken, appState.refreshToken, appState.userName, appState.roles, appState.email);
     }
 
     this.appStateSubject.next(this.appState);
@@ -61,6 +61,15 @@ export class AppStateService {
   public setRoles( roles : string | string[]) : void {
     this.appState = this.appState.clone();
     this.appState.roles = roles;
+    this.appStateSubject.next(this.appState);
+
+    this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
+    
+  }
+
+  public setEmail( email : string ) : void {
+    this.appState = this.appState.clone();
+    this.appState.email = email;
     this.appStateSubject.next(this.appState);
 
     this.localStorageService.set(LocalStorageKeys.AppState, this.appState);

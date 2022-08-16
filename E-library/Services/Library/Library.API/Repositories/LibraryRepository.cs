@@ -32,6 +32,7 @@ namespace Library.API.Repositories
         {
             var libraryItem = new LibraryItem();
             libraryItem.Id = libraryItemDTO.Id;
+            libraryItem.BookId = libraryItemDTO.BookId;
             libraryItem.Username = libraryItemDTO.Username;
             libraryItem.Title = libraryItemDTO.Title;
             libraryItem.Genre = libraryItemDTO.Genre;

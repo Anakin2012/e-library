@@ -16,16 +16,19 @@
         Genre: {{book.genre}}<br>
         Language: {{book.language}}
         </p>
-        <p *ngIf="book" style="font-size: smaller;">{{book.description}}</p>
+        <p *ngIf="book" style="font-size: medium;">{{book.description}}</p>
         
       </div>
 
       <div class="product-price-btn">
         <p *ngIf="book" class="premium" [ngStyle]="{color: book.isPremium===true ? 'Orange' : 'Black'}">{{book.isPremium==true ? 'Premium' : 'Standard'}}</p>
+        <div *ngIf="book">
         <button *ngIf="book.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;">Borrow now</button>
+        
         <ng-template #notifyme>
           <button class="btn btn-danger">Borrow now</button>
         </ng-template>
+      </div>
         <button  class="wishbut" style="background-color: #4f9ac9;" type="button">add to wishlist</button>
       </div>
     </div>

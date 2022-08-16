@@ -30,7 +30,7 @@ namespace Catalog.API
             // dependency injection 
             services.AddCatalogServices();
 
-            services.AddControllers();
+            services.AddControllers(options => options.SuppressAsyncSuffixInActionNames = false);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog.API", Version = "v1" });
@@ -104,6 +104,8 @@ namespace Catalog.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapDefaultControllerRoute();
+
             });            
         }
     }

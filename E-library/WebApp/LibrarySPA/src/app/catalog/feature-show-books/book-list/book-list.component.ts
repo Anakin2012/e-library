@@ -24,10 +24,12 @@ export class BookListComponent implements OnInit {
 
   onSearchTextEntered(searchValue: string) {
     this.searchText = searchValue;
-    this.getTitle(this.searchText);
-    this.getAuthor(this.searchText);
-    this.getGenre(this.searchText);
-    console.log(this.someBooks);
+    if (this.searchText != "") {
+      this.getTitle(this.searchText);
+      this.getAuthor(this.searchText);
+      this.getGenre(this.searchText);
+      console.log(this.someBooks);
+    }
   }
   
   private getAllBooks() {

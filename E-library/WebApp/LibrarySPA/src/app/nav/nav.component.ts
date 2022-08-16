@@ -8,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class NavComponent implements OnInit {
 
   constructor() { }
+  searchText: string = '';
 
   ngOnInit(): void {
   }
   site_name :string = "e-Library";
+
+  
 }

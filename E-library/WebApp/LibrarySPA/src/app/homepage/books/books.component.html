@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="options">
-            <button class="btn " style="background-color: rgb(249, 195, 95); color: white;" routerLink="/Books/{{b.id}}"> Show Details</button>
+            <button class="btn " style="background-color: rgb(249, 195, 95); color: white;" routerLink="/catalog/books/{{b.id}}"> Show Details</button>
             <button style="background-color: #1d6f58; color:white;" class="btn" *ngIf="b.isAvailable===true; else notifyme">Borrow</button>
             <ng-template #notifyme>
                 <button class="btn btn-danger">Borrow</button>

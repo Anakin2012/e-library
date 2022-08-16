@@ -45,6 +45,7 @@ namespace Catalog.API.Controllers
         public async Task<ActionResult<BookDTO>> GetBookById(string id)
         {
             var book = await _repository.GetBook(id);
+         /*
             if (book.IsPremium)
             {
                 if (!User.IsInRole("PremiumMember"))
@@ -53,6 +54,7 @@ namespace Catalog.API.Controllers
                 }
             }
 
+        */
             if (book == null)
             {
                 return NotFound(null);

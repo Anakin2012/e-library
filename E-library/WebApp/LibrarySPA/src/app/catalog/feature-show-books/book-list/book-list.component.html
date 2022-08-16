@@ -1,9 +1,10 @@
+<div class="searchdiv">
 <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
-
-<div *ngFor="let b of someBooks; let i = index">
-    <div> 
-    <!-- <p>{{i}}</p> -->
-    <div class="card">
+<a class="admin-div" routerLinkActive="active" [routerLink]="['/catalog/admin']"><br>Admin options</a>
+</div>
+<ng-container *ngIf="searchText===''; else some">
+<div *ngFor="let b of allBooks">
+        <div class="card">
             <img [src]="b.coverImageFile">
             <h5>{{b.title}}</h5>
             <h6>{{b.author}}</h6>
@@ -16,6 +17,23 @@
                 <button class="btn btn-danger">Borrow</button>
             </ng-template>
         </div>  
-
-    </div>
 </div>
+</ng-container>
+
+<ng-template #some>
+    <div *ngFor="let b of someBooks">
+        <div class="card">
+            <img [src]="b.coverImageFile">
+            <h5>{{b.title}}</h5>
+            <h6>{{b.author}}</h6>
+            <div class="details" [ngStyle]="{color: b.isAvailable===true ? 'Green' : 'Red'}">{{b.isAvailable==true ? 'Available' : 'Not available'}}</div>
+            <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
+            <p><button class="btn wish">Add to Wishlist </button></p>
+            <p><button class="btn show-det" routerLink="/catalog/books/{{b.id}}"> Show Details</button></p>
+            <p><button class="btn btn-success" style="background-color: #1d6f58;" *ngIf="b.isAvailable===true; else notifyme"> Borrow</button></p>
+            <ng-template #notifyme>
+                <button class="btn btn-danger">Borrow</button>
+            </ng-template>
+        </div>  
+</div>
+</ng-template>

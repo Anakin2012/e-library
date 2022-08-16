@@ -9,13 +9,15 @@ import { FormsModule } from '@angular/forms';
 import { CatalogRoutingModule } from './catalog-routing.module';
 import { NavComponent } from '../nav/nav.component';
 import { SearchComponent } from './feature-search/search/search.component';
+import { AdminOptionsComponent } from './feature-admin/admin-options/admin-options.component';
 
 @NgModule({
   declarations: [
     CatalogComponent,
     BookDetailsComponent,
     BookListComponent,
-    SearchComponent
+    SearchComponent,
+    AdminOptionsComponent
   ],
   imports: [
     CommonModule,

@@ -99,7 +99,7 @@ namespace Catalog.API.Controllers
             return CreatedAtRoute("GetBook", new { id = bookDTO.Id }, bookDTO);
         }
 
-        [Route("[action]")]
+        [Route("[action]/{id}")]
         [HttpPut]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateBook(string id, [FromBody] UpdateBookDTO bookDTO)

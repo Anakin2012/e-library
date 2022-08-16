@@ -1,3 +1,16 @@
+.admin-div{ 
+  padding: 70px 20px 70px;
+  color: #ffff;
+  background-color: #333;
+  color: #f2f2f2;
+  text-align:justify;
+  text-decoration: none;
+  font-size: 17px;
+}
+.searchdiv {
+  overflow: hidden;
+}
+
 .card {
     display: flex;
     flex: 50%;

@@ -3,6 +3,7 @@ export interface IAppState {
     refreshToken? : string;
     userName?: string;
     roles? : string | string[];
+    email? : string;
 
 
     hasRole(role: string) : boolean; 
@@ -15,9 +16,10 @@ export class AppState implements IAppState {
     public refreshToken? : string;
     public userName?: string;
     public roles? : string | string[];
+    public email? : string;
 
     public constructor();
-    public constructor(accessToken? : string, refreshToken? : string, userName? : string, roles? : string | string[]);
+    public constructor(accessToken? : string, refreshToken? : string, userName? : string, roles? : string | string[], email? : string);
 
 
     public constructor(...args : any[]) {
@@ -25,11 +27,12 @@ export class AppState implements IAppState {
             return;
         }
 
-        if(args.length == 4) {
+        if(args.length == 5) {
             this.accessToken = args[0];
             this.refreshToken = args[1];
             this.userName = args[2];
             this.roles = args[3];
+            this.email = args[4];
         }
     }
 

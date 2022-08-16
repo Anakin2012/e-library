@@ -26,6 +26,7 @@ export class AuthenticationFacadeService {
         this.appStateService.setUserName(payload[JwtPayloadKeys.Username]);
         this.appStateService.setRoles(payload[JwtPayloadKeys.Role]);
         this.appStateService.setEmail(payload[JwtPayloadKeys.Email]);
+        this.appStateService.setMembershipExpired(payload[JwtPayloadKeys.ExpiredMembership]);
 
         return true;
       }),

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BooksFacadeService } from '../../domain/app-services/books-facade.service';
-import { BooksService } from '../../domain/infrastructure/Services/books.service';
 import { IBook } from '../../domain/models/book';
 
 @Component({

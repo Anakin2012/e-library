@@ -1,0 +1,27 @@
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Bentham|Playfair+Display|Raleway:400,500|Suranna|Trocchi" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="product-img">
+            <img *ngIf="book" src="{{book.coverImageFile}}" height="420" width="327">
+        </div>
+        <div class="product-info">
+            <div class="product-text">
+                <h1 *ngIf="book">{{book.title}}</h1>
+                <h2 *ngIf="book">{{book.author}}</h2>
+                <p *ngIf="book">
+                    Genre: {{book.genre}}<br>
+                    Language: {{book.language}}
+                </p>
+                <p *ngIf="book" style="font-size: smaller;">{{book.description}}</p>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+

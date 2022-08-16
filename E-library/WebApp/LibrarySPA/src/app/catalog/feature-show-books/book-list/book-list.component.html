@@ -1,4 +1,7 @@
+<div class="searchdiv">
 <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+<a class="admin-div" routerLinkActive="active" [routerLink]="['/catalog/admin']"><br>Admin options</a>
+</div>
 <ng-container *ngIf="searchText===''; else some">
 <div *ngFor="let b of allBooks">
         <div class="card">

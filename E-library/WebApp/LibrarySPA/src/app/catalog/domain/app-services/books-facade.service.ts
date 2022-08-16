@@ -10,6 +10,10 @@ export class BooksFacadeService {
 
   constructor(private booksService: BooksService) { }
 
+  public createBook(body) {
+    return this.booksService.createBook(body);
+  }
+
   public getBooks(): Observable<IBook[]> {
     return this.booksService.getAllBooks();
   }

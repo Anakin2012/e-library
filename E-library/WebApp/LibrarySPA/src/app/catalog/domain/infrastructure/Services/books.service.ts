@@ -13,6 +13,10 @@ export class BooksService {
 
   constructor(private http: HttpClient) { }
 
+  public createBook(body: Object) {
+    return this.http.post(`${this.url}/CreateBook`, body);
+  }
+
   public getAllBooks(): Observable<IBook[]> {
     return this.http.get<IBook[]>(`${this.url}/GetBooks`);
   }

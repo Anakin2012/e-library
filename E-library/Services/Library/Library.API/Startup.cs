@@ -18,6 +18,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Library.API.DTOs;
+using Library.API.Enitites;
 
 namespace Library.API
 {
@@ -76,6 +78,11 @@ namespace Library.API
 
             // AutoMapper
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(configuration =>
+               {
+                   configuration.CreateMap<LibraryItemDTO, LibraryItem>().ReverseMap();
+ 
+               });
 
             // EventBus
             services.AddMassTransit(config =>

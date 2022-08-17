@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.API.Controllers
 {
-    [Authorize(Roles = "Member")]
+    //[Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class OrderController : ControllerBase

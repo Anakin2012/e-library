@@ -36,6 +36,11 @@ namespace Library.API.EventBusConsumers
                 libItem.BookId = item.BookId;
                 libItem.Title = item.BookTitle;
                 libItem.Username = username;
+                libItem.Author = item.BookAuthor;
+                libItem.CoverImageFile = item.CoverImageFile;
+                libItem.Language = item.Language;
+                libItem.IsPremium = item.IsPremium;
+                libItem.Genre = item.BookGenre;
                 await _repository.AddLibraryItem(_mapper.Map<LibraryItemDTO>(libItem));
                 _logger.LogInformation($"{typeof(CartCheckoutEvent).Name} consumed successfully. Added book to library. User : {username}, BookID: {item.BookId}");
             }

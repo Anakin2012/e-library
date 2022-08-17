@@ -101,7 +101,6 @@ namespace IdentityServer.AuthenticationServices
                 new Claim(ClaimTypes.Expired, (!member.IsMembershipPaid).ToString())
             };
 
-            // token ce imati i informacije o ulogama
             var roles = await _memberManager.GetRolesAsync(member);
             foreach (var role in roles)
             {

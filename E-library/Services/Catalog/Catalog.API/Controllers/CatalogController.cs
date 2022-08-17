@@ -38,7 +38,7 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
-        [Route("[action]/{id}")]
+        [Route("[action]/{id}", Name ="GetBookById")]
         [HttpGet]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status404NotFound)]
@@ -96,7 +96,7 @@ namespace Catalog.API.Controllers
         {
             await _repository.CreateBook(bookDTO);
 
-            return CreatedAtRoute("GetBook", new { id = bookDTO.Id }, bookDTO);
+            return CreatedAtRoute("GetBookById", new { id = bookDTO.Id }, bookDTO);
         }
 
         [Route("[action]/{id}")]

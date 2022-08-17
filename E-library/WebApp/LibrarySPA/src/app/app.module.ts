@@ -10,6 +10,7 @@ import { BooksComponent } from './homepage/books/books.component';
 import { RouterModule } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,9 +23,11 @@ import { HomepageComponent } from './homepage/homepage.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+
     FormsModule,
     HttpClientModule,
     RouterModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

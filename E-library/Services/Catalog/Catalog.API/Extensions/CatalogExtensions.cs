@@ -23,9 +23,6 @@ namespace Catalog.API.Extensions
                    configuration.CreateMap<Book, UpdateBookDTO>().ReverseMap();
  
                });
-
-            
-
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Library.API.EventBusConsumers
             {
                 LibraryItem libItem = new LibraryItem();
                 libItem.Id = item.BookId + username;
+                libItem.BookId = item.BookId;
                 libItem.Title = item.BookTitle;
                 libItem.Username = username;
                 await _repository.AddLibraryItem(_mapper.Map<LibraryItemDTO>(libItem));

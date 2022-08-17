@@ -1,0 +1,11 @@
+<div *ngFor="let b of libraryItems; let i = index">
+    <!-- <p>{{i}}</p> -->
+    <div class="card">
+        <img  src="{{b.coverImageFile}}">
+        <h5>{{b.title}}</h5>
+        <h6>{{b.author}}</h6>
+        <div class="details" [ngStyle]="{color:'Green'}">{{'Available'}}</div>
+        <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
+        <p><button class="btn show-det" routerLink="/library/item/{{b.bookId}}"> Show Details</button></p>
+    </div>
+</div>

@@ -38,8 +38,14 @@ namespace ShoppingCart.API.Services
             }
 
             CartItem item = new CartItem();
+
             item.BookId = book.Book.Id;
             item.BookTitle = book.Book.Title;
+            item.BookAuthor = book.Book.Author;
+            item.BookAuthor = book.Book.Genre;
+            item.CoverImageFile = book.Book.CoverImageFile;
+            item.IsPremium = book.Book.IsPremium;
+            item.Language = book.Book.Language;
 
             cart.Items.Add(item);
 

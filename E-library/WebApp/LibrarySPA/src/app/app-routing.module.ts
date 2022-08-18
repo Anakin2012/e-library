@@ -9,7 +9,9 @@ const appRoute: Routes = [
   {path: 'catalog', loadChildren: () => import('./catalog/catalog.module').then(m => m.CatalogModule)},
   { path: 'identity', loadChildren: () => import('./identity/identity.module').then(m => m.IdentityModule) },
   { path: 'library', loadChildren: () => import('./library/library.module').then(m=>m.LibraryModule) },
-  {path: 'shopping-cart', loadChildren: () => import('./shopping-cart/shopping-cart.module').then(m => m.ShoppingCartModule)}
+    { path: 'shopping-cart', loadChildren: () => import('./shopping-cart/shopping-cart.module').then(m => m.ShoppingCartModule) },
+    { path: 'ordering', loadChildren: () => import('./ordering/ordering.module').then(m => m.OrderingModule) },
+
 ]
 
 @NgModule({

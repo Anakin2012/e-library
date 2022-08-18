@@ -18,6 +18,8 @@ namespace Ordering.Application.Cqrs.Orders.Queries.DTOs
         public string ZipCode { get; set; }
         public string EmailAddress { get; set; }
 
+        public DateTime OrderDate { get;  set; }
+
         // Relevant information from Order
         public string CustomerId { get; set; }
         public string Username { get; set; }

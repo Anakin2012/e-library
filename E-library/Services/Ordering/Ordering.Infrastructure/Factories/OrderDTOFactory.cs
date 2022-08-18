@@ -23,6 +23,7 @@ namespace Ordering.Infrastructure.Factories
             orderVM.Country = order.Address.Country;
             orderVM.ZipCode = order.Address.ZipCode;
             orderVM.EmailAddress = order.Address.EmailAddress;
+            orderVM.OrderDate = order.OrderDate;
 
             var orderItems = new List<OrderItemDTO>();
             foreach (var item in order.OrderItems)

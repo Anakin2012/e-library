@@ -1,26 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ILibraryItem } from '../../models/libraryitem';
+import { IOrder } from '../../models/IOrder';
 
 @Injectable({
     providedIn: 'root'
 })
-export class LibraryService {
+export class OrderingService {
 
     constructor(private http: HttpClient) { }
 
-    public getBooks(username: string) {
+    public getOrders(usename:string) {
         //treba da se odfiksira ovaj deo
-        return this.http.get<{ [key: string]: ILibraryItem }>('http://localhost:8085/api/v1/Library/'+username)
+        return this.http.get<{ [key: string]: IOrder }>('http://localhost:8004/api/v1/Order/' + usename)
             .pipe(map((res) => {
-                const libItems = [];
+                const orders = [];
                 for (const key in res) {
                     if (res.hasOwnProperty(key)) {
-                        libItems.push({ ...res[key] })
+                        orders.push({ ...res[key] })
                     }
                 }
-                return libItems;
+                return orders;
             }))
 
     }

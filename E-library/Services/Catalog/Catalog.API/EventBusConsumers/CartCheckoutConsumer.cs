@@ -32,6 +32,7 @@ namespace Catalog.API.EventBusConsumers
             {
                 BookDTO bookDTO  = await _repository.GetBook(item.BookId);
                 bookDTO.RentCount += 1;
+                bookDTO.IsAvailable = false;
                 Book bookEntity = _mapper.Map<Book>(bookDTO);
                 await _repository.UpdateBook(item.BookId, _mapper.Map<UpdateBookDTO>(bookEntity));
                 _logger.LogInformation($"{typeof(CartCheckoutEvent).Name} consumed successfully. BookID: {item.BookTitle} updated");

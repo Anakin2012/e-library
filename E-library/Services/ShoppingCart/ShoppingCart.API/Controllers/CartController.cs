@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using EventBus.Messages.Events;
 using MassTransit;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.API.Entities;
@@ -13,6 +12,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ShoppingCart.API.GrpcClientServices;
 using ShoppingCart.API.Services;
+using System.Collections.Generic;
 
 namespace ShoppingCart.API.Controllers
 {
@@ -79,18 +79,36 @@ namespace ShoppingCart.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(void), StatusCodes.Status202Accepted)]
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Checkout([FromBody] CartCheckout cartCheckout)
+        public async Task<IActionResult> Checkout(string username)
         {
             //if (User.FindFirst(ClaimTypes.Name).Value != cartCheckout.Username)
             //{
             //    return Forbid();
             //}
 
-            var cart = await _repository.GetCart(cartCheckout.Username);
+            CartCheckout cartCheckout = new CartCheckout();
+            List<Entities.CartItem> checkoutItems = new List<Entities.CartItem>();
+            var cart = await _repository.GetCart(username);
             if (cart == null)
             {
-                return BadRequest();
+                return BadRequest("There is no active shopping cart for this user");
             }
+
+            cartCheckout.Username = username;
+           
+            cartCheckout.MemberId = null;
+            foreach (var item in cart.Items) {
+                Entities.CartItem checkoutItem = new Entities.CartItem();
+                checkoutItem.BookAuthor = item.BookAuthor;
+                checkoutItem.BookGenre = item.BookGenre;
+                checkoutItem.BookId = item.BookId;
+                checkoutItem.BookTitle = item.BookTitle;
+                checkoutItem.CoverImageFile = item.CoverImageFile;
+                checkoutItem.IsPremium = item.IsPremium;
+                checkoutItem.Language = item.Language;
+                checkoutItems.Add(checkoutItem);
+            }
+            cartCheckout.OrderItems = checkoutItems;
 
             var eventMessage = _mapper.Map<CartCheckoutEvent>(cartCheckout);
             await _publishEndpoint.Publish(eventMessage);
@@ -110,7 +128,8 @@ namespace ShoppingCart.API.Controllers
             //    return Forbid();
             //}
 
-            if (_service.AddBookToCart(username, bookId) == null)
+            var result =  await _service.AddBookToCart(username, bookId);
+            if (result == null)
             {
                 return Forbid();
             }
@@ -123,7 +142,7 @@ namespace ShoppingCart.API.Controllers
                 }
             }
 */
-            return Ok(await _service.AddBookToCart(username, bookId));
+            return Ok(result);
         }
 
         [Route("[action]/{username}/{bookId}")]

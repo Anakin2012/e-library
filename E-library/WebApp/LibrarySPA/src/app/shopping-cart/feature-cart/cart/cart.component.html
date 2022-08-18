@@ -1,0 +1,57 @@
+<div class="shopping-cart">
+    <div class="title">
+      {{currentUser}}'s Shopping Cart
+      <button class="removeall" (click)="onRemoveAll(currentUser)"> Remove all</button>
+    </div>
+
+    <div *ngIf="cart; else empty">
+    <div *ngFor="let item of cartItems">
+    <div class="item">
+      <div class="buttons">
+        <span class="delete-btn"></span>
+        <span class="like-btn"></span>
+      </div>
+   
+      <div class="image">
+        <img style="width: 80px; height: 100px;" src="{{item.coverImageFile}}" alt="" />
+      </div>
+   
+      <div class="description">
+        <span></span>
+        <span>{{item.bookAuthor}}</span>
+        <span *ngIf="item.isPremium===true else standard" style="color: orange">Premium</span>
+        <ng-template #standard>
+          <span>Standard</span>
+        </ng-template>
+      </div>
+   
+      <p class="booktitle"> {{item.bookTitle}} </p>
+
+      <div style="float: right; margin-left: 90px;" class="quantity">
+        <p> Remove from cart 
+        <button class="remove-btn" type="button" name="button" (click)="onRemove(currentUser, item.bookId)">
+            X 
+        </button>
+        </p>
+        <p>Save for later
+        <button class="wish-btn" type="button" name="button">
+           <img style="width: 25px; height: 25px;" src="/assets/heart.png">
+        </button>
+        </p>
+      </div>
+  
+    </div> 
+</div>
+</div>
+
+<ng-template #empty>
+  Your cart is empty !
+</ng-template>
+
+    <div class="footer" *ngIf="cart">
+     <p *ngIf="cart.totalItems===0"> Your cart is empty !</p>
+      Total books: {{cart.totalItems}}
+      <button style="float: right" class="check"> Checkout </button>
+      <button style="float: right" class="back"> <a class="back" routerLinkActive="active" [routerLink]="['/catalog/books']">Find more books </a></button>
+    </div>
+  </div>

@@ -13,7 +13,8 @@ import { RouterLink } from '@angular/router';
   declarations: [
     WishlistComponent,
     ItemlistComponent,
-    AddToListComponent
+    AddToListComponent,
+    WishListItemComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,10 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { BooksFacadeService } from '../../domain/app-services/books-facade.service';
 import { IBook } from '../../domain/models/book';
-
+import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
+import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
+import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
+import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
@@ -12,7 +15,7 @@ export class BookListComponent implements OnInit {
   allBooks: IBook[] = [];
   someBooks: IBook[] = [];
 
-  constructor(private service: BooksFacadeService) { 
+  constructor(private storageService: LocalStorageService,private wishlistService:WishListServiceFacade, private service: BooksFacadeService) { 
 
   }
 
@@ -22,6 +25,12 @@ export class BookListComponent implements OnInit {
 
   searchText: string = '';
 
+  public addToWishlist(bookId:string){
+    const appState : AppState | null = this.storageService.get(LocalStorageKeys.AppState);
+    if(appState !== null){
+      this.wishlistService.AddToWishList(appState.userName, bookId);
+    }
+  }
   onSearchTextEntered(searchValue: string) {
     this.searchText = searchValue;
     if (this.searchText != "") {

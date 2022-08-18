@@ -10,8 +10,8 @@ export class LibraryFacadeService {
 
     constructor(private libraryService: LibraryService) { }
 
-    public getBooks() {
-        return this.libraryService.getBooks();
+    public getBooks(username: string) {
+        return this.libraryService.getBooks(username);
     }
 
 }

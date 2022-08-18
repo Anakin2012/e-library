@@ -44,14 +44,21 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> Pay([FromBody] UserNameDTO userNameDTO)
+        public async Task<ActionResult> Pay([FromBody] string userName)
         {
-            if (User.FindFirstValue(ClaimTypes.Name) != userNameDTO.UserName)
+            if (User.FindFirstValue(ClaimTypes.Name) != userName)
             {
                 return Forbid();
             }
 
-            var result = await _repository.Pay(userNameDTO.UserName);
+            var member = await _repository.FindMember(userName);
+            if (member.IsMembershipPaid == true)
+            {
+                return StatusCode(StatusCodes.Status200OK);
+            }
+
+
+            var result = await _repository.Pay(userName);
 
             if (!result.Succeeded)
             {
@@ -62,8 +69,6 @@ namespace IdentityServer.Controllers
 
                 return BadRequest(ModelState);
             }
-
-            var member = await _repository.FindMember(userNameDTO.UserName);
 
             PayingEvent payingEvent = new PayingEvent(member.Email, member.Name, member.Surname);
 
@@ -77,7 +82,7 @@ namespace IdentityServer.Controllers
 
 
         [Authorize]
-        [HttpDelete]
+        [HttpDelete("[action]/{username}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -151,7 +156,7 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> CancelMembership(string username)
+        public async Task<ActionResult> CancelMembership([FromBody] string username)
         {
             if (User.FindFirstValue(ClaimTypes.Name) != username)
             {

@@ -42,7 +42,7 @@ namespace ShoppingCart.API.Services
             item.BookId = book.Book.Id;
             item.BookTitle = book.Book.Title;
             item.BookAuthor = book.Book.Author;
-            item.BookAuthor = book.Book.Genre;
+            item.BookGenre = book.Book.Genre;
             item.CoverImageFile = book.Book.CoverImageFile;
             item.IsPremium = book.Book.IsPremium;
             item.Language = book.Book.Language;
@@ -69,11 +69,11 @@ namespace ShoppingCart.API.Services
             }
 
             CartItem item = new CartItem();
-            item.BookId = book.Book.Id;
-            item.BookTitle = book.Book.Title;
-            
-            cart.Items.Remove(item);
+           
+            item = cart.Items.Find(i => i.BookId == book.Book.Id);
 
+            cart.Items.Remove(item); 
+            
             await _repository.UpdateCart(cart);
 
             return cart.Items;

@@ -59,7 +59,7 @@ namespace WishList.API.Controllers
             return Ok(recommendations);
         }
 
-
+        [Route("[action]")]
         [HttpPut]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> UpdateList(WishBookList list)

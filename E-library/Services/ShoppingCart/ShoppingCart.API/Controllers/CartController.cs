@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using EventBus.Messages.Events;
 using MassTransit;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.API.Entities;
@@ -96,12 +95,7 @@ namespace ShoppingCart.API.Controllers
             }
 
             cartCheckout.Username = username;
-            cartCheckout.State = cart.State;
-            cartCheckout.Street = cart.Street;
-            cartCheckout.City = cart.City;
-            cartCheckout.Country = cart.Country;
-            cartCheckout.EmailAddress = cart.EmailAddress;
-            cartCheckout.ZipCode = cart.ZipCode;
+           
             cartCheckout.MemberId = null;
             foreach (var item in cart.Items) {
                 Entities.CartItem checkoutItem = new Entities.CartItem();

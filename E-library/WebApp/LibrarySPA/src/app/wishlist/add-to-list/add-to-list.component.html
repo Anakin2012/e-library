@@ -1,0 +1,39 @@
+<p>add-to-list works!</p>
+<div *ngIf="RecByAuthor">
+<p>Recommended by author</p> 
+<div *ngFor="let b of RecByAuthor; let i = index">
+    <div class="card">
+        <h5 class="card-title">{{b.title}}</h5>
+        <p>Author:</p>
+        <p>{{b.author}}</p>
+        <p>Genre:</p>
+        <p>{{b.genre}}</p>
+        <button class = "btn btn-danger" (click) = "AddBook(b.bookId)">Add</button>
+    </div>   
+</div>   
+</div>
+<div *ngIf="RecByGenre">
+<p>Recommended by genre</p>
+<div *ngFor="let b  of RecByGenre; let i = index">
+    <div class="card">
+        <h5 class="card-title">{{b.title}}</h5>
+        <p>Author:</p>
+        <p>{{b.author}}</p>
+        <p>Genre:</p>
+        <p>{{b.genre}}</p>
+        <button class = "btn btn-danger" (click) = "AddBook(b.bookId)">Add</button>
+    </div>  
+</div>
+</div>
+<p>Others</p>
+<div *ngFor="let b of RecRandom; let i = index">
+    <div class="card">
+        <h5 class="card-title">{{b.title}}</h5>
+<p>Author:</p>
+<p>{{b.author}}</p>
+<p>Genre:</p>
+<p>{{b.genre}}</p>
+        <button class = "btn btn-danger" (click) = "AddBook(b.bookId)">Add</button>
+    </div>  
+</div>
+<button class = "btn btn-dark" [routerLink]="['..']">Close</button>

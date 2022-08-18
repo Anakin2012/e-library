@@ -80,7 +80,9 @@ export class AdminOptionsComponent implements OnInit {
       console.log(books);
       this.service.createBook(books).subscribe((res) => {
         console.log(res);
+        this.fetchBooks();
       });
+
   }
 
   private updateBook(id: string, books: {title: string, author: string, genre: string, language:string, description: string, 
@@ -96,13 +98,17 @@ export class AdminOptionsComponent implements OnInit {
     
     this.service.updateBook(id, books).subscribe((res) => {
       console.log(res);
+      this.fetchBooks();
     })
+
   }
 
   private deleteBook(id) {
     this.service.deleteBook(id).subscribe((res) => {
       console.log(res);
+      this.fetchBooks();
     });
+
   }
 
 }

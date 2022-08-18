@@ -1,0 +1,13 @@
+<div *ngFor="let item of itemList; let i = index">
+  <app-wish-list-item [ngClass]="item"></app-wish-list-item>
+    <div class="card">
+        <p>{{i}}</p>
+        <p>{{item.title}}</p>
+        <button class = "btn btn-danger">Remove</button>
+        <button *ngIf="item.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;">Borrow now</button>
+        
+        <ng-template #notifyme>
+          <button class="btn btn-danger">Borrow now</button>
+        </ng-template>
+    </div>
+</div>

@@ -10,11 +10,11 @@
             <h6>{{b.author}}</h6>
             <div class="details" [ngStyle]="{color: b.isAvailable===true ? 'Green' : 'Red'}">{{b.isAvailable==true ? 'Available' : 'Not available'}}</div>
             <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
-            <p><button class="btn wish">Add to Wishlist </button></p>
+            <p><button class="btn wish" (click)="addToWishlist(b.id)">Add to Wishlist </button></p>
             <p><button class="btn show-det" routerLink="/catalog/books/{{b.id}}"> Show Details</button></p>
-            <p><button class="btn btn-success" style="background-color: #1d6f58;" *ngIf="b.isAvailable===true; else notifyme"> Borrow</button></p>
+            <p><button class="btn btn-success" style="background-color: #1d6f58;" *ngIf="b.isAvailable===true; else notifyme" (click)="onAddToCart(currentUser, b.id)"> Borrow</button></p>
             <ng-template #notifyme>
-                <button class="btn btn-danger">Borrow</button>
+                <button class="btn btn-danger" (click)="onAddToCart(currentUser, b.id)">Borrow</button>
             </ng-template>
         </div>  
 </div>
@@ -30,7 +30,7 @@
             <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
             <p><button class="btn wish">Add to Wishlist </button></p>
             <p><button class="btn show-det" routerLink="/catalog/books/{{b.id}}"> Show Details</button></p>
-            <p><button class="btn btn-success" style="background-color: #1d6f58;" *ngIf="b.isAvailable===true; else notifyme"> Borrow</button></p>
+            <p><button class="btn btn-success" style="background-color: #1d6f58;" *ngIf="b.isAvailable===true; else notifyme" (click)="onAddToCart(currentUser, b.id)"> Borrow</button></p>
             <ng-template #notifyme>
                 <button class="btn btn-danger">Borrow</button>
             </ng-template>

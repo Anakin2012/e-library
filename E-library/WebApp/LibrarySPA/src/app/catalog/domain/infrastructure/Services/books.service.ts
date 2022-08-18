@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
+import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 import { IBook } from '../../models/book';
 
 @Injectable({
@@ -12,6 +14,10 @@ export class BooksService {
   private readonly url: string = 'http://localhost:8000/api/v1/Catalog';
 
   constructor(private http: HttpClient) { }
+
+  public addToCart(username: string, id: string) : Observable<ICartItem[]>{
+    return this.http.put<ICartItem[]>(`http://localhost:8003/api/v1/Cart/AddBookToCart/${username}/${id}`, null);
+  }
 
   public createBook(body: Object) {
     return this.http.post(`${this.url}/CreateBook`, body);

@@ -17,11 +17,8 @@ namespace ShoppingCart.API.GrpcClientServices
 
         public async Task<GetBookByIdResponse> GetBookById(string id)
         {
-
             var getBookRequest = new GetBookByIdRequest();
-
             getBookRequest.Id = id;
-
 
             return await _catalogProtoServiceClient.GetBookByIdAsync(getBookRequest);
         }

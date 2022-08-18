@@ -13,7 +13,7 @@
 
   .shopping-cart {
     width: 850px;
-    height: 523px;
+    
     margin: 80px auto;
     background: #f0f0f0c4;
     box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
@@ -30,10 +30,22 @@
     color: #04AA6D;
     font-size: 22px;
     font-weight: 700;
+    padding-bottom: 30px;
+  }
+
+  .footer {
+    height: 60px;
+    border-top: 1px solid #E1E8EE;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    font-size: 18px;
+    font-weight: 300;
+    padding: 20px 20px;
   }
    
   .item {
-    padding: 20px 30px;
+    padding-bottom: 20px;
+    padding-top: 10px;
     height: 120px;
     display: flex;
   }
@@ -104,40 +116,53 @@
    
   .description span:first-child {
     margin-bottom: 5px;
+    color: #6b7278;
   }
   .description span:last-child {
     font-weight: 300;
     margin-top: 8px;
-    color: #86939E;
+    color: #6b7278;
   }
-
+     
   .quantity {
-    padding-top: 20px;
-    margin-right: 60px;
+    margin-top: 10px;
   }
-  .quantity input {
-    -webkit-appearance: none;
-    border: none;
-    text-align: center;
-    width: 32px;
-    font-size: 16px;
-    color: #43484D;
-    font-weight: 300;
+  .p {
+    font-size: 10px;  
   }
-   
-  button[class*=btn] {
-    width: 30px;
+  .remove-btn {
+    background-color: #ce2424;
+    width: 40px;
     height: 30px;
-    background-color: #E1E8EE;
+    color: #ffff;
     border-radius: 6px;
     border: none;
     cursor: pointer;
+    margin-right: 20px;
   }
-  .minus-btn img {
-    margin-bottom: 3px;
+ 
+  .wish-btn {
+    background-color: #248bba;
+    width: 40px;
+    height: 30px;
+    margin-left: 35px;
+    color: #ffff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-right: 20px;
   }
-  .plus-btn img {
-    margin-top: 2px;
+
+  .removeall {
+    float: right;
+    width: 100px;
+    height: 30px;
+    background-color: #ce2424;
+    color: #ffff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
   }
    
   button:focus,
@@ -145,12 +170,36 @@
     outline:0;
   }
 
+  .check {
+    background-color: #04AA6D;
+    width: 100px;
+    height: 35px;
+    margin-left: 35px;
+    color: #ffff;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-right: 20px;
+  }
 
-  .total-price {
-    width: 83px;
+  .back {
+    width: 155px;
+    height: 35px;
+    color: #ffff;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #6b7278;  
+    text-decoration: none;
+  
+  }
+
+
+  .booktitle {
+    width: 200px;
     padding-top: 27px;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     color: #43484D;
     font-weight: 300;
   }

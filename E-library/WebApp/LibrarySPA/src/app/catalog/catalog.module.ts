@@ -17,7 +17,7 @@ import { AdminOptionsComponent } from './feature-admin/admin-options/admin-optio
     BookDetailsComponent,
     BookListComponent,
     SearchComponent,
-    AdminOptionsComponent
+    AdminOptionsComponent,
   ],
   imports: [
     CommonModule,

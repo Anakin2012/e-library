@@ -7,7 +7,10 @@ import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 import { BooksFacadeService } from '../../domain/app-services/books-facade.service';
 import { IBook } from '../../domain/models/book';
-
+import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
+import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
+import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
+import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
@@ -20,7 +23,8 @@ export class BookListComponent implements OnInit {
   currentUser: string = '';
   cartItems: ICartItem[];
 
-  constructor(private service: BooksFacadeService, private localStorageService: LocalStorageService) { 
+
+  constructor(private localStorageService: LocalStorageService,private wishlistService:WishListServiceFacade, private service: BooksFacadeService) { 
 
   }
 
@@ -36,6 +40,13 @@ export class BookListComponent implements OnInit {
 
   searchText: string = '';
 
+  public addToWishlist(bookId:string){
+    const appState : AppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
+    if(appState !== null){
+      this.wishlistService.AddToWishList(appState.userName, bookId);
+    }
+  }
+
 
   onAddToCart(username: string, id: string) {
     this.addToCart(this.currentUser, id);
@@ -47,6 +58,7 @@ export class BookListComponent implements OnInit {
       this.cartItems = res;
     });
   }
+
 
   onSearchTextEntered(searchValue: string) {
     this.searchText = searchValue;

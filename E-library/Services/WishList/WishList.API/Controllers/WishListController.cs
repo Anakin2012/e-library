@@ -25,7 +25,7 @@ namespace WishList.API.Controllers
         }
 
         [Authorize(Roles = "Member")]
-        [HttpGet("{username}")]
+        [HttpGet("[action]/{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> GetList(string username) { 
             var basket = await _repository.GetList(username);

@@ -4,6 +4,7 @@ import { AddToListComponent } from './add-to-list/add-to-list.component';
 import { ItemlistComponent } from './itemlist/itemlist.component';
 import { WishListItemComponent } from './wish-list-item/wish-list-item.component';
 import { WishlistComponent } from './wishlist.component';
+
 const routes: Routes = [
   {path:'', component:WishlistComponent, 
   children:[{path : 'itemlist', component:ItemlistComponent},

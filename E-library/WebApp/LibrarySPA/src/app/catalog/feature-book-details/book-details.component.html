@@ -23,10 +23,10 @@
       <div class="product-price-btn">
         <p *ngIf="book" class="premium" [ngStyle]="{color: book.isPremium===true ? 'Orange' : 'Black'}">{{book.isPremium==true ? 'Premium' : 'Standard'}}</p>
         <div *ngIf="book">
-        <button *ngIf="book.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;">Borrow now</button>
+        <button *ngIf="book.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;" (click)="onAddToCart(currentUser, book.id)">Borrow now</button>
         
         <ng-template #notifyme>
-          <button class="btn btn-danger">Borrow now</button>
+          <button class="btn btn-danger" (click)="onAddToCart(currentUser, book.id)">Borrow now</button>
         </ng-template>
       </div>
         <button  class="wishbut" style="background-color: #4f9ac9;" type="button">add to wishlist</button>

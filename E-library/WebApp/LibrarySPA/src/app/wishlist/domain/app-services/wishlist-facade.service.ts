@@ -30,4 +30,9 @@ public AddToWishList(username : string, bookId:string): void{
 public DeleteList(username : string): void{
     return this.wishListService.DeleteList(username);
 }
+
+public UpdateList(list : Object) : Observable<Object>{
+    return this.wishListService.UpdateList(list);
+}
+
 }

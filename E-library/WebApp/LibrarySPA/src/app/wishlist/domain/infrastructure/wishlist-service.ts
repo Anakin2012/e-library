@@ -31,7 +31,7 @@ public DeleteList(username : string) : void {
     this.http.delete('${this.url}/${username}');
 }
 
-public UpdateList(list : Object) : void{
-    this.http.put('${this.url}', list);
+public UpdateList(list : Object) : Observable<Object>{
+    return this.http.put('${this.url}/UpdateList', list);
 }
 }

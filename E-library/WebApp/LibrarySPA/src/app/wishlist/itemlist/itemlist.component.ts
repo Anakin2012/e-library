@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
 import { WishListServiceFacade } from '../domain/app-services/wishlist-facade.service';
 import { IWishlistItem } from '../domain/models/wishlistitem';
 import { WishListItemComponent } from '../wish-list-item/wish-list-item.component';
+import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
+import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 @Component({
   selector: 'app-itemlist',
   templateUrl: './itemlist.component.html',
@@ -10,18 +13,21 @@ import { WishListItemComponent } from '../wish-list-item/wish-list-item.componen
 })
 export class ItemlistComponent implements OnInit {
   public itemList : IWishlistItem[] = []
-  constructor(private service : WishListServiceFacade, private activatedRoute:ActivatedRoute) { }
+  constructor(private localStorageService: LocalStorageService, private service : WishListServiceFacade, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
-    this.getAllBooks();
+    this.getList();
 }
 
 
-private getAllBooks() {
-    this.service.GetList("username//").subscribe((items) => {
+private getList() {
+    const appState : AppState | null = this.localStorageService.get(LocalStorageKeys.AppState)
+    if(appState !== null){
+    this.service.GetList(appState.userName).subscribe((items) => {
         console.log(items);
         this.itemList = items;
     });
+  }
 }
 
 //private updateList(bookId : string){

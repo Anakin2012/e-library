@@ -1,12 +1,12 @@
 import { compileDeclareInjectorFromMetadata } from '@angular/compiler';
 import { Component, OnChanges, OnInit } from '@angular/core';
+import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
+import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
 import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 import { BooksFacadeService } from '../../domain/app-services/books-facade.service';
 import { IBook } from '../../domain/models/book';
 import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
-import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
-import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
 @Component({
   selector: 'app-book-list',
@@ -54,7 +54,8 @@ export class BookListComponent implements OnInit {
   private addToCart(username: string, id: string) {
     this.service.addToCart(username, id).subscribe((res) => {
       console.log(res);
-      this.cartItems = res;
+        this.cartItems = res;
+        location.reload();
     });
   }
 

@@ -19,16 +19,8 @@ namespace EventBus.Messages.Events
     public class CartCheckoutEvent : IntegrationBaseEvent
     {
 
-        // Address
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
-        public string ZipCode { get; set; }
-        public string EmailAddress { get; set; }
-
         // Order
         public string Username { get; set; }
-        public IEnumerable<CartItem> OrderItems { get; set; }
+        public IEnumerable<CartItem> Items { get; set; }
     }
 }

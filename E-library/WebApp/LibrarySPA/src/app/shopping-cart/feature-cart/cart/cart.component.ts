@@ -30,17 +30,18 @@ export class CartComponent implements OnInit {
   }
 
   onRemoveAll(username: string) {
-    this.deleteCart(this.currentUser);
+      this.deleteCart(this.currentUser);
   }
 
   onRemove(username: string, id: string) {
-    this.removeFromCart(this.currentUser, id);
+      this.removeFromCart(this.currentUser, id);
   }
 
   private removeFromCart(username: string, id: string) {
     this.cartService.removeFromCart(username, id).subscribe((cartItems) => {
       this.cart.items = cartItems;
-      this.getCart(username);
+        this.getCart(username);
+        location.reload();
     });
   }
 
@@ -57,7 +58,8 @@ export class CartComponent implements OnInit {
     this.cartService.deleteCart(username).subscribe((res) => 
     {
       console.log(res);
-      this.getCart(username);
+        this.getCart(username);
+        location.reload();
     });
   }
 }

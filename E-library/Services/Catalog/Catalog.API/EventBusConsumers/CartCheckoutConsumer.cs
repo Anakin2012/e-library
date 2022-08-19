@@ -28,7 +28,7 @@ namespace Catalog.API.EventBusConsumers
         public async Task Consume(ConsumeContext<CartCheckoutEvent> context)
         {
 
-            foreach (CartItem item in context.Message.OrderItems)
+            foreach (CartItem item in context.Message.Items)
             {
                 BookDTO bookDTO  = await _repository.GetBook(item.BookId);
                 bookDTO.RentCount += 1;

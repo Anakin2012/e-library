@@ -47,6 +47,19 @@ namespace ShoppingCart.API.Controllers
             var cart = await _repository.GetCart(username);
             return Ok(cart ?? new Cart(username));
         }
+        [Route("[action]/{username}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(decimal), StatusCodes.Status200OK)]
+        public async Task<ActionResult<Cart>> GetCartTotalItems(string username)
+        {
+            if (User.FindFirst(ClaimTypes.Name).Value != username)
+            {
+                return Forbid();
+            }
+
+            var cart = await _repository.GetCart(username);
+            return Ok(cart.TotalItems);
+        }
 
         [Route("[action]")]
         [HttpPut]
@@ -81,43 +94,28 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Checkout(string username)
         {
-            
-            CartCheckout cartCheckout = new CartCheckout();
-
+           
             if (User.FindFirst(ClaimTypes.Name).Value != cartCheckout.Username)
             {
                 return Forbid();
             }
 
             List<Entities.CartItem> checkoutItems = new List<Entities.CartItem>();
+            
             var cart = await _repository.GetCart(username);
             if (cart == null)
             {
                 return BadRequest("There is no active shopping cart for this user");
             }
 
-            cartCheckout.Username = username;
-           
-            cartCheckout.MemberId = null;
-            foreach (var item in cart.Items) {
-                Entities.CartItem checkoutItem = new Entities.CartItem();
-                checkoutItem.BookAuthor = item.BookAuthor;
-                checkoutItem.BookGenre = item.BookGenre;
-                checkoutItem.BookId = item.BookId;
-                checkoutItem.BookTitle = item.BookTitle;
-                checkoutItem.CoverImageFile = item.CoverImageFile;
-                checkoutItem.IsPremium = item.IsPremium;
-                checkoutItem.Language = item.Language;
-                checkoutItems.Add(checkoutItem);
-            }
-            cartCheckout.OrderItems = checkoutItems;
-
-            var eventMessage = _mapper.Map<CartCheckoutEvent>(cartCheckout);
+            var eventMessage = _mapper.Map<CartCheckoutEvent>(cart);
             await _publishEndpoint.Publish(eventMessage);
 
-            await _repository.DeleteCart(cartCheckout.Username);
+            cart.Items.Clear();
+            await _repository.UpdateCart(cart);
 
             return Accepted();
+
         }
 
         [Route("[action]/{username}/{bookId}")]

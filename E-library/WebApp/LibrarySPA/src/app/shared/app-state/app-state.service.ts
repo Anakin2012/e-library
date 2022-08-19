@@ -64,6 +64,24 @@ export class AppStateService {
 
   }
 
+  public setFirstName( name : string) : void {
+    this.appState = this.appState.clone();
+    this.appState.firstName = name;
+    this.appStateSubject.next(this.appState);
+
+    this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
+
+  }
+
+  public setLastName( lastName : string) : void {
+    this.appState = this.appState.clone();
+    this.appState.lastName = lastName;
+    this.appStateSubject.next(this.appState);
+
+    this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
+
+  }
+
   public setRoles( roles : string | string[]) : void {
     this.appState = this.appState.clone();
     this.appState.roles = roles;

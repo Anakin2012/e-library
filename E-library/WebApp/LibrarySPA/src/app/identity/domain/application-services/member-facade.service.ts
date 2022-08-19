@@ -11,16 +11,8 @@ export class MemberFacadeService {
 
   constructor(private memberService : MemberService) { }
 
-  public getMemberDetails(username : string) : Observable<boolean> {
-    return this.memberService.getMemberDetails(username).pipe(
-      map(() => {
-        return true;
-      }),
-      catchError((err) => {
-        console.log(err);
-        return of(false);
-      })
-    );
+  public getMemberDetails(username : string) : Observable<IMemberDetails> {
+    return this.memberService.getMemberDetails(username);
   }
 
 

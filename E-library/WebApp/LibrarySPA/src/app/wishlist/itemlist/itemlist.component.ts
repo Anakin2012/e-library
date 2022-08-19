@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, IterableDiffers, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
 import { WishListServiceFacade } from '../domain/app-services/wishlist-facade.service';
@@ -30,8 +30,14 @@ private getList() {
   }
 }
 
-//private updateList(bookId : string){
-//  this.
-//}
+removeFromList(bookId : string){
+  const appState : AppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
+  if(appState !== null){
+    this.service.RemoveFromWishlist(appState.userName, bookId).subscribe((list)=>{
+      console.log(list);
+      this.getList();
+    });
+  }
+}
 
 }

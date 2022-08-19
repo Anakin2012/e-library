@@ -75,5 +75,12 @@ namespace WishList.API.Controllers
             return Ok();
         }
 
+        [Route("[action]/{username}/{bookId}")]
+        [HttpPut]
+        [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
+        public async Task<ActionResult<WishBookList>> RemoveItemFromWishlist(string username, string bookId)
+        {
+            return Ok(await _repository.RemoveItemFromWishlist(username, bookId));
+        }
     }
 }

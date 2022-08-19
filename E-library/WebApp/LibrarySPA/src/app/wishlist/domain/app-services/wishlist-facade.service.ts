@@ -35,4 +35,7 @@ public UpdateList(list : Object) : Observable<Object>{
     return this.wishListService.UpdateList(list);
 }
 
+public RemoveFromWishlist(username : string, bookId : string) : Observable<IWishlistItem[]>{
+    return this.wishListService.RemoveFromWishlist(username,bookId);
+}
 }

@@ -23,9 +23,9 @@ export class ItemlistComponent implements OnInit {
 private getList() {
     const appState : AppState | null = this.localStorageService.get(LocalStorageKeys.AppState)
     if(appState !== null){
-    this.service.GetList(appState.userName).subscribe((items) => {
-        console.log(items);
-        this.itemList = items;
+    this.service.GetList(appState.userName).subscribe((wList) => {
+        console.log(wList);
+        this.itemList = wList.list;
     });
   }
 }

@@ -7,6 +7,7 @@ import { LibraryitemListComponent } from 'src/app/library/feature-show-items/ite
 import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
 import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 import { IAppState } from 'src/app/shared/app-state/app-state';
+import { SearchComponent } from 'src/app/catalog/feature-search/search/search.component';
 @Component({
   selector: 'app-add-to-list',
   templateUrl: './add-to-list.component.html',
@@ -15,7 +16,8 @@ import { IAppState } from 'src/app/shared/app-state/app-state';
 export class AddToListComponent implements OnInit {
   public RecByAuthor : IWishlistItem[] = [];
   public RecByGenre : IWishlistItem[] = [];
-  public RecRandom : IWishlistItem[] = [];
+  paramObs;
+  keys;
   constructor(private localStorageService: LocalStorageService,
     private service : WishListServiceFacade, private activatedRoute:ActivatedRoute) {
 
@@ -35,7 +37,6 @@ export class AddToListComponent implements OnInit {
      this.service.GetRecommendationsByGenre(appState.userName).subscribe((list)=>
      {this.RecByGenre = list;
       console.log(list);});
-    this.RecRandom = [];
      }
   
     }

@@ -5,6 +5,8 @@ export interface IAppState {
     roles? : string | string[];
     email? : string;
     membershipExpired? : string;
+    firstName? : string;
+    lastName? : string;
 
 
     hasRole(role: string) : boolean; 
@@ -19,9 +21,11 @@ export class AppState implements IAppState {
     public roles? : string | string[];
     public email? : string;
     public membershipExpired?: string;
+    public firstName? : string;
+    public lastName? : string;
 
     public constructor();
-    public constructor(accessToken? : string, refreshToken? : string, userName? : string, roles? : string | string[], email? : string, membershipExpired? : string);
+    public constructor(accessToken? : string, refreshToken? : string, userName? : string, roles? : string | string[], email? : string, membershipExpired? : string, firstName? : string, lastName? : string);
 
 
     public constructor(...args : any[]) {
@@ -29,13 +33,15 @@ export class AppState implements IAppState {
             return;
         }
 
-        if(args.length == 6) {
+        if(args.length == 8) {
             this.accessToken = args[0];
             this.refreshToken = args[1];
             this.userName = args[2];
             this.roles = args[3];
             this.email = args[4];
-            this.membershipExpired = args[6];
+            this.membershipExpired = args[5];
+            this.firstName = args[6];
+            this.lastName = args[7];
         }
     }
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Library.API.Controllers
 {
-    //[Authorize(Roles = "Member")]
+    [Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class LibraryController : ControllerBase

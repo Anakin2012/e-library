@@ -17,7 +17,7 @@ namespace Ordering.Infrastructure.Factories
             var order = new Order(command.Username, new Address(command.Street, command.City, command.State, command.Country, command.ZipCode, command.EmailAddress));
             foreach (var item in command.OrderItems)
             {
-                order.AddOrderItem(item.BookId, item.BookTitle, item.Author, item.Genre);
+                order.AddOrderItem(item.BookId, item.BookTitle, item.BookAuthor, item.BookGenre);
 
             }
             return order;

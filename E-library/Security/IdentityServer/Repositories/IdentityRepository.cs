@@ -159,10 +159,6 @@ namespace IdentityServer.Repositories
         public async Task<IdentityResult> Pay(string username) {
             var member = await _memberManager.FindByNameAsync(username);
 
-            if (member.IsMembershipPaid == true) {
-                return IdentityResult.Failed();
-            }
-
             IList<string> roles = await _memberManager.GetRolesAsync(member);
 
             bool premium = false;

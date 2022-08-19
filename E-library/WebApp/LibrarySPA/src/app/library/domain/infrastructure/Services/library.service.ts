@@ -10,9 +10,9 @@ export class LibraryService {
 
     constructor(private http: HttpClient) { }
 
-    public getBooks() {
+    public getBooks(username: string) {
         //treba da se odfiksira ovaj deo
-        return this.http.get<{ [key: string]: ILibraryItem }>('http://localhost:8085/api/v1/Library/lukaTEST')
+        return this.http.get<{ [key: string]: ILibraryItem }>('http://localhost:8085/api/v1/Library/'+username)
             .pipe(map((res) => {
                 const libItems = [];
                 for (const key in res) {

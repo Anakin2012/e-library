@@ -16,6 +16,12 @@ export class AppStateService {
     this.restoreFromLocalStorage();
   }
 
+  public clearAppState() : void {
+    this.localStorageService.clear(LocalStorageKeys.AppState);
+    this.appState = new AppState();
+    this.appStateSubject.next(this.appState);
+  }
+
 
   private restoreFromLocalStorage() : void {
     const appState : IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
@@ -52,6 +58,24 @@ export class AppStateService {
   public setUserName( userName : string) : void {
     this.appState = this.appState.clone();
     this.appState.userName = userName;
+    this.appStateSubject.next(this.appState);
+
+    this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
+
+  }
+
+  public setFirstName( name : string) : void {
+    this.appState = this.appState.clone();
+    this.appState.firstName = name;
+    this.appStateSubject.next(this.appState);
+
+    this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
+
+  }
+
+  public setLastName( lastName : string) : void {
+    this.appState = this.appState.clone();
+    this.appState.lastName = lastName;
     this.appStateSubject.next(this.appState);
 
     this.localStorageService.set(LocalStorageKeys.AppState, this.appState);

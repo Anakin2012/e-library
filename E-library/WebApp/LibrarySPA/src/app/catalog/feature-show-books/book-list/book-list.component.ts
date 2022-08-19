@@ -1,12 +1,12 @@
 import { compileDeclareInjectorFromMetadata } from '@angular/compiler';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
+import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
+import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 import { BooksFacadeService } from '../../domain/app-services/books-facade.service';
 import { IBook } from '../../domain/models/book';
 import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
-import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
-import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
 @Component({
   selector: 'app-book-list',
@@ -19,9 +19,9 @@ export class BookListComponent implements OnInit {
   someBooks: IBook[] = [];
   currentUser: string = '';
   cartItems: ICartItem[];
+  currentRoles?: string | string[];
 
-
-  constructor(private localStorageService: LocalStorageService,private wishlistService:WishListServiceFacade, private service: BooksFacadeService) { 
+  constructor(private service: BooksFacadeService, private localStorageService: LocalStorageService, private wishlistService: WishListServiceFacade) { 
 
   }
 
@@ -29,7 +29,9 @@ export class BookListComponent implements OnInit {
     const appState: IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
     if(appState !== null) {
       this.currentUser = appState.userName;
+      this.currentRoles = appState.roles;
       console.log(this.currentUser);
+      console.log(this.currentRoles);
     }
     this.getAllBooks();
     console.log(this.cartItems);
@@ -52,7 +54,8 @@ export class BookListComponent implements OnInit {
   private addToCart(username: string, id: string) {
     this.service.addToCart(username, id).subscribe((res) => {
       console.log(res);
-      this.cartItems = res;
+        this.cartItems = res;
+        location.reload();
     });
   }
 

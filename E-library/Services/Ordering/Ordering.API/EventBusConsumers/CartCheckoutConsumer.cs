@@ -4,6 +4,7 @@ using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Ordering.Application.Cqrs.Orders.Commands.CreateOrderCommand;
+using Ordering.Application.Cqrs.Orders.Commands.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,16 @@ namespace Ordering.API.EventBusConsumers
 
         public async Task Consume(ConsumeContext<CartCheckoutEvent> context)
         {
-            var command = _mapper.Map<CreateOrderCommand>(context.Message);
+
+            CreateOrderCommand command = new CreateOrderCommand();
+            command.State = "";
+            command.Street = "";
+            command.ZipCode = "";
+            command.City = "";
+            command.Country = "";
+            command.EmailAddress = "";
+            CartCheckoutEvent checkOutEvent = context.Message;
+            command.OrderItems = _mapper.Map<IEnumerable<ItemDTO>>(checkOutEvent.Items);
             var id = await _mediator.Send(command);
 
             _logger.LogInformation($"{typeof(CartCheckoutEvent).Name} consumed successfully. Created order id: {id}");

@@ -29,7 +29,7 @@ namespace Library.API.EventBusConsumers
         {
 
             string username = context.Message.Username;
-            foreach (CartItem item in context.Message.OrderItems)
+            foreach (CartItem item in context.Message.Items)
             {
                 LibraryItem libItem = new LibraryItem();
                 libItem.Id = item.BookId + username;

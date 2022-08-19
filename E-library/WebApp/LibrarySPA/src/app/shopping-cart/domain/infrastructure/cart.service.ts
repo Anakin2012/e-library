@@ -15,7 +15,10 @@ export class CartService {
 
   public getCart(username: string): Observable<ICart> {
     return this.http.get<ICart>(`${this.url}/GetCart/${username}`);
-  }
+    }
+    public getCartTotalItems(username: string): Observable<number> {
+        return this.http.get<number>(`${this.url}/GetCartTotalItems/${username}`);
+    }
 
   public deleteCart(username: string) {
     return this.http.delete(`${this.url}/DeleteCart/${username}`)

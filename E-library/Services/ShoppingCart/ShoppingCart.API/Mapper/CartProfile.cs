@@ -10,7 +10,7 @@ namespace ShoppingCart.API.Mapper
     {
         public CartProfile()
         {
-            CreateMap<Entities.CartCheckout, EventBus.Messages.Events.CartCheckoutEvent>().ReverseMap();
+            CreateMap<Entities.Cart, EventBus.Messages.Events.CartCheckoutEvent>().ReverseMap();
             CreateMap<Entities.CartItem, EventBus.Messages.Events.CartItem>().ReverseMap();
         }
     }

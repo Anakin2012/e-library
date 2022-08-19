@@ -25,6 +25,9 @@ import { AdminOptionsComponent } from './feature-admin/admin-options/admin-optio
     FormsModule,
     CatalogRoutingModule
   ],
+  exports : [
+    SearchComponent
+  ],
   providers: [BooksService, NavComponent]
 })
 export class CatalogModule { }

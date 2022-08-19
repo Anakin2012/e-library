@@ -1,5 +1,9 @@
-<p>wishlist works!</p>
+<div class="card">
+    <div class="title">
+        {{currentUser}}'s Shopping Cart
+        <button class="btn btn-dark" (click) ="deleteList()">Delete list</button>
+    </div>    
 <button class="btn btn-light" [routerLink]="['add-to-list']">Add book to wishlist</button>
-<button class="btn btn-dark" (click) ="deleteList()">Delete list</button>
 <router-outlet></router-outlet>
 <app-itemlist></app-itemlist>
+</div>

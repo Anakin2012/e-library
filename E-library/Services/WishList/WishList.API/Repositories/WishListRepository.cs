@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using WishList.API.Entities;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+
 namespace WishList.API.Repositories
 {
     public class WishListRepository : IWishListRepository
@@ -34,6 +36,22 @@ namespace WishList.API.Repositories
         public async Task DeleteList(string username)
         {
             await _cache.RemoveAsync(username);
+        }
+
+        public async Task<WishBookList> RemoveItemFromWishlist(string username, string bookId)
+        {
+            WishBookList list;
+            if (this.GetList(username) != null) {
+                list = await GetList(username);
+            }
+            else
+            {
+                list = new WishBookList(username);
+            }
+
+            list.WishedBooks.Remove(list.WishedBooks.Find(item => item.BookId == bookId));
+            await UpdateList(list);
+            return list;
         }
     }
 }

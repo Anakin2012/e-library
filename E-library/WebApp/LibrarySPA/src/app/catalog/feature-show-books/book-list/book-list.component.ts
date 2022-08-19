@@ -1,5 +1,6 @@
 import { compileDeclareInjectorFromMetadata } from '@angular/compiler';
 import { Component, OnChanges, OnInit } from '@angular/core';
+import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';

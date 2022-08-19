@@ -8,18 +8,25 @@ import { ItemlistComponent } from './itemlist/itemlist.component';
 import { RouterModule } from '@angular/router';
 import { AddToListComponent } from './add-to-list/add-to-list.component';
 import { RouterLink } from '@angular/router';
-
+import { SearchComponent } from '../catalog/feature-search/search/search.component';
+import { CatalogRoutingModule } from '../catalog/catalog-routing.module';
+import { WishListService } from './domain/infrastructure/wishlist-service';
+import { CatalogModule } from '../catalog/catalog.module';
 @NgModule({
   declarations: [
     WishlistComponent,
     ItemlistComponent,
     AddToListComponent,
-    WishListItemComponent
+    WishListItemComponent,
   ],
   imports: [
     CommonModule,
     WishlistRoutingModule,
     RouterModule,
+    CatalogModule
+  ],
+  providers : [
+    WishListService
   ]
 })
 export class WishlistModule { }

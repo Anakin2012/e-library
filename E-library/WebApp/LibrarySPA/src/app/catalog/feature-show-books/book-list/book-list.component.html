@@ -1,6 +1,8 @@
 <div class="searchdiv">
 <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+<div *ngIf="currentRoles==='Administrator'"> 
 <a class="admin-div" routerLinkActive="active" [routerLink]="['/catalog/admin']"><br>Admin options</a>
+</div>
 </div>
 <ng-container *ngIf="searchText===''; else some">
 <div *ngFor="let b of allBooks">

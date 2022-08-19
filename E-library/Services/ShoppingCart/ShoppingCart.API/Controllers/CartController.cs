@@ -137,9 +137,10 @@ namespace ShoppingCart.API.Controllers
             }
 
             var book = result.Find(b =>  b.BookId == bookId);
- 
+
             if (book.IsPremium) { 
-                if (!User.IsInRole("PremiumMember")) { 
+                if (!User.IsInRole("PremiumMember")) {
+                    RemoveBookFromCart(username, bookId);
                     return Forbid();
                 }
             }
@@ -152,10 +153,10 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(Cart), StatusCodes.Status200OK)]
         public async Task<ActionResult<Cart>> RemoveBookFromCart(string username, string bookId)
         {
-            //if (User.FindFirst(ClaimTypes.Name).Value != username)
-            //{
-            //    return Forbid();
-            //}
+            if (User.FindFirst(ClaimTypes.Name).Value != username)
+            {
+                return Forbid();
+            }
 
             return Ok(await _service.RemoveBookFromCart(username, bookId));
         }

@@ -17,7 +17,7 @@ namespace IdentityServer.Controllers
 {
     [Route("/api/v1/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Administrator")]
+ //   [Authorize(Roles = "Administrator")]
     public class AdministratorController : ControllerBase
     {
         private readonly IdentityRepositoryInterface _repository;

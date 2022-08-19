@@ -10,10 +10,19 @@
         <a routerLinkActive="active" [routerLink]="['Wishlist']">My wishlist</a>
         <a routerLinkActive="active" [routerLink]="['library/items']">My library</a>
         <a routerLinkActive="active" [routerLink]="['ordering/orders']">My orders</a>
+        <a routerLinkActive="active" [routerLink]="['wishlist']">My wishlist</a>
+        <a routerLinkActive="active" [routerLink]="['library/items']">My library</a>
+        <a routerLinkActive="active" [routerLink]="['ordering/orders']">My orders</a>
         <div class="move-right">
-           <a routerLinkActive="active" [routerLink]="['identity/login']">Login</a>
-           <a routerLinkActive="active" [routerLink]="['identity/register']">Register</a>
-         </div>
+            <div  *ngIf="appState === null; else accAndLogout">
+          <a routerLinkActive="active" [routerLink]="['identity/login']">Login</a>
+          <a routerLinkActive="active" [routerLink]="['identity/register']">Register</a>
+            </div>
+          <ng-template #accAndLogout>
+            <a routerLinkActive="active" [routerLink]="['identity/settings']"> My Account ({{username}}) </a>
+            <a routerLinkActive="active" [routerLink]="['identity/logout']">Logout</a>
+        </ng-template>
+        </div>
     </div>
 </div>
 

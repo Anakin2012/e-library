@@ -15,13 +15,17 @@ export class NavComponent implements OnInit {
     cartItemsCount: number;
     username: string = '';
     site_name: string = "e-Library";
+    appState : IAppState | null;
+    searchText: string = '';
+    
+    
     constructor(private cartService: CartFacadeService, private localStorageService: LocalStorageService) { }
 
     ngOnInit(): void {
         //dodati logiku dodeljivanja total Count 
-        const appState: IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
-        if (appState !== null) {
-            this.username = appState.userName;
+        this.appState = this.localStorageService.get(LocalStorageKeys.AppState);
+        if (this.appState !== null) {
+            this.username = this.appState.userName;
             console.log(this.username);
             this.getCartTotalItems(this.username);
         }
@@ -33,6 +37,10 @@ export class NavComponent implements OnInit {
             console.log(this.cartItemsCount);
         });
     }
+    
+
+
+  site_name :string = "e-Library";
 
   
 }

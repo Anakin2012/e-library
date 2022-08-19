@@ -16,7 +16,7 @@ using System.Collections.Generic;
 
 namespace ShoppingCart.API.Controllers
 {
-    [Authorize(Roles = "Member")]
+    [Authorize(Roles = "Member, PremiumMember")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class CartController : ControllerBase
@@ -94,11 +94,14 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Checkout(string username)
         {
-            if (User.FindFirst(ClaimTypes.Name).Value != username)
+           
+            if (User.FindFirst(ClaimTypes.Name).Value != cartCheckout.Username)
             {
                 return Forbid();
             }
 
+            List<Entities.CartItem> checkoutItems = new List<Entities.CartItem>();
+            
             var cart = await _repository.GetCart(username);
             if (cart == null)
             {
@@ -130,15 +133,16 @@ namespace ShoppingCart.API.Controllers
             {
                 return Forbid();
             }
-/*
-            if (book.IsPremium)
-            {
-                if (!User.IsInRole("PremiumMember"))
-                {
+
+            var book = result.Find(b =>  b.BookId == bookId);
+
+            if (book.IsPremium) { 
+                if (!User.IsInRole("PremiumMember")) {
+                    RemoveBookFromCart(username, bookId);
                     return Forbid();
                 }
             }
-*/
+          
             return Ok(result);
         }
 

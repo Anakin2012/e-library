@@ -19,9 +19,9 @@ export class BookListComponent implements OnInit {
   someBooks: IBook[] = [];
   currentUser: string = '';
   cartItems: ICartItem[];
+  currentRoles?: string | string[];
 
-
-  constructor(private localStorageService: LocalStorageService,private wishlistService:WishListServiceFacade, private service: BooksFacadeService) { 
+  constructor(private service: BooksFacadeService, private localStorageService: LocalStorageService, private wishlistService: WishListServiceFacade) { 
 
   }
 
@@ -29,7 +29,9 @@ export class BookListComponent implements OnInit {
     const appState: IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
     if(appState !== null) {
       this.currentUser = appState.userName;
+      this.currentRoles = appState.roles;
       console.log(this.currentUser);
+      console.log(this.currentRoles);
     }
     this.getAllBooks();
     console.log(this.cartItems);

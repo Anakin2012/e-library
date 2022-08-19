@@ -20,8 +20,7 @@ export class BookListComponent implements OnInit {
   currentUser: string = '';
   cartItems: ICartItem[];
 
-
-  constructor(private localStorageService: LocalStorageService,private wishlistService:WishListServiceFacade, private service: BooksFacadeService) { 
+  constructor(private service: BooksFacadeService, private localStorageService: LocalStorageService, private wishlistService: WishListServiceFacade) { 
 
   }
 

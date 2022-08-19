@@ -12,7 +12,8 @@ import { IAppState } from '../app-state/app-state';
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
   private readonly whiteListUrls : string[] = [
-    '/api/v1/Login/Login'
+    '/api/v1/Login/Login',
+    'api/v1/Catalog/GetBooks'
   ];
 
   constructor(private appStateService : AppStateService ) {}

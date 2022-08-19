@@ -123,10 +123,10 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(Cart), StatusCodes.Status200OK)]
         public async Task<ActionResult<Cart>> AddBookToCart(string username, string bookId)
         {
-            //if (User.FindFirst(ClaimTypes.Name).Value != username)
-            //{
-            //    return Forbid();
-            //}
+            if (User.FindFirst(ClaimTypes.Name).Value != username)
+            {
+                return Forbid();
+            }
 
             var result =  await _service.AddBookToCart(username, bookId);
             if (result == null)
@@ -135,9 +135,9 @@ namespace ShoppingCart.API.Controllers
             }
 /*
             if (book.IsPremium)
-            {
+            
                 if (!User.IsInRole("PremiumMember"))
-                {
+                
                     return Forbid();
                 }
             }

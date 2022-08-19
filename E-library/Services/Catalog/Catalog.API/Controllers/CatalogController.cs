@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Catalog.API.Controllers
 {
-    [Authorize(Roles = "Member")]
+ //   [Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     // nalepice Catalog umesto sablona u uglastima zagradama
@@ -28,6 +28,7 @@ namespace Catalog.API.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        [Authorize]
         [Route("[action]")]
         [HttpGet] 
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -38,6 +39,8 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
+
+        [Authorize]
         [Route("[action]/{id}", Name ="GetBookById")]
         [HttpGet]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status200OK)]
@@ -62,6 +65,7 @@ namespace Catalog.API.Controllers
             return Ok(book);
         }
 
+        [Authorize]
         [Route("[action]/{genre}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -71,6 +75,8 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
+
+        [Authorize]
         [Route("[action]/{author}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -80,6 +86,7 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
+        [Authorize]
         [Route("[action]/{title}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -89,6 +96,7 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
+        [Authorize(Roles = "Member")]
         [Route("[action]")]
         [HttpPost]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status201Created)]
@@ -99,6 +107,7 @@ namespace Catalog.API.Controllers
             return CreatedAtRoute("GetBookById", new { id = bookDTO.Id }, bookDTO);
         }
 
+        [Authorize(Roles = "Admin")]
         [Route("[action]/{id}")]
         [HttpPut]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
@@ -114,6 +123,7 @@ namespace Catalog.API.Controllers
             return Ok(await _repository.UpdateBook(id, bookDTO));
         }
 
+        [Authorize(Roles = "Admin")]
         [Route("[action]/{id:length(24)}")]
         [HttpDelete]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status200OK)]

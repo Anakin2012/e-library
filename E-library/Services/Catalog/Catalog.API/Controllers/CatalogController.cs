@@ -15,8 +15,6 @@ namespace Catalog.API.Controllers
  //   [Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
-    // nalepice Catalog umesto sablona u uglastima zagradama
-    // template koji definise na kom urlu kontroler prihvata zahteve
     public class CatalogController : ControllerBase
     {
         IBookRepository _repository;
@@ -28,19 +26,15 @@ namespace Catalog.API.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        [Authorize]
         [Route("[action]")]
         [HttpGet] 
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
-        // shema povratne vrednosti i ocekivani statusni kod 
         public async Task<ActionResult<IEnumerable<BookDTO>>> GetBooks()
         {
             var books = await _repository.GetBooks();
             return Ok(books);
         }
 
-
-        [Authorize]
         [Route("[action]/{id}", Name ="GetBookById")]
         [HttpGet]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status200OK)]
@@ -48,16 +42,7 @@ namespace Catalog.API.Controllers
         public async Task<ActionResult<BookDTO>> GetBookById(string id)
         {
             var book = await _repository.GetBook(id);
-         /*
-            if (book.IsPremium)
-            {
-                if (!User.IsInRole("PremiumMember"))
-                {
-                    return Forbid();
-                }
-            }
-
-        */
+      
             if (book == null)
             {
                 return NotFound(null);
@@ -65,7 +50,6 @@ namespace Catalog.API.Controllers
             return Ok(book);
         }
 
-        [Authorize]
         [Route("[action]/{genre}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -75,8 +59,6 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
-
-        [Authorize]
         [Route("[action]/{author}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -86,7 +68,6 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
-        [Authorize]
         [Route("[action]/{title}")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
@@ -96,7 +77,7 @@ namespace Catalog.API.Controllers
             return Ok(books);
         }
 
-        [Authorize(Roles = "Member")]
+        [Authorize(Roles = "Administrator")]
         [Route("[action]")]
         [HttpPost]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status201Created)]
@@ -107,7 +88,7 @@ namespace Catalog.API.Controllers
             return CreatedAtRoute("GetBookById", new { id = bookDTO.Id }, bookDTO);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         [Route("[action]/{id}")]
         [HttpPut]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
@@ -123,7 +104,7 @@ namespace Catalog.API.Controllers
             return Ok(await _repository.UpdateBook(id, bookDTO));
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         [Route("[action]/{id:length(24)}")]
         [HttpDelete]
         [ProducesResponseType(typeof(BookDTO), StatusCodes.Status200OK)]

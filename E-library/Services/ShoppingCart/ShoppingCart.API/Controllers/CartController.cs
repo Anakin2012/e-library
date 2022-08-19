@@ -16,7 +16,7 @@ using System.Collections.Generic;
 
 namespace ShoppingCart.API.Controllers
 {
-    [Authorize(Roles = "Member")]
+    [Authorize(Roles = "Member, PremiumMember")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class CartController : ControllerBase

@@ -47,19 +47,6 @@ namespace ShoppingCart.API.Controllers
             var cart = await _repository.GetCart(username);
             return Ok(cart ?? new Cart(username));
         }
-        [Route("[action]/{username}")]
-        [HttpGet]
-        [ProducesResponseType(typeof(decimal), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Cart>> GetCartTotalItems(string username)
-        {
-            if (User.FindFirst(ClaimTypes.Name).Value != username)
-            {
-                return Forbid();
-            }
-
-            var cart = await _repository.GetCart(username);
-            return Ok(cart.TotalItems);
-        }
 
         [Route("[action]")]
         [HttpPut]
@@ -94,8 +81,7 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Checkout(string username)
         {
-           
-            if (User.FindFirst(ClaimTypes.Name).Value != cartCheckout.Username)
+            if(User.FindFirst(ClaimTypes.Name).Value != username)
             {
                 return Forbid();
             }

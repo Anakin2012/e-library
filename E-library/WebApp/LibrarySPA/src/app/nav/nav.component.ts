@@ -16,9 +16,7 @@ export class NavComponent implements OnInit {
     username: string = '';
     site_name: string = "e-Library";
     appState : IAppState | null;
-    searchText: string = '';
-    
-    
+        
     constructor(private cartService: CartFacadeService, private localStorageService: LocalStorageService) { }
 
     ngOnInit(): void {
@@ -31,16 +29,12 @@ export class NavComponent implements OnInit {
         }
 
     }
+
     private getCartTotalItems(username: string) {
-        this.cartService.getCartTotalItems(username).subscribe((itemsCount) => {
-            this.cartItemsCount = itemsCount;
-            console.log(this.cartItemsCount);
-        });
+      this.cartService.getCart(username).subscribe((cart) => {
+        this.cartItemsCount = cart.totalItems;
+      })
     }
     
-
-
-  site_name :string = "e-Library";
-
   
 }

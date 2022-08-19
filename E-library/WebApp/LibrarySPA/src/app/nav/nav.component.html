@@ -5,14 +5,11 @@
     <div class="topnav">
         <a routerLinkActive="active" [routerLink]="['Home']">Home</a>
         <a routerLinkActive="active" [routerLink]="['catalog/books']">Books</a>
-        <a *ngIf="cartItemsCount!==0" class="fa-stack"  [attr.data-count]="cartItemsCount" routerLinkActive="active" [routerLink]="['shopping-cart/cart']">My basket</a>
+        <a *ngIf="cartItemsCount!==0" class="fa-stack" [attr.data-count]="cartItemsCount" routerLinkActive="active" [routerLink]="['shopping-cart/cart']">My basket</a>
         <a *ngIf="cartItemsCount===0" routerLinkActive="active" [routerLink]="['shopping-cart/cart']">My basket</a>
-        <a routerLinkActive="active" [routerLink]="['Wishlist']">My wishlist</a>
         <a routerLinkActive="active" [routerLink]="['library/items']">My library</a>
         <a routerLinkActive="active" [routerLink]="['ordering/orders']">My orders</a>
-        <a routerLinkActive="active" [routerLink]="['wishlist']">My wishlist</a>
-        <a routerLinkActive="active" [routerLink]="['library/items']">My library</a>
-        <a routerLinkActive="active" [routerLink]="['ordering/orders']">My orders</a>
+      
         <div class="move-right">
             <div  *ngIf="appState === null; else accAndLogout">
           <a routerLinkActive="active" [routerLink]="['identity/login']">Login</a>

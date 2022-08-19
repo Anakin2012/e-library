@@ -15,10 +15,6 @@ export class CartFacadeService {
     return this.cartService.getCart(username);
     }
 
-    public getCartTotalItems(username: string): Observable<number> {
-        return this.cartService.getCartTotalItems(username);
-    }
-
   public deleteCart(username: string) {
     return this.cartService.deleteCart(username);
   }

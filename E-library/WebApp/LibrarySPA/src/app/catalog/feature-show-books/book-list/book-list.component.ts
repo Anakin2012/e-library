@@ -2,7 +2,6 @@ import { compileDeclareInjectorFromMetadata } from '@angular/compiler';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
-import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 import { BooksFacadeService } from '../../domain/app-services/books-facade.service';
 import { IBook } from '../../domain/models/book';

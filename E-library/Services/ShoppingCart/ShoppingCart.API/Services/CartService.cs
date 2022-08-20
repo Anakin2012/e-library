@@ -37,6 +37,11 @@ namespace ShoppingCart.API.Services
                 cart = new Cart(username);
             }
 
+            if (cart.Items.Find(i => i.BookId == bookId) != null)
+            {
+                return null;
+            }
+
             CartItem item = new CartItem();
 
             item.BookId = book.Book.Id;
@@ -46,9 +51,9 @@ namespace ShoppingCart.API.Services
             item.CoverImageFile = book.Book.CoverImageFile;
             item.IsPremium = book.Book.IsPremium;
             item.Language = book.Book.Language;
-
+           
             cart.Items.Add(item);
-
+           
             await _repository.UpdateCart(cart);
 
             return cart.Items;

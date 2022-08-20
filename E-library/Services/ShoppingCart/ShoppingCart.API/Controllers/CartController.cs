@@ -17,7 +17,7 @@ using System.Collections.Generic;
 namespace ShoppingCart.API.Controllers
 {
     //[Authorize(Roles = "Member, PremiumMember")]
-   // [Authorize(Roles = "Member, PremiumMember")]
+    [Authorize(Roles = "Member, PremiumMember")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class CartController : ControllerBase
@@ -138,17 +138,11 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(Cart), StatusCodes.Status200OK)]
         public async Task<ActionResult<Cart>> AddBookToCart(string username, string bookId)
         {
-            //if (User.FindFirst(ClaimTypes.Name).Value != username)
-            //{
-            //    return Forbid();
-            //}
-
-            /*
             if (User.FindFirst(ClaimTypes.Name).Value != username)
             {
-                return Forbid();
+               return Forbid();
             }
-        */
+
             var result =  await _service.AddBookToCart(username, bookId);
             if (result == null)
             {

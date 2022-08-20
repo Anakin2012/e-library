@@ -117,7 +117,7 @@ namespace IdentityServer.Controllers
         {
             // salje se 3 dana pre isteka clanarine
 
-            MembershipExpiringEvent membershipExpiring = new MembershipExpiringEvent(memberDetailsDTO.Email, memberDetailsDTO.FirstName, memberDetailsDTO.LastName, memberDetailsDTO.UserName);
+            MembershipExpiringEvent membershipExpiring = new MembershipExpiringEvent(memberDetailsDTO.Email, memberDetailsDTO.Name, memberDetailsDTO.Surname, memberDetailsDTO.UserName);
 
             await _publishEndpoint.Publish(membershipExpiring);
 

@@ -11,6 +11,7 @@ export interface IAppState {
 
     hasRole(role: string) : boolean; 
     clone() : IAppState;
+    isEmpty() : boolean;
 
 }
 
@@ -56,6 +57,10 @@ export class AppState implements IAppState {
 
         return this.roles.find((roleInRoles : string) => roleInRoles === role) !== undefined;
     }
+
+    public isEmpty(): boolean {
+        return this.accessToken === undefined && this.refreshToken === undefined && this.userName === undefined && this.roles === undefined && this.email === undefined && this.membershipExpired === undefined && this.firstName === undefined && this.lastName === undefined;
+      }
 
     public clone( ) : IAppState {
         const newState = new AppState();

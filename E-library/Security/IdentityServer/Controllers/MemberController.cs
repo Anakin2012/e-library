@@ -93,6 +93,13 @@ namespace IdentityServer.Controllers
                 return Forbid();
             }
 
+            var member = await _repository.FindMember(username);
+
+            DeletingAccountEvent deletingAccountEvent = new DeletingAccountEvent(member.Email, member.Name, member.Surname);
+
+            await _publishEndpoint.Publish(deletingAccountEvent);
+
+
             var result = await _repository.DeleteMember(username);
 
             if (!result.Succeeded) {
@@ -103,13 +110,6 @@ namespace IdentityServer.Controllers
 
                 return BadRequest(ModelState);
             }
-
-            var member = await _repository.FindMember(username);
-
-            DeletingAccountEvent deletingAccountEvent = new DeletingAccountEvent(member.Email, member.Name, member.Surname);
-
-            await _publishEndpoint.Publish(deletingAccountEvent);
-
 
             return StatusCode(StatusCodes.Status200OK);
 

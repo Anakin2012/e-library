@@ -57,17 +57,4 @@ export class MemberFacadeService {
   }
 
 
-  public CancelMembership(username : string) : Observable<boolean> {
-    return this.memberService.CancelMembership(username).pipe(
-      map(() => {
-        return true;
-      }),
-      catchError((err) => {
-        console.log(err);
-        return of(false);
-      })
-    );
-  }
-
-
 }

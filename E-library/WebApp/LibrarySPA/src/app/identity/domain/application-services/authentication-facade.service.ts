@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, switchMap } from 'rxjs';
+import { AppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { JwtPayloadKeys } from 'src/app/shared/jwt/jwt-payload-keys';
 import { JwtService } from 'src/app/shared/jwt/jwt.service';
@@ -33,6 +34,7 @@ export class AuthenticationFacadeService {
         return this.memberService.getMemberDetails(payload[JwtPayloadKeys.Username]);
       }),
       map((memberDetails: IMemberDetails) => {
+        console.log(`${memberDetails.firstName}`);
         this.appStateService.setFirstName(memberDetails.firstName);
         this.appStateService.setLastName(memberDetails.lastName);
 

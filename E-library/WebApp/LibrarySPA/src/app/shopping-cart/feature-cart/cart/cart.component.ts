@@ -1,9 +1,11 @@
 import { compileDeclareInjectorFromMetadata } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { IBook } from 'src/app/catalog/domain/models/book';
+import { NavComponent } from 'src/app/nav/nav.component';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
+import { DataService } from 'src/app/shared/service/data.service';
 import { CartFacadeService } from '../../domain/app-services/cart-facade.service';
 import { ICart } from '../../domain/models/ICart';
 import { ICartItem } from '../../domain/models/ICartItem';
@@ -18,7 +20,7 @@ export class CartComponent implements OnInit {
   currentUser: string = '';
   cart: ICart;
   cartItems: ICartItem[] = [];
-  constructor(private localStorageService: LocalStorageService, private cartService: CartFacadeService) { }
+  constructor(private dataService: DataService, private nav : NavComponent, private localStorageService: LocalStorageService, private cartService: CartFacadeService) { }
 
   ngOnInit(): void {
     const appState: IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
@@ -41,7 +43,7 @@ export class CartComponent implements OnInit {
     this.cartService.removeFromCart(username, id).subscribe((cartItems) => {
       this.cart.items = cartItems;
         this.getCart(username);
-        location.reload();
+        this.dataService.notifyOther({refresh: true});
     });
   }
 
@@ -59,7 +61,7 @@ export class CartComponent implements OnInit {
     {
       console.log(res);
         this.getCart(username);
-        location.reload();
+        this.dataService.notifyOther({refresh: true});
     });
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IAppState } from '../shared/app-state/app-state';
 import { LocalStorageKeys } from '../shared/local-storage/local-storage-keys';
 import { LocalStorageService } from '../shared/local-storage/local-storage.service';
+import { DataService } from '../shared/service/data.service';
 import { CartFacadeService } from '../shopping-cart/domain/app-services/cart-facade.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class NavComponent implements OnInit {
     site_name: string = "e-Library";
     appState : IAppState | null;
         
-    constructor(private cartService: CartFacadeService, private localStorageService: LocalStorageService) { }
+    constructor(private dataService: DataService, private cartService: CartFacadeService, private localStorageService: LocalStorageService) { }
 
     ngOnInit(): void {
         //dodati logiku dodeljivanja total Count 
@@ -28,9 +29,16 @@ export class NavComponent implements OnInit {
             this.getCartTotalItems(this.username);
         }
 
+        this.dataService.notifyObservable$.subscribe(res => {
+          if(res.refresh){
+              // get your grid data again. Grid will refresh automatically
+              this.getCartTotalItems(this.username);
+          }
+    })
+
     }
 
-    private getCartTotalItems(username: string) {
+    public getCartTotalItems(username: string) {
       this.cartService.getCart(username).subscribe((cart) => {
         this.cartItemsCount = cart.totalItems;
       })

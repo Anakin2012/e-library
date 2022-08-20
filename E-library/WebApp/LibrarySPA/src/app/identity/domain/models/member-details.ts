@@ -1,6 +1,6 @@
 export interface IMemberDetails {
     userName : string;
-    firstName : string;
-    lastName : string;
+    name : string;
+    surname : string;
     email : string;
 }

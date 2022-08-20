@@ -34,9 +34,9 @@ export class AuthenticationFacadeService {
         return this.memberService.getMemberDetails(payload[JwtPayloadKeys.Username]);
       }),
       map((memberDetails: IMemberDetails) => {
-        console.log(`${memberDetails.firstName}`);
-        this.appStateService.setFirstName(memberDetails.firstName);
-        this.appStateService.setLastName(memberDetails.lastName);
+        console.log(`${memberDetails.name}`);
+        this.appStateService.setFirstName(memberDetails.name);
+        this.appStateService.setLastName(memberDetails.surname);
 
         return true;
       }),

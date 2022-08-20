@@ -20,6 +20,12 @@ namespace EventBus.Messages.Events
     {
 
         // Order
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
+        public string ZipCode { get; set; }
+        public string EmailAddress { get; set; }
         public string Username { get; set; }
         public IEnumerable<CartItem> Items { get; set; }
     }

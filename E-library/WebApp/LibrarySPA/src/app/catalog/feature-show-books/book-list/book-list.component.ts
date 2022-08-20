@@ -39,15 +39,17 @@ export class BookListComponent implements OnInit {
 
   searchText: string = '';
 
-  public addToWishlist(bookId:string){
-    const appState : AppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
-    if(appState !== null){
-      this.wishlistService.AddToWishList(appState.userName, bookId);
-    }
+  addToWishlist(bookId:string){
+      this.addWishlist(this.currentUser, bookId);
   }
 
+  private addWishlist(username: string, id:string) {
+    this.wishlistService.AddToWishList(username, id).subscribe((res) => {
+      console.log(res);
+    })
+  }
 
-  onAddToCart(username: string, id: string) {
+  onAddToCart(id: string) {
     this.addToCart(this.currentUser, id);
   }
 
@@ -58,7 +60,6 @@ export class BookListComponent implements OnInit {
         location.reload();
     });
   }
-
 
   onSearchTextEntered(searchValue: string) {
     this.searchText = searchValue;

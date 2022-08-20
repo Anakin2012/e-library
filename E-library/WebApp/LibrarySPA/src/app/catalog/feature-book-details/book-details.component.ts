@@ -41,7 +41,7 @@ export class BookDetailsComponent implements OnInit {
     });
   }
 
-  onAddToCart(username: string, id: string) {
+  onAddToCart(id: string) {
     this.addToCart(this.currentUser, id);
   }
 

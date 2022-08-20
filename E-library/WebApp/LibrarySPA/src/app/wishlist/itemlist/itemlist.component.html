@@ -1,7 +1,7 @@
 <div *ngFor="let item of itemList; let i = index">
-    <div class="card">
+    <div class="card"> 
         <p>{{i}}</p>
-        <p>{{item.title}}</p>
+        <p *ngIf="item">{{item.bookTitle}}</p>
         <button class = "btn btn-danger" (click) = "removeFromList(item.bookId)">Remove</button>
         <button *ngIf="item.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;">Borrow now</button>
         
@@ -10,3 +10,4 @@
         </ng-template>
     </div>
 </div>
+

@@ -17,7 +17,9 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     '/api/v1/Catalog/GetBookById/{id}',
     '/api/v1/Catalog/GetBooksByGenre/{genre}',
     '/api/v1/Catalog/GetBooksByAuthor/{author}',
-    '/api/v1/Catalog/GetBooksByTitle/{title}'
+    '/api/v1/Catalog/GetBooksByTitle/{title}',
+    '/api/v1/WishList/GetList/{username}',
+    '/api/v1/WishList/addBookToWishList/{username}/{bookId}'
   ];
 
   constructor(private appStateService : AppStateService ) {}

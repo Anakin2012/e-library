@@ -1,12 +1,14 @@
 export interface IWishlistItem {
     bookId: string;
-    title: string;
+    bookTitle: string;
     author: string;
     genre: string;
     language: string;
+    description: string;
     coverImageFile: string;
-    isPremium: boolean;
     isAvailable:boolean;
+    isPremium: boolean;
+    
 }
         //public string BookId { get; set; }
         //public string BookTitle { get; set; }

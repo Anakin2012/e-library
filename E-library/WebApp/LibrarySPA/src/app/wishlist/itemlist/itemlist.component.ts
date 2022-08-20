@@ -25,7 +25,8 @@ private getList() {
     if(appState !== null){
     this.service.GetList(appState.userName).subscribe((wList) => {
         console.log(wList);
-        this.itemList = wList.list;
+        this.itemList = wList.wishedBooks;
+        console.log(this.itemList);
     });
   }
 }

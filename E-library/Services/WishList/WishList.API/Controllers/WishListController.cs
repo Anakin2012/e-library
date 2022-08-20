@@ -24,7 +24,7 @@ namespace WishList.API.Controllers
             _service = service ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        [Authorize(Roles = "Member")]
+       // [Authorize(Roles = "Member")]
         [HttpGet("[action]/{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> GetList(string username) { 
@@ -32,7 +32,7 @@ namespace WishList.API.Controllers
             return Ok(basket ?? new WishBookList(username));
         }
 
-        [Authorize(Roles = "PremiumMember")]
+      //  [Authorize(Roles = "PremiumMember")]
         [HttpGet("recommendByAuthor/{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ListItem>>> GetRecommendationsByAuthor(string username)
@@ -41,7 +41,7 @@ namespace WishList.API.Controllers
             return Ok(recommendations);
         }
 
-        [Authorize(Roles="Member")]
+     //   [Authorize(Roles="Member")]
         [HttpPut("/addBookToWishList/{username}/{bookId}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> AddToWishList(string username, string bookId)
@@ -50,7 +50,7 @@ namespace WishList.API.Controllers
             return Ok(await _service.addBookToWishList(username, bookId));
         }
 
-        [Authorize(Roles = "PremiumMember")]
+     //   [Authorize(Roles = "PremiumMember")]
         [HttpGet("recommendByGenre/{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ListItem>>> GetRecommendationsByGenre(string username)

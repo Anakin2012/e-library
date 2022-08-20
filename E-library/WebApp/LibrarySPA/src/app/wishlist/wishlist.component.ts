@@ -21,7 +21,7 @@ export class WishlistComponent implements OnInit {
 public deleteList(){
   this.service.DeleteList(this.currentUser);
   this.service.GetList(this.currentUser).subscribe((wlist)=>{
-    console.log(wlist.list);
+    console.log(wlist.wishedBooks);
   });
 }
 }

@@ -10,8 +10,7 @@ import { IWishlistItem } from "../models/wishlistitem";
 
 export class WishListServiceFacade {
 
-private wishListService;
-constructor(wishListService : WishListService){}
+constructor(private wishListService : WishListService){}
 
 public GetList(username:string) : Observable<IWish>{
     return this.wishListService.GetList(username);
@@ -32,11 +31,7 @@ public DeleteList(username : string): void{
     return this.wishListService.DeleteList(username);
 }
 
-public UpdateList(list : Object) : Observable<Object>{
-    return this.wishListService.UpdateList(list);
-}
-
-public RemoveFromWishlist(username : string, bookId : string) : Observable<IWishlistItem[]>{
+public RemoveFromWishlist(username : string, bookId : string) : Observable<IWish>{
     return this.wishListService.RemoveFromWishlist(username,bookId);
 }
 }

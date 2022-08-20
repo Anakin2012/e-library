@@ -3,7 +3,7 @@
 <p>Recommended by author</p> 
 <div *ngFor="let b of RecByAuthor; let i = index">
     <div class="card">
-        <h5 class="card-title">{{b.title}}</h5>
+        <h5 class="card-title">{{b.bookTitle}}</h5>
         <p>Author:</p>
         <p>{{b.author}}</p>
         <p>Genre:</p>
@@ -16,7 +16,7 @@
 <p>Recommended by genre</p>
 <div *ngFor="let b  of RecByGenre; let i = index">
     <div class="card">
-        <h5 class="card-title">{{b.title}}</h5>
+        <h5 class="card-title">{{b.bookTitle}}</h5>
         <p>Author:</p>
         <p>{{b.author}}</p>
         <p>Genre:</p>

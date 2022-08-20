@@ -7,7 +7,7 @@ import { IWish } from "../models/wishlist";
     providedIn: 'root'
 })
 export class WishListService{
-private readonly url: string = 'http://localhost:8002/api/v1/Wishlist';
+private readonly url: string = 'http://localhost:8002/api/v1/WishList';
 
 constructor(private http: HttpClient){}
 public GetList(username: string):Observable<IWish>{
@@ -19,7 +19,7 @@ public GetRecommendationsByAuthor(username: string):Observable<IWishlistItem[]>{
 }
 
 public AddToWishList(username : string, bookId:string): Observable<IWish>{
-    return this.http.put<IWish>(`${this.url}/addBookToWishList/${username}/${bookId}`, bookId);
+    return this.http.put<IWish>(`http://localhost:8002/addBookToWishList/${username}/${bookId}`, bookId);
 }
 
 

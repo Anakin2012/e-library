@@ -1,1 +1,12 @@
-<p>settings works!</p>
+<div *ngIf="appState$ | async as appState">
+  <div *ngIf="!appState.isEmpty()" style="margin-top: 20px; margin-bottom: 20px; margin-left: 20px; margin-right: 600px;">
+    <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> First name: {{ appState.firstName }}</p>
+    <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Last name: {{ appState.lastName }}</p>
+    <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Username: {{ appState.userName }}</p>
+    <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Email: {{ appState.email }}</p>
+    <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Pay membership <button (click)="payMembership(appState.userName)" class="btn btn-secondary buttons"> here </button> </p>
+    <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Change password <button class="btn btn-secondary buttons"> here </button> </p>
+    <p style="margin-top: 50px; margin-left: 50px; font-family:verdana; color: rgb(193, 12, 12); border-bottom-color: black;" class ="settings-field"> Delete account <button (click)="DeleteAccount(appState.userName)" class="btn btn-danger" > here </button> </p>
+  </div>
+    
+</div>

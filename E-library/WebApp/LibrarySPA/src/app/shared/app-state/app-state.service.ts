@@ -26,7 +26,7 @@ export class AppStateService {
   private restoreFromLocalStorage() : void {
     const appState : IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
     if(appState !== null) {
-      this.appState = new AppState(appState.accessToken, appState.refreshToken, appState.userName, appState.roles, appState.email, appState.membershipExpired);
+      this.appState = new AppState(appState.accessToken, appState.refreshToken, appState.userName, appState.roles, appState.email, appState.membershipExpired, appState.firstName, appState.lastName);
     }
 
     this.appStateSubject.next(this.appState);

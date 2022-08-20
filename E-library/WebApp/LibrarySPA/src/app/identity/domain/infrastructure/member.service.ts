@@ -13,6 +13,7 @@ export class MemberService {
 
 
   public getMemberDetails(username : string) : Observable<IMemberDetails> {
+    console.log(`${username}`);
     return this.httpClient.get<IMemberDetails>(`http://localhost:4000/api/v1/Member/${username}`);
   }
   
@@ -26,9 +27,6 @@ export class MemberService {
 
   public DeleteAccount(username : string) : Observable<any> {
     return this.httpClient.delete<any>(`http://localhost:4000/api/v1/Member/DeleteAccount/${username}`);
-  }
-  public CancelMembership(username : string) : Observable<any> {
-    return this.httpClient.put<any>('http://localhost:4000/api/v1/Member/CancelMembership', username);
   }
 
 

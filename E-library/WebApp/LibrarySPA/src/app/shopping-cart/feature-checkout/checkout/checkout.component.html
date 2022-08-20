@@ -1,0 +1,74 @@
+<div class="main-area">
+    <div class="content-area">
+      <div class="header">
+        <h1>Your order</h1>
+        <hr>
+      </div>
+
+<div class="container">
+    <div class="form-area">
+      <h3>Fill in order info: </h3>
+      
+      <form #checkoutForm="ngForm" (ngSubmit)="onCheckout(checkoutForm.value)">
+        <label>Name</label>
+        <input type="text" value="currentName" name="name" ngModel>
+
+        <label>Surname</label>
+        <input type="text" name="surname" ngModel>
+
+        <label>Street</label>
+        <input type="text" name="street" ngModel>
+    
+        <label>City</label>
+        <input type="text" name="city" ngModel>
+
+        <label>State</label>
+        <input type="text" name="state" ngModel>
+
+        <label>Country</label>
+        <input type="text" name="country" ngModel>
+
+        <label>ZipCode</label>
+        <input type="text" name="zipCode" ngModel>
+
+        <label>Email address</label> 
+        <input type="text" name="emailAddress" ngModel>
+    
+        <input type="submit" value="Confirm order">
+      </form>
+    </div>
+
+    <div class="book-display-area">
+        <h3>Your cart</h3>
+        <div
+        class="datatable-inner"
+        mdbScrollbar
+        style="position: relative;"
+         >
+        <table id="books">
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr> 
+        <!--  <tr *ngIf="allBooks.length < 1"> -->
+              <td colspan="7"> No books in database</td>
+          </tr>
+        <tr>
+        <!--  <tr *ngFor="let book of allBooks; index as i"> -->
+            <td>1</td>
+            <td>title</td>
+            <td></td>
+        
+          </tr>
+        </table>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

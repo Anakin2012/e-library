@@ -9,6 +9,8 @@ import { ILoginRequest } from '../models/login-request';
 import { ILoginResponse } from '../models/login-response';
 import { ILogoutRequest } from '../models/logout-request';
 import { IMemberDetails } from '../models/member-details';
+import { IRefreshRequest } from '../models/refresh-token-request';
+import { IRefreshResponse } from '../models/refresh-token-response';
 import { MemberFacadeService } from './member-facade.service';
 
 @Injectable({
@@ -71,7 +73,28 @@ export class AuthenticationFacadeService {
   }
 
 
-  
+  public Refresh() : Observable<string | null> {
+    return this.appStateService.getAppState().pipe(
+      take(1),
+      map((appState : IAppState) => {
+        const request : IRefreshRequest = {loginName : appState.userName as string, refreshToken : appState.refreshToken as string};
+        return request;
+      }),
+      switchMap((request : IRefreshRequest) => this.authenticationService.Refresh(request)),
+      map((response : IRefreshResponse) => {
+        this.appStateService.setAccessToken(response.accessToken);
+        this.appStateService.setRefreshToken(response.refreshToken);
+
+        return response.accessToken;
+      }),
+      catchError((err) => {
+        console.error(err);
+        this.appStateService.clearAppState();
+        return of(null);
+      })
+    );
+  }
+
 
 
 

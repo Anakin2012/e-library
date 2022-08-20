@@ -8,14 +8,14 @@
 <div class="container">
     <div class="form-area">
       <h3>Fill in order info: </h3>
-      
+      <label>Name</label>
+      <input type="text" value="currentName" name="name">
+
+     <label>Surname</label>
+     <input type="text" name="surname" value="currentSurname">
+
       <form #checkoutForm="ngForm" (ngSubmit)="onCheckout(checkoutForm.value)">
-        <label>Name</label>
-        <input type="text" value="currentName" name="name" ngModel>
-
-        <label>Surname</label>
-        <input type="text" name="surname" ngModel>
-
+        
         <label>Street</label>
         <input type="text" name="street" ngModel>
     
@@ -38,8 +38,8 @@
       </form>
     </div>
 
-    <div class="book-display-area">
-        <h3>Your cart</h3>
+    <div class="book-display-area" *ngIf="cart">
+        <h3>Books to borrow:</h3>
         <div
         class="datatable-inner"
         mdbScrollbar
@@ -49,22 +49,18 @@
           <tr>
             <th>#</th>
             <th>Title</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-          <tr> 
-        <!--  <tr *ngIf="allBooks.length < 1"> -->
+            <th>Author</th>
+          </tr>    
+          <tr *ngIf="cart.totalItems < 1">
               <td colspan="7"> No books in database</td>
           </tr>
-        <tr>
-        <!--  <tr *ngFor="let book of allBooks; index as i"> -->
-            <td>1</td>
-            <td>title</td>
-            <td></td>
         
-          </tr>
+        <tr *ngFor="let book of cart.items; index as i">
+            <td>{{i+1}}</td>
+            <td>{{book.bookTitle}}</td>
+            <td>{{book.bookAuthor}}</td>
+        </tr>
+        
         </table>
         </div>
         

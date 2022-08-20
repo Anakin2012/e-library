@@ -13,6 +13,10 @@ export class CartService {
 
   constructor(private http: HttpClient) { }
 
+  public checkout(username: string, body: Object) {
+    return this.http.post(`${this.url}/Checkout/${username}`, body);
+  }
+
   public getCart(username: string): Observable<ICart> {
     return this.http.get<ICart>(`${this.url}/GetCart/${username}`);
     }

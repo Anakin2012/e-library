@@ -11,6 +11,10 @@ export class CartFacadeService {
 
   constructor(private cartService: CartService) { }
 
+  public checkout(username: string, body) {
+    return this.cartService.checkout(username, body);
+  }
+
   public getCart(username: string): Observable<ICart> {
     return this.cartService.getCart(username);
     }

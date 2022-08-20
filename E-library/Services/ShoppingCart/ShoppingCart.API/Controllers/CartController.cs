@@ -92,7 +92,7 @@ namespace ShoppingCart.API.Controllers
             return Ok();
         }
 
-        [Route("[action]")]
+        [Route("[action]/{username}")]
         [HttpPost]
         [ProducesResponseType(typeof(void), StatusCodes.Status202Accepted)]
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]

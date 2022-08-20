@@ -56,7 +56,7 @@ namespace ShoppingCart.API.Services
 
         public async Task<List<CartItem>> RemoveBookFromCart(string username, string bookId)
         {
-            var book = await _grpcService.GetBookById(bookId);
+           // var book = await _grpcService.GetBookById(bookId);
 
             Cart cart;
             if (await _repository.GetCart(username) != null)
@@ -70,7 +70,7 @@ namespace ShoppingCart.API.Services
 
             CartItem item = new CartItem();
            
-            item = cart.Items.Find(i => i.BookId == book.Book.Id);
+            item = cart.Items.Find(i => i.BookId == bookId);
 
             cart.Items.Remove(item); 
             

@@ -1,4 +1,5 @@
 export interface IOrderItem {
+    Id : Number;
     BookTitle : string;
     BookId : string;
     BookAuthor : string;
@@ -8,6 +9,7 @@ export interface IOrderItem {
     CoverImageFile : string;
 }
 //OrderItemDTO
+//  int Id
 //   string BookTitle { get; set; }
 //           string BookId { get; set; }
 //           string BookAuthor { get; set; }

@@ -16,6 +16,7 @@ import { SearchComponent } from 'src/app/catalog/feature-search/search/search.co
 export class AddToListComponent implements OnInit {
   public RecByAuthor : IWishlistItem[] = [];
   public RecByGenre : IWishlistItem[] = [];
+  public currentUser : string;
   paramObs;
   keys;
   constructor(private localStorageService: LocalStorageService,
@@ -24,29 +25,26 @@ export class AddToListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    const appState : IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
+    if(appState !== null){
+      this.currentUser = appState.userName;
+    }
     this.init();
   }
 
   private init(){
-    const appState : IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
-    if(appState !== null) {
-    this.service.GetRecommendationsByAuthor(appState.userName).subscribe((list)=>
+    this.service.GetRecommendationsByAuthor(this.currentUser).subscribe((list)=>
     {this.RecByAuthor = list;
      console.log(list);});
-     this.service.GetRecommendationsByGenre(appState.userName).subscribe((list)=>
+     this.service.GetRecommendationsByGenre(this.currentUser).subscribe((list)=>
      {this.RecByGenre = list;
       console.log(list);});
-     }
   
     }
     public AddBook(bookId : string){
-      const appState : IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
-      if(appState !== null){
-      this.service.AddToWishList(appState.userName, bookId);
-      this.service.GetList(appState.userName).subscribe((list)=>{
+      this.service.AddToWishList(this.currentUser, bookId);
+      this.service.GetList(this.currentUser).subscribe((list)=>{
         console.log(list);
       });
-      }
     }
 }

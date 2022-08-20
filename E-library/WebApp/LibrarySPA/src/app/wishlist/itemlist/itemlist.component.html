@@ -1,13 +1,43 @@
-<div *ngFor="let item of itemList; let i = index">
-    <div class="card"> 
-        <p>{{i}}</p>
-        <p *ngIf="item">{{item.bookTitle}}</p>
+<div class="book-display-area">
+<h3>Wishlist</h3>
+<div class="datatable-inner"
+mdbScrollbar
+style="position: center;">
+<table id="books">
+  <tr>
+    <th>#</th>
+    <th>Title</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr *ngIf = "itemList.length === 0">
+    <td colspan="7">Wishlist is empty!</td>
+  </tr>
+<tr *ngFor="let item of itemList; let i = index">
+        <td>{{i+1}}</td>
+        <td *ngIf="item">{{item.bookTitle}}</td>
+        <td></td>
+        <td>
         <button class = "btn btn-danger" (click) = "removeFromList(item.bookId)">Remove</button>
+        </td>
+        <td></td>
+        <td>
+        <div *ngIf="isInCart(item.bookId); else inthere">
         <button *ngIf="item.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;">Borrow now</button>
         
         <ng-template #notifyme>
-          <button class="btn btn-danger">Borrow now</button>
+          <button class="btn btn-success" (click)="bookService.addToCart(currentUser, item.bookId)">Borrow now</button>
         </ng-template>
-    </div>
+        </div>
+        <ng-template #inthere>
+          <button class="btn btn-danger">Borrowed</button>
+        </ng-template>
+        </td>
+</tr>
+</table>
 </div>
+</div>
+
 

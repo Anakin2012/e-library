@@ -2,3 +2,40 @@
     color: black;
     font-size: 20px;
 }
+
+.book-display-area{
+    width: 50%;
+    padding: 10px 15px;
+}
+
+#books {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+#books td, #books th {
+    padding: 4px;
+  }
+  
+#books tr:nth-child(even){background-color: #f2f2f2;}
+  
+#books tr:hover {background-color: #ddd;}
+  
+#books th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    background-color: #222;
+    color: white;
+  }
+
+.book-display-area{
+    width: 50%;
+    padding: 10px 15px;
+}
+
+.book-display-area img{
+  width: 30px;
+  height: 40px;
+}

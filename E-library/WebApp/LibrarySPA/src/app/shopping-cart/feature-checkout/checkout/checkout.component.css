@@ -1,0 +1,151 @@
+
+
+.main-area{
+    margin: 30px 50px;
+    padding: 20px 20px;
+}
+
+.content-area{
+    padding: 20px 20px;
+    background-color: #ECF0F1 ;
+}
+.header{
+    text-align: center;
+    color: #04AA6D;
+    padding: 0px 20px;
+}
+h3{
+    color: #04AA6D;
+    margin: 10px 0px;
+}
+hr{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color:#ECF0F1;
+}
+
+.container{
+    display: flex;
+}
+.form-area{
+    width: 50%;
+    padding: 10px 15px;
+}
+.book-display-area{
+    width: 50%;
+    padding: 10px 15px;
+}
+
+.book-display-area img{
+  width: 30px;
+  height: 40px;
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    width: 30%;
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #1ABC9C;
+  }
+
+  #books {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #books td, #books th {
+    padding: 4px;
+  }
+  
+  #books tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #books tr:hover {background-color: #ddd;}
+  
+  #books th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    background-color: #222;
+    color: white;
+  }
+
+  button{
+    border: #FB5027;
+    padding: 8px 15px;
+    margin: 0px 5px;
+  }
+
+  .btn-delete{
+    text-align: center;
+    background-color: #FB5027;
+    color: white;
+    height: 34px;
+    width: 34px;
+    padding-bottom: 30px;
+    padding-right: 23px;
+  }
+
+  .btn-delete:hover {
+    background-color: #961e00;
+  }
+
+  .btn-details{
+    background-color: #555c5a;
+    color: white;
+    width: 100px;
+    text-align: center;
+    height: 34px;
+    padding-bottom: 30px;
+  }
+
+  .btn-details:hover{
+    background-color: rgba(212, 188, 49, 0.982);;
+  }
+
+.btn-edit{
+  background-color: #555c5a;
+  color: white;
+    width: 100px;
+    text-align: center;
+    height: 34px;
+    padding-bottom: 30px;
+}
+
+.btn-edit:hover{
+  background-color: #3498DB;
+
+}
+
+  .btn-fetch{
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  .btn-fetch:hover{
+    background-color: #1ABC9C;
+  }
+
+
+  .btn-clear{
+    background-color: #F5B041;
+    color: white;
+  }
+  

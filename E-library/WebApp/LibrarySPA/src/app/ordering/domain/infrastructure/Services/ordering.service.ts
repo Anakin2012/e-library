@@ -9,10 +9,10 @@ import { IOrder } from '../../models/IOrder';
 export class OrderingService {
 
     constructor(private http: HttpClient) { }
-
-    public getOrders(usename:string) {
+    url = 'http://localhost:8004/api/v1/Order';
+    public getOrders(username:string) {
         //treba da se odfiksira ovaj deo
-        return this.http.get<{ [key: string]: IOrder }>('http://localhost:8004/api/v1/Order/' + usename)
+        return this.http.get<{ [key: string]: IOrder}>(`${this.url}/GetOrdersByUsername/${username}`)
             .pipe(map((res) => {
                 const orders = [];
                 for (const key in res) {
@@ -24,6 +24,4 @@ export class OrderingService {
             }))
 
     }
-
-
 }

@@ -25,7 +25,7 @@ namespace Ordering.API.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet("{username}")]
+        [HttpGet("[action]/{username}")]
         [ProducesResponseType(typeof(IEnumerable<OrderDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<OrderDTO>>> GetOrdersByUsername(string username)
         {
@@ -33,7 +33,7 @@ namespace Ordering.API.Controllers
             var orders = await _mediator.Send(query);
             return Ok(orders);
         }
-
+        [Route("[action]")]
         [HttpPost]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         public async Task<ActionResult<int>> CheckoutOrder(CreateOrderCommand command)

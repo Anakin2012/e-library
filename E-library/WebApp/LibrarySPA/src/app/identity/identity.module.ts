@@ -7,6 +7,7 @@ import { LoginFormComponent } from './feature-authentication/login-form/login-fo
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterFormComponent } from './feature-authorisation/register-form/register-form.component';
 import { SettingsComponent } from './feature-settings/settings/settings.component';
+import { LogoutComponent } from './feature-authentication/logout/logout.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SettingsComponent } from './feature-settings/settings/settings.componen
     IdentityComponent,
     LoginFormComponent,
     RegisterFormComponent,
-    SettingsComponent
+    SettingsComponent,
+    LogoutComponent
   ],
   imports: [
     CommonModule,

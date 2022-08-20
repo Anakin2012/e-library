@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, switchMap } from 'rxjs';
-import { AppState } from 'src/app/shared/app-state/app-state';
+import { catchError, map, Observable, of, switchMap, take } from 'rxjs';
+import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { JwtPayloadKeys } from 'src/app/shared/jwt/jwt-payload-keys';
 import { JwtService } from 'src/app/shared/jwt/jwt.service';
 import { AuthenticationService } from '../infrastructure/authentication.service';
 import { ILoginRequest } from '../models/login-request';
 import { ILoginResponse } from '../models/login-response';
+import { ILogoutRequest } from '../models/logout-request';
 import { IMemberDetails } from '../models/member-details';
 import { MemberFacadeService } from './member-facade.service';
 
@@ -49,5 +50,29 @@ export class AuthenticationFacadeService {
 
     
   }
+
+  public Logout() : Observable<boolean> {
+    return this.appStateService.getAppState().pipe(
+      take(1),
+      map((appState : IAppState) => {
+        const request : ILogoutRequest = {loginName : appState.userName as string, refreshToken : appState.refreshToken as string};
+        return request;
+      }),
+      switchMap((request : ILogoutRequest) => this.authenticationService.Logout(request)),
+      map(() => {
+        this.appStateService.clearAppState();
+        return true;
+      }),
+      catchError((err) => {
+        console.error(err);
+        return of(false);
+      })
+    );
+  }
+
+
+  
+
+
 
 }

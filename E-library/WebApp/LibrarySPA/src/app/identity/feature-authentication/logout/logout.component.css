@@ -1,0 +1,18 @@
+.site-image{
+    float: left;
+    background: transparent;
+    margin-left: 350px;
+    margin-top: 50px;
+}
+.identity-text{
+    float: right;
+    font-weight: 300;
+    width: 400px;
+    color: #04AA6D;
+    margin-left: 1px;
+    margin-right: 350px;
+    margin-bottom: 50px;
+    margin-top: 80px;
+    text-align: center;
+    font-size: small;
+}

@@ -9,7 +9,7 @@
         <a *ngIf="cartItemsCount===0" routerLinkActive="active" [routerLink]="['shopping-cart/cart']">My basket</a>
         <a routerLinkActive="active" [routerLink]="['wishlist']">My wishlist</a>
         <a routerLinkActive="active" [routerLink]="['library/items']">My library</a>
-        <a routerLinkActive="active" [routerLink]="['ordering/orders']">My orders</a>
+        <a routerLinkActive="active" [routerLink]="['ordering/users']">My orders</a>
       
         <div class="move-right">
             <div  *ngIf="appState === null; else accAndLogout">

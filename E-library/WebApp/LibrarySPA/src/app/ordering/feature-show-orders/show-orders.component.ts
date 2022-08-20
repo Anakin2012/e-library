@@ -1,33 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { IOrder } from '../domain/models/IOrder';
 import { OrderingFacadeService } from '../domain/app-services/ordering-facade.service';
-import { LocalStorageService } from '../../shared/local-storage/local-storage.service';
-import { IAppState } from '../../shared/app-state/app-state';
-import { LocalStorageKeys } from '../../shared/local-storage/local-storage-keys';
-import { IOrderItem } from '../domain/models/IOrderItem';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-  selector: 'app-show-orders',
-  templateUrl: './show-orders.component.html',
-  styleUrls: ['./show-orders.component.css']
+    selector: 'app-show-orders',
+    templateUrl: './show-orders.component.html',
+    styleUrls: ['./show-orders.component.css']
 })
 export class ShowOrdersComponent implements OnInit {
 
-    currentUser = '';
+    username = '';
+    RouteParamObs;
     orders: IOrder[];
-    constructor(public datepipe: DatePipe, private service: OrderingFacadeService, private localStorageService: LocalStorageService) { }
+    constructor(private activatedRoute: ActivatedRoute, public datepipe: DatePipe, private service: OrderingFacadeService) { }
 
-ngOnInit(): void {
-    const appState: IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
-    if (appState !== null) {
+    ngOnInit(): void {
 
-        this.currentUser = appState.userName;
-        console.log(this.currentUser);
-        this.getOrders(this.currentUser);
-    }
-
+        this.RouteParamObs = this.activatedRoute.paramMap.subscribe((param) => {
+            this.username = param.get('username');
+            this.getOrders(this.username);
+        });
     }
 
     private getOrders(username: string) {

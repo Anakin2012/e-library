@@ -1,58 +1,80 @@
-.book-container {
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.history-container {
+    padding: 30px;
+    border: 1px solid gray;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.45);
+}
+
+    .history-container > .header {
+        margin-bottom: 30px;
+    }
+
+h2 {
+    font-size: 24px;
+    margin: 0;
+    font-weight: normal;
+}
+
+.account-balance {
     display: flex;
-    margin: 15px 0px;
-    padding: 5px 5px;
-    border-radius: 5px;
+    flex-grow: 1;
+    align-items: baseline;
+    margin-top: 15px;
 }
 
-.image-container {
-    background-color: #fff;
-    height: 50px;
-    width: 40px;
-    text-align: center;
+    .account-balance > .label {
+        font-size: 14px;
+    }
+
+    .account-balance > amount {
+        font-size: 16px;
+    }
+
+.dots {
+    border-bottom: 1px dotted #ccc;
+    flex-grow: 1;
 }
 
-.order {
-    padding-bottom: 20px;
-    padding-top: 10px;
-    height: 120px;
+.transactions {
+    background-color: #ededed;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 20px;
 }
 
-.title {
-    height: 60px;
-    border-bottom: 1px solid #E1E8EE;
-    padding: 20px 30px;
-    color: #04AA6D;
-    font-size: 22px;
-    font-weight: 700;
-    padding-bottom: 30px;
+    .transactions > table {
+        width: 100%;
+        border-collapse: collapse;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .transactions > table td {
+            padding: 0;
+        }
+
+h3 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: normal;
+    padding: 10px 0;
 }
 
-.detail-container {
-    display: flex;
-    margin: 0px 20px;
-    font-size: small;
-    font-style: normal;
+.transaction-row {
+    height: 30px;
+    white-space: pre;
 }
 
-.title-container {
-    margin: 0px 20px;
-    font-size: medium;
-    font-weight: 200;
+.transaction-date {
+    width: 23%; /*?*/
 }
 
-.details {
-    width: 140px;
-}
-
-.options {
-    width: 220px;
-    margin-left: 80px;
-}
-
-.btn {
-    border-radius: none;
-    margin: 0px 5px;
-    padding: 2px 10px;
-    font-size: 12px;
+.transaction-amount {
+    text-align: right;
 }

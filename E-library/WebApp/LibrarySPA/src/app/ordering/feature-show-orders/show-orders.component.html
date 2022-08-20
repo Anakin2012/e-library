@@ -1,20 +1,18 @@
-<div class="orders" >
-    <div class="title" >
-        {{currentUser}}'s ordering history
-    </div>
+<div class="history-container">
     <div *ngFor="let order of orders;">
-        <div class="order">
-            <div class="card">
-                <h6>{{order.orderDate | date: 'medium'}}</h6>
-            </div>
-            <div *ngFor="let item of order.orderItems;" [ngStyle]="{backgroundColor:'#D5F5E3'}">
-                <div class="book-container">
-                    <div>
-                        <div class="title-container"><h6>{{item.bookTitle}}</h6></div>
-                    </div>
-                </div>
+        <div class="transactions">
+            <h3>{{order.orderDate | date: 'medium'}}</h3>
+            <div *ngFor="let item of order.orderItems;">
+                <table>
+                    <tbody>
+                        <tr class="transaction-row">
+                            <td class="transaction-date">{{item.bookTitle}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <div class="footer">
+        </div>
     </div>
-
 </div>

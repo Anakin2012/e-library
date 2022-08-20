@@ -29,12 +29,13 @@ namespace Ordering.API.EventBusConsumers
         {
 
             CreateOrderCommand command = new CreateOrderCommand();
-            command.State = "";
-            command.Street = "";
-            command.ZipCode = "";
-            command.City = "";
-            command.Country = "";
-            command.EmailAddress = "";
+            command.State = context.Message.State;
+            command.Street = context.Message.Street;
+            command.ZipCode = context.Message.ZipCode;
+            command.City = context.Message.City;
+            command.Country = context.Message.Country;
+            command.EmailAddress = context.Message.EmailAddress;
+            command.Username = context.Message.Username;
             CartCheckoutEvent checkOutEvent = context.Message;
             command.OrderItems = _mapper.Map<IEnumerable<ItemDTO>>(checkOutEvent.Items);
             var id = await _mediator.Send(command);

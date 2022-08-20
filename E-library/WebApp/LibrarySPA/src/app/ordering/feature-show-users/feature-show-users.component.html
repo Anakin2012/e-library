@@ -1,0 +1,7 @@
+<div *ngFor="let user of allUsers">
+    <div class="card">
+        <h5>{{user.userName}}</h5>
+        <p><button class="btn show-det" routerLink="/ordering/{{user.userName}}/orders"> Show Orders</button></p>
+    </div>
+</div>
+

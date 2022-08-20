@@ -22,11 +22,12 @@ export class ItemlistComponent implements OnInit {
        private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
-    this.getList();
+    
     const appState : AppState | null = this.localStorageService.get(LocalStorageKeys.AppState)
     if(appState !== null){
       this.currentUser = appState.userName;
     }
+    this.getList();
 }
 
 
@@ -42,7 +43,7 @@ private getList() {
 removeFromList(bookId : string){
     this.service.RemoveFromWishlist(this.currentUser, bookId).subscribe((list)=>{
       console.log(list);
-      this.getList();
+     // this.getList();
     });
 }
 
@@ -55,7 +56,7 @@ isInCart(bookId : string) : Boolean{
       }
     }
   });
-  return false;
+  return ind;
 }
 
 }

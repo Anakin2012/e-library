@@ -2,17 +2,17 @@ import { IOrderItem } from "./IOrderItem";
 import { DatePipe } from '@angular/common';
 
 export interface IOrder {
-    Id : Number;
-    Street : string;
-    City : string;
-    State : string;
-    Country : string;
-    ZipCode : string;
-    EmailAddress : string;
-    OrderDate : Date;
-    CustomerId : string;
-    Username : string;
-    OrderItems : IOrderItem[];
+    id : Number;
+    street : string;
+    city : string;
+    state : string;
+    country : string;
+    zipCode : string;
+    emailAddress : string;
+    orderDate : Date;
+    customerId : string;
+    username : string;
+    orderItems : IOrderItem[];
 }
 
 //OrderDTO

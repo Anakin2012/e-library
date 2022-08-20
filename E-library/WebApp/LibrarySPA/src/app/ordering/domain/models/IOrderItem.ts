@@ -1,12 +1,12 @@
 export interface IOrderItem {
-    Id : Number;
-    BookTitle : string;
-    BookId : string;
-    BookAuthor : string;
-    BookGenre : string;
-    Language : string;
-    IsPremium : boolean;
-    CoverImageFile : string;
+    id : Number;
+    bookTitle : string;
+    bookId : string;
+    bookAuthor : string;
+    bookGenre : string;
+    language : string;
+    isPremium : boolean;
+    coverImageFile : string;
 }
 //OrderItemDTO
 //  int Id

@@ -1,12 +1,12 @@
 <div class="history-container">
     <div *ngFor="let order of orders;">
         <div class="transactions">
-            <h3>{{order.OrderDate | date: 'medium'}}</h3>
-            <div *ngFor="let item of order.OrderItems;">
+            <h3>{{order.orderDate | date: 'medium'}}</h3>
+            <div *ngFor="let item of order.orderItems;">
                 <table>
                     <tbody>
                         <tr class="transaction-row">
-                            <td class="transaction-date">{{item.BookTitle}}</td>
+                            <td class="transaction-date">{{item.bookTitle}}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -8,6 +8,7 @@ import { BooksFacadeService } from '../../domain/app-services/books-facade.servi
 import { IBook } from '../../domain/models/book';
 import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
 import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
+import { DataService } from 'src/app/shared/service/data.service';
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
@@ -21,7 +22,7 @@ export class BookListComponent implements OnInit {
   cartItems: ICartItem[];
   currentRoles?: string | string[];
 
-  constructor(private service: BooksFacadeService, private localStorageService: LocalStorageService, private wishlistService: WishListServiceFacade) { 
+  constructor(private dataService: DataService, private service: BooksFacadeService, private localStorageService: LocalStorageService, private wishlistService: WishListServiceFacade) { 
 
   }
 
@@ -57,7 +58,7 @@ export class BookListComponent implements OnInit {
     this.service.addToCart(username, id).subscribe((res) => {
       console.log(res);
         this.cartItems = res;
-        location.reload();
+        this.dataService.notifyOther({refresh: true});
     });
   }
 

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { BooksService } from 'src/app/catalog/domain/infrastructure/Services/books.service';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
+import { DataService } from 'src/app/shared/service/data.service';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 import { BooksFacadeService } from '../domain/app-services/books-facade.service';
 import { IBook } from '../domain/models/book';
@@ -23,7 +22,7 @@ export class BookDetailsComponent implements OnInit {
   currentUser: string;
   cartItems: ICartItem[];
 
-  constructor(private activatedRoute: ActivatedRoute, private service: BooksFacadeService, private localStorageService: LocalStorageService) { }
+  constructor(private dataService: DataService, private activatedRoute: ActivatedRoute, private service: BooksFacadeService, private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     const appState: IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
@@ -49,6 +48,7 @@ export class BookDetailsComponent implements OnInit {
     this.service.addToCart(username, id).subscribe((res) => {
       console.log(res);
       this.cartItems = res;
+      this.dataService.notifyOther({refresh: true});
     });
   }
 

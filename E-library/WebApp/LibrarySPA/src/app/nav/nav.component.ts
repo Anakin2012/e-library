@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, switchMap } from 'rxjs';
 import { IAppState } from '../shared/app-state/app-state';
+import { AppStateService } from '../shared/app-state/app-state.service';
 import { LocalStorageKeys } from '../shared/local-storage/local-storage-keys';
 import { LocalStorageService } from '../shared/local-storage/local-storage.service';
 import { DataService } from '../shared/service/data.service';
@@ -14,35 +16,37 @@ export class NavComponent implements OnInit {
 
     searchText: string = '';
     cartItemsCount: number;
-    username: string = '';
     site_name: string = "e-Library";
-    appState : IAppState | null;
+    public appState$ : Observable<IAppState>;
+
         
-    constructor(private dataService: DataService, private cartService: CartFacadeService, private localStorageService: LocalStorageService) { }
+    constructor(private dataService: DataService, 
+                private cartService: CartFacadeService,
+                private appStateService: AppStateService,
+                private localStorageService: LocalStorageService)
+    {
+      this.appState$ = this.appStateService.getAppState();
+    }
 
     ngOnInit(): void {
         //dodati logiku dodeljivanja total Count 
-        this.appState = this.localStorageService.get(LocalStorageKeys.AppState);
-        if (this.appState !== null) {
-            this.username = this.appState.userName;
-            console.log(this.username);
-            this.getCartTotalItems(this.username);
-        }
-
+        this.getCartTotalItems();
+        
         this.dataService.notifyObservable$.subscribe(res => {
           if(res.refresh){
-              // get your grid data again. Grid will refresh automatically
-              this.getCartTotalItems(this.username);
+              this.getCartTotalItems();
           }
-    })
-
+        })
     }
 
-    public getCartTotalItems(username: string) {
-      this.cartService.getCart(username).subscribe((cart) => {
+    public getCartTotalItems() {
+      this.appStateService.getAppState().pipe(
+        switchMap((appState) => this.cartService.getCart(appState.userName))
+      ).subscribe((cart) => 
+      {
         this.cartItemsCount = cart.totalItems;
-      })
+        console.log(this.cartItemsCount);
+      }); 
     }
     
-  
 }

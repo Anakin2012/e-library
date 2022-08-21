@@ -15,10 +15,6 @@ export class BooksService {
 
   constructor(private http: HttpClient) { }
 
-  public addToCart(username: string, id: string) : Observable<ICartItem[]>{
-    return this.http.put<ICartItem[]>(`http://localhost:8003/api/v1/Cart/AddBookToCart/${username}/${id}`, null);
-  }
-
   public createBook(body: Object) {
     return this.http.post(`${this.url}/CreateBook`, body);
   }

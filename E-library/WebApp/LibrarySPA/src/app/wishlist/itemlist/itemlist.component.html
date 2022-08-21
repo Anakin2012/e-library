@@ -28,7 +28,7 @@ style="position: center;">
         <button *ngIf="item.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;">Borrow now</button>
         
         <ng-template #notifyme>
-          <button class="btn btn-success" (click)="bookService.addToCart(currentUser, item.bookId)">Borrow now</button>
+          <button class="btn btn-success" (click)="cartService.addToCart(currentUser, item.bookId)">Borrow now</button>
         </ng-template>
         </div>
         <ng-template #inthere>

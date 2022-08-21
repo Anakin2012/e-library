@@ -1,10 +1,7 @@
-import { compileDeclareInjectorFromMetadata } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { IBook } from 'src/app/catalog/domain/models/book';
-import { NavComponent } from 'src/app/nav/nav.component';
+import { map, Observable, switchMap } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
-import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
-import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
+import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { DataService } from 'src/app/shared/service/data.service';
 import { CartFacadeService } from '../../domain/app-services/cart-facade.service';
 import { ICart } from '../../domain/models/ICart';
@@ -20,48 +17,71 @@ export class CartComponent implements OnInit {
   currentUser: string = '';
   cart: ICart;
   cartItems: ICartItem[] = [];
-  constructor(private dataService: DataService, private nav : NavComponent, private localStorageService: LocalStorageService, private cartService: CartFacadeService) { }
+  public appState$ : Observable<IAppState>;
+
+  constructor(private dataService: DataService,
+              private cartService: CartFacadeService,
+              private appStateService: AppStateService)
+  {
+    this.appState$ = this.appStateService.getAppState();
+  }
 
   ngOnInit(): void {
-    const appState: IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
-    if(appState !== null) {
-      this.currentUser = appState.userName;
-      console.log(this.currentUser);
-      this.getCart(this.currentUser);
-    }
+    this.getCart();
   }
 
-  onRemoveAll(username: string) {
-      this.deleteCart(this.currentUser);
+  onRemoveAll() {
+      this.deleteCart();
   }
 
-  onRemove(username: string, id: string) {
-      this.removeFromCart(this.currentUser, id);
+  onRemove(id: string) {
+      this.removeFromCart(id);
   }
 
-  private removeFromCart(username: string, id: string) {
-    this.cartService.removeFromCart(username, id).subscribe((cartItems) => {
-      this.cart.items = cartItems;
-        this.getCart(username);
-        this.dataService.notifyOther({refresh: true});
+  private removeFromCart(id: string) {
+    this.appStateService.getAppState().pipe(
+      map((appState : IAppState) => {
+        const username : string = appState.userName;
+        return username;
+      }),
+      switchMap((username: string) => this.cartService.removeFromCart(username, id)),
+      map((cartItems: ICartItem[]) => {
+        this.cartItems = cartItems;
+        this.cart.items = cartItems;
+        return this.cart;
+      }),
+      switchMap((cart: ICart) => this.cartService.updateCart(cart))
+    ).subscribe((cart) => {
+      this.cart = cart;
+      this.dataService.notifyOther({refresh: true});
     });
   }
 
-  private getCart(username: string) {
-    this.cartService.getCart(username).subscribe((cart) => 
-    { 
+  private getCart() {
+    this.appStateService.getAppState().pipe(
+      switchMap((appState) => this.cartService.getCart(appState.userName))
+    ).subscribe((cart) => 
+    {
       this.cart = cart;
       this.cartItems = cart.items;
       console.log(this.cart);
-    });
-  }
+    }); 
+ }
 
-  private deleteCart(username: string) {
-    this.cartService.deleteCart(username).subscribe((res) => 
-    {
-      console.log(res);
-        this.getCart(username);
-        this.dataService.notifyOther({refresh: true});
+  private deleteCart() {
+
+    this.appStateService.getAppState().pipe(
+      map((appState : IAppState) => {
+        const username : string = appState.userName;
+        return username;
+      }),
+      switchMap((username: string) => this.cartService.deleteCart(username)),
+      switchMap((username: string) => this.cartService.getCart(username))
+    ).subscribe((cart) => {
+      this.cart = cart;
+      this.cartItems = cart.items;
+      this.dataService.notifyOther({refresh: true});
     });
+    
   }
 }

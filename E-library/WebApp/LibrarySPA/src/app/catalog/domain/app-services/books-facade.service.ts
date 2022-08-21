@@ -10,10 +10,6 @@ export class BooksFacadeService {
 
   constructor(private booksService: BooksService) { }
 
-  public addToCart(username: string, id: string) {
-    return this.booksService.addToCart(username, id);
-  }
-
   public createBook(body) {
     return this.booksService.createBook(body);
   }

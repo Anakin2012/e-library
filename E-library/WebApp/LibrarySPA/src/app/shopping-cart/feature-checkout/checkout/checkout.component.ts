@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable, switchMap } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
-import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
-import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
+import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { CartFacadeService } from '../../domain/app-services/cart-facade.service';
 import { ICart } from '../../domain/models/ICart';
 
@@ -14,45 +14,44 @@ import { ICart } from '../../domain/models/ICart';
 export class CheckoutComponent implements OnInit {
 
   @ViewChild('checkoutForm') form: NgForm;
-  currentUser: string = '';
-  currentName: string = '';
-  surname: string = '';
   cart: ICart;
+  public appState$ : Observable<IAppState>;
 
-  constructor(private localStorageService: LocalStorageService, private cartService: CartFacadeService) { }
+  constructor(private cartService: CartFacadeService,
+              private appStateService: AppStateService)
+  {
+    this.appState$ = this.appStateService.getAppState();
+  }
 
   ngOnInit(): void {
-    
-    const appState: IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
-    if(appState !== null) {
-      this.currentUser = appState.userName;
-      this.getCartInfo();
-      this.currentName = appState.firstName;
-      this.surname = appState.lastName;
-      console.log(this.currentUser);
-    }
+    this.getCartInfo();
   }
 
   getCartInfo() {
-    this.getCart(this.currentUser);
-  }
-
-  private getCart(username: string) {
-    this.cartService.getCart(username).subscribe((cart) => {
-      this.cart = cart;
-    })
+    this.getCart();
   }
 
   onCheckout(info: {street: string, city: string, state: string, country: string, zipCode: string, emailAddress: string}) 
   {
-    this.checkout(this.currentUser, info);
+    this.checkout(info);
   }
 
-  private checkout(username: string, info: {street: string, city: string, state: string, country: string, zipCode: string, emailAddress: string})
+  private getCart() {
+    this.appStateService.getAppState().pipe(
+      switchMap((appState) => this.cartService.getCart(appState.userName))
+    ).subscribe((cart) => 
+    {
+      this.cart = cart;
+      console.log(this.cart);
+    }); 
+  }
+
+  private checkout(info: {street: string, city: string, state: string, country: string, zipCode: string, emailAddress: string})
   {
-    this.cartService.checkout(username, info).subscribe((res) => {
-      console.log(res);
-    })
+    this.appStateService.getAppState().pipe(
+      switchMap((appState) => this.cartService.checkout(appState.userName, info))
+      ).subscribe((res) => {console.log(res);
+      });
   }
 
 }

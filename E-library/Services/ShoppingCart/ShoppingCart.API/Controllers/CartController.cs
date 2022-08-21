@@ -16,7 +16,6 @@ using System.Collections.Generic;
 
 namespace ShoppingCart.API.Controllers
 {
-    //[Authorize(Roles = "Member, PremiumMember")]
     [Authorize(Roles = "Member, PremiumMember")]
     [ApiController]
     [Route("api/v1/[controller]")]
@@ -40,16 +39,11 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(Cart), StatusCodes.Status200OK)]
         public async Task<ActionResult<Cart>> GetCart(string username)
         {
-            //if (User.FindFirst(ClaimTypes.Name).Value != username)
-            //{
-            //    return Forbid();
-            //}
-            /*
             if (User.FindFirst(ClaimTypes.Name).Value != username)
             {
                 return Forbid();
             }
-*/
+   
             var cart = await _repository.GetCart(username);
             return Ok(cart ?? new Cart(username));
         }
@@ -59,17 +53,11 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(Cart), StatusCodes.Status200OK)]
         public async Task<ActionResult<Cart>> UpdateCart([FromBody] Cart cart)
         {
-            ///if (User.FindFirst(ClaimTypes.Name).Value != cart.Username)
-            //{
-            //    return Forbid();
-            //}
-
-            /*
             if (User.FindFirst(ClaimTypes.Name).Value != cart.Username)
             {
                 return Forbid();
             }
-*/
+
             return Ok(await _repository.UpdateCart(cart));
         }
 
@@ -78,16 +66,11 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteCart(string username)
         {
-            //if (User.FindFirst(ClaimTypes.Name).Value != username)
-            //{
-            //    return Forbid();
-            //}
-            /*
             if (User.FindFirst(ClaimTypes.Name).Value != username)
             {
                 return Forbid();
             }
-            */
+           
             await _repository.DeleteCart(username);
             return Ok();
         }
@@ -98,17 +81,12 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Checkout(string username,[FromBody] CheckoutOrderDetails checkoutOrderDetails)
         {
-            //if (User.FindFirst(ClaimTypes.Name).Value != username)
-           // {
-           //     return Forbid();
-           // }
-            /*
+        
             if(User.FindFirst(ClaimTypes.Name).Value != username)
             {
                 return Forbid();
             }
 
-            */
             List<Entities.CartItem> checkoutItems = new List<Entities.CartItem>();
             
             var cart = await _repository.GetCart(username);
@@ -166,16 +144,12 @@ namespace ShoppingCart.API.Controllers
         [ProducesResponseType(typeof(Cart), StatusCodes.Status200OK)]
         public async Task<ActionResult<Cart>> RemoveBookFromCart(string username, string bookId)
         {
-            //if (User.FindFirst(ClaimTypes.Name).Value != username)
-            //{
-            //    return Forbid();
-            //}
-            /*
+            
             if (User.FindFirst(ClaimTypes.Name).Value != username)
             {
                 return Forbid();
             }
-        */
+        
             return Ok(await _service.RemoveBookFromCart(username, bookId));
         }
 

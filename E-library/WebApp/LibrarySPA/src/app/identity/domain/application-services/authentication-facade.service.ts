@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, switchMap, take } from 'rxjs';
+import { catchError, map, Observable, of, switchMap, take, throwError } from 'rxjs';
 import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { JwtPayloadKeys } from 'src/app/shared/jwt/jwt-payload-keys';
@@ -33,6 +33,7 @@ export class AuthenticationFacadeService {
         this.appStateService.setRoles(payload[JwtPayloadKeys.Role]);
         this.appStateService.setEmail(payload[JwtPayloadKeys.Email]);
         this.appStateService.setMembershipExpired(payload[JwtPayloadKeys.ExpiredMembership]);
+        this.appStateService.setMembershipPaid(payload[JwtPayloadKeys.MembershipPaid]);
 
         return this.memberService.getMemberDetails(payload[JwtPayloadKeys.Username]);
       }),
@@ -95,7 +96,5 @@ export class AuthenticationFacadeService {
     );
   }
 
-
-
-
+  
 }

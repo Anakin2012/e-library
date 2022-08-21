@@ -7,6 +7,7 @@ export interface IAppState {
     membershipExpired? : string;
     firstName? : string;
     lastName? : string;
+    membershipPaid? : string;
 
 
     hasRole(role: string) : boolean; 
@@ -24,9 +25,10 @@ export class AppState implements IAppState {
     public membershipExpired?: string;
     public firstName? : string;
     public lastName? : string;
+    public membershipPaid? : string;
 
     public constructor();
-    public constructor(accessToken? : string, refreshToken? : string, userName? : string, roles? : string | string[], email? : string, membershipExpired? : string, firstName? : string, lastName? : string);
+    public constructor(accessToken? : string, refreshToken? : string, userName? : string, roles? : string | string[], email? : string, membershipExpired? : string, firstName? : string, lastName? : string, membershipPaid? : string);
 
 
     public constructor(...args : any[]) {
@@ -34,7 +36,7 @@ export class AppState implements IAppState {
             return;
         }
 
-        if(args.length == 8) {
+        if(args.length == 9) {
             this.accessToken = args[0];
             this.refreshToken = args[1];
             this.userName = args[2];
@@ -43,6 +45,7 @@ export class AppState implements IAppState {
             this.membershipExpired = args[5];
             this.firstName = args[6];
             this.lastName = args[7];
+            this.membershipPaid = args[8];
         }
     }
 
@@ -59,7 +62,7 @@ export class AppState implements IAppState {
     }
 
     public isEmpty(): boolean {
-        return this.accessToken === undefined && this.refreshToken === undefined && this.userName === undefined && this.roles === undefined && this.email === undefined && this.membershipExpired === undefined && this.firstName === undefined && this.lastName === undefined;
+        return this.accessToken === undefined && this.refreshToken === undefined && this.userName === undefined && this.roles === undefined && this.email === undefined && this.membershipExpired === undefined && this.firstName === undefined && this.lastName === undefined && this.membershipPaid === undefined;
       }
 
     public clone( ) : IAppState {

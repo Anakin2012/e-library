@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { MemberService } from '../infrastructure/member.service';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, switchMap, take } from 'rxjs';
 import { IMemberDetails } from '../models/member-details';
 import { IChangePasswordRequest } from '../models/change-password-request';
+import { AuthenticationFacadeService } from './authentication-facade.service';
+import { AppStateService } from 'src/app/shared/app-state/app-state.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemberFacadeService {
 
-  constructor(private memberService : MemberService) { }
+  constructor(private memberService : MemberService, private appStateService : AppStateService) { }
 
   public getMemberDetails(username : string) : Observable<IMemberDetails> {
     return this.memberService.getMemberDetails(username);
@@ -31,12 +34,15 @@ export class MemberFacadeService {
   }
 
 
-  public PayMembership(username : string) : Observable<boolean> {
+  public PayMembership(username : string) : Observable<boolean | null> {
     return this.memberService.PayMembership(username).pipe(
       map(() => {
         return true;
       }),
       catchError((err) => {
+        if(err instanceof HttpErrorResponse && err.status === 406) {
+          return null;
+        }
         console.log(err);
         return of(false);
       })
@@ -47,13 +53,15 @@ export class MemberFacadeService {
   public DeleteAccount(username : string) : Observable<boolean> {
     return this.memberService.DeleteAccount(username).pipe(
       map(() => {
+        this.appStateService.clearAppState();
         return true;
       }),
       catchError((err) => {
-        console.log(err);
+        console.error(err);
         return of(false);
       })
     );
+
   }
 
 

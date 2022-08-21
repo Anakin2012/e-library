@@ -15,6 +15,9 @@ import { AuthenticationFacadeService } from 'src/app/identity/domain/application
 export class AuthenticationInterceptor implements HttpInterceptor {
   private readonly whiteListUrls : string[] = [
     '/api/v1/Login/Login',
+    '/api/v1/Login/Refresh',
+    '/api/v1/Registration/RegisterMember',
+    '/api/v1/Registration/RegisterPremiumMember',
     '/api/v1/Catalog/GetBooks',
     '/api/v1/Catalog/GetBookById/{id}',
     '/api/v1/Catalog/GetBooksByGenre/{genre}',

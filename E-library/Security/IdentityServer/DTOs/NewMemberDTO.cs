@@ -25,8 +25,5 @@ namespace IdentityServer.DTOs
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [Required(ErrorMessage = "Email is required.")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "Number of credentials is required.")]
-        public double Credentials { get; set; }
     }
 }

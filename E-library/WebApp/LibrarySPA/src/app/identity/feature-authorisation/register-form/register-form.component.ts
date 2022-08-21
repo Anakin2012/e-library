@@ -17,7 +17,6 @@ export class RegisterFormComponent implements OnInit {
       surname: new FormControl("", [Validators.required]),
       username: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required, Validators.email]),
-      credentials: new FormControl("", [Validators.required]),
       password: new FormControl("", [Validators.required, Validators.minLength(8)]),
       membership: new FormControl("", [Validators.required])
     });
@@ -34,7 +33,7 @@ export class RegisterFormComponent implements OnInit {
 
 
     if(this.registerForm.value.membership === 'regular') {
-      this.authorisationService.RegisterMember(this.registerForm.value.name, this.registerForm.value.surname, this.registerForm.value.username, this.registerForm.value.password, this.registerForm.value.email, parseFloat(this.registerForm.value.credentials)).subscribe((success: boolean) => {
+      this.authorisationService.RegisterMember(this.registerForm.value.name, this.registerForm.value.surname, this.registerForm.value.username, this.registerForm.value.password, this.registerForm.value.email).subscribe((success: boolean) => {
         if(success==true) {
           window.alert('Account created successfuly!');
         }
@@ -45,7 +44,7 @@ export class RegisterFormComponent implements OnInit {
       });
   }
   if(this.registerForm.value.membership === 'premium') {
-    this.authorisationService.RegisterPremiumMember(this.registerForm.value.name, this.registerForm.value.surname, this.registerForm.value.username, this.registerForm.value.password, this.registerForm.value.email, parseFloat(this.registerForm.value.credentials)).subscribe((success: boolean) => {
+    this.authorisationService.RegisterPremiumMember(this.registerForm.value.name, this.registerForm.value.surname, this.registerForm.value.username, this.registerForm.value.password, this.registerForm.value.email).subscribe((success: boolean) => {
       if(success==true) {
         window.alert('Account created successfuly!');
       }

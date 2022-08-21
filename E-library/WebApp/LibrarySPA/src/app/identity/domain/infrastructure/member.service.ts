@@ -18,15 +18,15 @@ export class MemberService {
   }
   
   public ChangePassword(ChangePasswordRequest : IChangePasswordRequest) : Observable<any> {
-    return this.httpClient.put<any>('http://localhost:4000/api/v1/Member/ChangePassword', ChangePasswordRequest );
+    return this.httpClient.put('http://localhost:4000/api/v1/Member/ChangePassword', ChangePasswordRequest );
   }
 
   public PayMembership(username : string) : Observable<any> {
-    return this.httpClient.put<any>('http://localhost:4000/api/v1/Member/Pay', username );
+    return this.httpClient.put('http://localhost:4000/api/v1/Member/Pay', username);
   }
 
   public DeleteAccount(username : string) : Observable<any> {
-    return this.httpClient.delete<any>(`http://localhost:4000/api/v1/Member/DeleteAccount/${username}`);
+    return this.httpClient.delete(`http://localhost:4000/api/v1/Member/DeleteAccount/${username}`);
   }
 
 

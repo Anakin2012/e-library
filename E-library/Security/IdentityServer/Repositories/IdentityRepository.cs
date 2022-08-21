@@ -41,7 +41,10 @@ namespace IdentityServer.Repositories
                 return IdentityResult.Failed(errors.ToArray());
             }
 
-            member.IsMembershipPaid = false;
+            // prvi mesec besplatna clanarina
+            member.IsMembershipPaid = true;
+            member.DateMembership = DateTime.Now;
+            member.Credentials = 0;
 
             IdentityResult result = await _memberManager.CreateAsync(member, newMember.Password);
             if (!result.Succeeded)
@@ -168,13 +171,13 @@ namespace IdentityServer.Repositories
             }
 
             if (premium)
-            { // clanarina kosta 1500 dinara 
+            { // premium : 1500 credentials
                 if (member.Credentials < 1500.0) {
                     return IdentityResult.Failed();
                 }
                 member.Credentials -= 1500;
             }
-            else { // clanarina kosta 750 dinara 
+            else { // regular : 750 credentials 
                 if (member.Credentials < 750.0)
                 {
                     return IdentityResult.Failed();

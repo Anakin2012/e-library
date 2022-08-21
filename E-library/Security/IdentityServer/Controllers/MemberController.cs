@@ -1,4 +1,5 @@
 ﻿using EventBus.Messages.Events;
+using IdentityServer.AuthenticationServices;
 using IdentityServer.DTOs;
 using IdentityServer.Repositories.Interfaces;
 using MassTransit;
@@ -21,12 +22,14 @@ namespace IdentityServer.Controllers
         private IdentityRepositoryInterface _repository;
         private ILogger<MemberController> _loger;
         private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IAuthenticationService _authenticationService;
 
-        public MemberController(IdentityRepositoryInterface repository, ILogger<MemberController> loger, IPublishEndpoint publishEndpoint)
+        public MemberController(IdentityRepositoryInterface repository, ILogger<MemberController> loger, IPublishEndpoint publishEndpoint, IAuthenticationService authenticationService)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _loger = loger ?? throw new ArgumentNullException(nameof(loger));
             _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
+            _authenticationService = authenticationService ?? throw new ArgumentNullException(nameof(authenticationService));
         }
 
         [Authorize]
@@ -44,6 +47,7 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
         public async Task<ActionResult> Pay([FromBody] string userName)
         {
             if (User.FindFirstValue(ClaimTypes.Name) != userName)
@@ -54,7 +58,7 @@ namespace IdentityServer.Controllers
             var member = await _repository.FindMember(userName);
             if (member.IsMembershipPaid == true)
             {
-                return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status406NotAcceptable);
             }
 
 
@@ -92,6 +96,7 @@ namespace IdentityServer.Controllers
             {
                 return Forbid();
             }
+
 
             var member = await _repository.FindMember(username);
 

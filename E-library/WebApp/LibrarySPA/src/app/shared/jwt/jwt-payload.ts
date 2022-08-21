@@ -5,6 +5,7 @@ export interface IJwtPayload {
     [JwtPayloadKeys.Email] : string;
     [JwtPayloadKeys.ExpiredMembership] : string;
     [JwtPayloadKeys.Role] : string | string[];
+    [JwtPayloadKeys.MembershipPaid] : string;
     exp : number;
     iss : string;
     aud : string;

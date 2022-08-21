@@ -4,5 +4,4 @@ export interface IRegisterRequest {
     UserName : string;
     Password : string;
     Email : string;
-    Credentials: number;
 }

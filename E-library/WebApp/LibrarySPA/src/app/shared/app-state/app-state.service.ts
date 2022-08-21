@@ -26,7 +26,7 @@ export class AppStateService {
   private restoreFromLocalStorage() : void {
     const appState : IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
     if(appState !== null) {
-      this.appState = new AppState(appState.accessToken, appState.refreshToken, appState.userName, appState.roles, appState.email, appState.membershipExpired, appState.firstName, appState.lastName);
+      this.appState = new AppState(appState.accessToken, appState.refreshToken, appState.userName, appState.roles, appState.email, appState.membershipExpired, appState.firstName, appState.lastName, appState.membershipPaid);
     }
 
     this.appStateSubject.next(this.appState);
@@ -109,5 +109,13 @@ export class AppStateService {
     
   }
 
+  public setMembershipPaid( membershipPaid : string ) : void {
+    this.appState = this.appState.clone();
+    this.appState.membershipPaid = membershipPaid;
+    this.appStateSubject.next(this.appState);
+
+    this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
+    
+  }
 
 }

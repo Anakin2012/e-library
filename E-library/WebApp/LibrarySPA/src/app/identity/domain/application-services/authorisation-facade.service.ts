@@ -12,8 +12,8 @@ export class AuthorisationFacadeService {
 
   }
 
-  public RegisterMember(Name : string, Surname : string, UserName : string, Password : string, Email : string, Credentials: number) : Observable<boolean> {
-    const request : IRegisterRequest = {Name, Surname, UserName, Password, Email, Credentials};
+  public RegisterMember(Name : string, Surname : string, UserName : string, Password : string, Email : string) : Observable<boolean> {
+    const request : IRegisterRequest = {Name, Surname, UserName, Password, Email};
 
     return this.authorisationService.RegisterMember(request).pipe(
       map(() => {
@@ -27,8 +27,8 @@ export class AuthorisationFacadeService {
 
   }
 
-  public RegisterPremiumMember(Name : string, Surname : string, UserName : string, Password : string, Email : string, Credentials: number) : Observable<boolean> {
-    const request : IRegisterRequest = {Name, Surname, UserName, Password, Email, Credentials};
+  public RegisterPremiumMember(Name : string, Surname : string, UserName : string, Password : string, Email : string) : Observable<boolean> {
+    const request : IRegisterRequest = {Name, Surname, UserName, Password, Email};
 
     return this.authorisationService.RegisterPremiumMember(request).pipe(
       map(() => {

@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { catchError, Observable, of, switchMap, take, throwError, map } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
+import { AuthenticationFacadeService } from '../../domain/application-services/authentication-facade.service';
 import { MemberFacadeService } from '../../domain/application-services/member-facade.service';
+
+interface IChangePasswordData {
+  oldPassword: string;
+  newPassword: string;
+}
 
 @Component({
   selector: 'app-settings',
@@ -11,17 +19,28 @@ import { MemberFacadeService } from '../../domain/application-services/member-fa
 })
 export class SettingsComponent implements OnInit {
   public appState$: Observable<IAppState>;
+  public changePasswordForm: FormGroup;
 
-  constructor(private appStateService: AppStateService, private memberService : MemberFacadeService) {
+  constructor(private appStateService: AppStateService, private memberService : MemberFacadeService, private routerService : Router) {
     this.appState$ = this.appStateService.getAppState();
+    this.changePasswordForm = new FormGroup({
+      oldPassword: new FormControl("", [Validators.required, Validators.minLength(8)]),
+      newPassword: new FormControl("", [Validators.required, Validators.minLength(8)])
+    });
   }
 
   ngOnInit(): void {
   }
 
-  public changePassword(userName: string, password: string, newPassword : string) : void {
+  public changePassword(userName: string) : void {
+    if (this.changePasswordForm.invalid) {
+      window.alert('Form is invalid');
+      return;
+    }
+
+    const data : IChangePasswordData = this.changePasswordForm.value as IChangePasswordData;
     
-    this.memberService.ChangePassword(userName, password, newPassword).subscribe((success : boolean) => {
+    this.memberService.ChangePassword(userName, data.oldPassword, data.newPassword).subscribe((success : boolean) => {
       if(success == true) {
         window.alert('Password changed!');
       }
@@ -29,28 +48,32 @@ export class SettingsComponent implements OnInit {
         window.alert('Password not changed!');
       }
     });
-
   }
 
   public DeleteAccount(userName : string) : void {
     this.memberService.DeleteAccount(userName).subscribe((success : boolean) => {
-      if(success == true) {
-        window.alert('Account deleted');
+      if(success === true) {
+        window.alert('Account deleted!');
+        this.routerService.navigate(['/Home']);
       }
       else {
         window.alert('Account not deleted!');
       }
     });
+
   }
 
   public payMembership(userName : string) : void {
     
     this.memberService.PayMembership(userName).subscribe((success : boolean) => {
-      if(success == true) {
-        window.alert('Membership payed!');
+      if(success === null) {
+        window.alert('Membership is already payed!');
+      }
+      if(success === true) {
+        window.alert('You have successfully paid your membership!');
       }
       else {
-        window.alert('Membership not payed!');
+        window.alert('An error occurred while paying membership!');
       }
     });
   }

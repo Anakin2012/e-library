@@ -98,7 +98,8 @@ namespace IdentityServer.AuthenticationServices
             {
                 new Claim(ClaimTypes.Name, member.UserName),
                 new Claim(ClaimTypes.Email, member.Email),
-                new Claim(ClaimTypes.Expired, (!member.IsMembershipPaid).ToString())
+                new Claim(ClaimTypes.Expired, (!member.IsMembershipPaid).ToString()),
+                new Claim("membership-paid-until", member.DateMembership.AddDays(30).ToShortDateString())
             };
 
             var roles = await _memberManager.GetRolesAsync(member);

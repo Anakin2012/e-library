@@ -29,7 +29,7 @@ namespace IdentityServer.Controllers
 
         [HttpPost("[action]")]
         [ProducesResponseType(typeof(AuthenticationModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]  // korisnik nije uspeo da se autentifikuje
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)] 
         public async Task<IActionResult> Login([FromBody]MemberCredentialsDTO memberCredentials)
         {
             var member = await _authenticationService.ValidateUser(memberCredentials);
@@ -79,6 +79,7 @@ namespace IdentityServer.Controllers
             var member = await _repository.FindMemberByEmailOrUsename(refreshTokenCredentials.LoginName);
             if (member == null)
             {
+
                 return Forbid();
             }
 

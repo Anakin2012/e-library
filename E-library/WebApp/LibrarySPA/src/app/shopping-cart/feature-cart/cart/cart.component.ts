@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgToastService } from 'ng-angular-popup';
 import { map, Observable, switchMap } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
@@ -21,7 +22,8 @@ export class CartComponent implements OnInit {
 
   constructor(private dataService: DataService,
               private cartService: CartFacadeService,
-              private appStateService: AppStateService)
+              private appStateService: AppStateService,
+              private toastService: NgToastService)
   {
     this.appState$ = this.appStateService.getAppState();
   }
@@ -36,6 +38,12 @@ export class CartComponent implements OnInit {
 
   onRemove(id: string) {
       this.removeFromCart(id);
+  }
+
+  onCheck() {
+    if (this.cart.totalItems === 0) {
+      this.toastService.error({detail: "Nothing to checkout", summary: "Your cart is empty!", duration: 3000});
+    }
   }
 
   private removeFromCart(id: string) {

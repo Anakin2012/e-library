@@ -10,6 +10,7 @@ import { BooksComponent } from './homepage/books/books.component';
 import { RouterModule } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AuthenticationInterceptor } from './shared/interceptors/authentication.interceptor';
+import { NgToastModule } from 'ng-angular-popup';
 
 
 @NgModule({
@@ -18,17 +19,16 @@ import { AuthenticationInterceptor } from './shared/interceptors/authentication.
     NavComponent,
     HomepageComponent,
     HeaderComponent,
-    BooksComponent
+    BooksComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-
     FormsModule,
     HttpClientModule,
-    RouterModule
-
+    RouterModule,
+    NgToastModule
   ],
   providers: [
     { provide : HTTP_INTERCEPTORS, useClass : AuthenticationInterceptor, multi : true }

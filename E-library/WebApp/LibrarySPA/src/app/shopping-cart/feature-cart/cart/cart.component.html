@@ -52,6 +52,6 @@
      <p *ngIf="cart.totalItems===0"> Your cart is empty !</p>
       Total books: {{cart.totalItems}}
       <button style="float: right" class="check"> <a style="text-decoration: none; margin-left: 10px;" class="check" routerLinkActive="active" [routerLink]="['/shopping-cart/checkout']">Checkout </a></button>
-      <button style="float: right" class="back"> <a class="back" routerLinkActive="active" [routerLink]="['/catalog/books']">Find more books </a></button>
+      <button style="float: right" class="back" (click)="onCheck()"> <a class="back" routerLinkActive="active" [routerLink]="['/catalog/books']">Find more books </a></button>
     </div>
   </div>

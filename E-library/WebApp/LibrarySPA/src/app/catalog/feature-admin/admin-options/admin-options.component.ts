@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { switchMap } from 'rxjs';
 import { BooksFacadeService } from '../../domain/app-services/books-facade.service';
 import { IBook } from '../../domain/models/book';
 
@@ -18,10 +19,6 @@ export class AdminOptionsComponent implements OnInit {
   constructor(private service: BooksFacadeService) { }
 
   ngOnInit(): void {
-    this.fetchBooks();
-  }
-
-  onBooksFetch() {
     this.fetchBooks();
   }
 
@@ -78,11 +75,12 @@ export class AdminOptionsComponent implements OnInit {
       }
 
       console.log(books);
-      this.service.createBook(books).subscribe((res) => {
-        console.log(res);
-        this.fetchBooks();
-      });
 
+      this.service.createBook(books).pipe(
+        switchMap(() => this.service.getBooks())
+      ).subscribe((books) => {
+        this.allBooks = books;
+      });
   }
 
   private updateBook(id: string, books: {title: string, author: string, genre: string, language:string, description: string, 
@@ -95,20 +93,23 @@ export class AdminOptionsComponent implements OnInit {
     if (books.isAvailable != true) {
       books.isAvailable = false;
     }
-    
-    this.service.updateBook(id, books).subscribe((res) => {
-      console.log(res);
-      this.fetchBooks();
-    })
 
+    this.service.updateBook(id, books).pipe(
+      switchMap(() => this.service.getBooks())
+    ).subscribe((books) => {
+      this.allBooks = books;
+    })
   }
 
   private deleteBook(id) {
-    this.service.deleteBook(id).subscribe((res) => {
-      console.log(res);
-      this.fetchBooks();
+    this.service.deleteBook(id).pipe(
+      switchMap(() => this.service.getBooks())
+    ).subscribe((books) => {
+      this.allBooks = books;
+      console.log(this.allBooks);
     });
-
   }
 
 }
+
+

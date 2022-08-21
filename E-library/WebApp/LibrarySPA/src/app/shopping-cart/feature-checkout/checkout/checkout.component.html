@@ -5,14 +5,14 @@
         <hr>
       </div>
 
-<div class="container">
-    <div class="form-area">
+<div class="container" *ngIf = "appState$ | async as appState">
+    <div class="form-area" *ngIf = "!appState.isEmpty()">
       <h3>Fill in order info: </h3>
-      <label>Name</label>
-      <input type="text" value="currentName" name="name">
+      <label>First Name</label>
+      <input type="text" value="{{appState.firstName}}" name="name">
 
-     <label>Surname</label>
-     <input type="text" name="surname" value="currentSurname">
+     <label>Last Name</label>
+     <input type="text" name="surname" value="{{appState.lastName}}">
 
       <form #checkoutForm="ngForm" (ngSubmit)="onCheckout(checkoutForm.value)">
         

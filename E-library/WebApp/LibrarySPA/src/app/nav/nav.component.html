@@ -2,24 +2,28 @@
     <div class="site-name">
         <h1>Welcome to {{site_name}}</h1>
     </div>
-    <div class="topnav">
+    <div class="topnav" *ngIf = "appState$ | async as appState">
         <a routerLinkActive="active" [routerLink]="['Home']">Home</a>
         <a routerLinkActive="active" [routerLink]="['catalog/books']">Books</a>
+        <div *ngIf="!appState.isEmpty()">
         <a *ngIf="cartItemsCount!==0" class="fa-stack" [attr.data-count]="cartItemsCount" routerLinkActive="active" [routerLink]="['shopping-cart/cart']">My basket</a>
         <a *ngIf="cartItemsCount===0" routerLinkActive="active" [routerLink]="['shopping-cart/cart']">My basket</a>
+        </div>
         <a routerLinkActive="active" [routerLink]="['wishlist']">My wishlist</a>
         <a routerLinkActive="active" [routerLink]="['library/items']">My library</a>
         <a routerLinkActive="active" [routerLink]="['ordering/users']">My orders</a>
       
+
         <div class="move-right">
-            <div  *ngIf="appState === null; else accAndLogout">
+          <div  *ngIf="appState.isEmpty(); else accAndLogout">
           <a routerLinkActive="active" [routerLink]="['identity/login']">Login</a>
           <a routerLinkActive="active" [routerLink]="['identity/register']">Register</a>
             </div>
           <ng-template #accAndLogout>
-            <a routerLinkActive="active" [routerLink]="['identity/settings']"> My Account ({{username}}) </a>
+            <a routerLinkActive="active" [routerLink]="['identity/settings']"> My Account ({{appState.userName}}) </a>
             <a routerLinkActive="active" [routerLink]="['identity/logout']">Logout</a>
-        </ng-template>
+          </ng-template>
+        
         </div>
     </div>
 </div>

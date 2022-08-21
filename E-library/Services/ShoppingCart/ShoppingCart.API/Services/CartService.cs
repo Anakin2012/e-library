@@ -61,7 +61,6 @@ namespace ShoppingCart.API.Services
 
         public async Task<List<CartItem>> RemoveBookFromCart(string username, string bookId)
         {
-           // var book = await _grpcService.GetBookById(bookId);
 
             Cart cart;
             if (await _repository.GetCart(username) != null)

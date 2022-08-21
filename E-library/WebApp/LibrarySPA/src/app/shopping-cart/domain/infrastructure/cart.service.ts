@@ -19,10 +19,18 @@ export class CartService {
 
   public getCart(username: string): Observable<ICart> {
     return this.http.get<ICart>(`${this.url}/GetCart/${username}`);
-    }
+  }
 
   public deleteCart(username: string) {
     return this.http.delete(`${this.url}/DeleteCart/${username}`)
+  }
+
+  public updateCart(body: Object) : Observable<ICart> {
+    return this.http.put<ICart>(`${this.url}/UpdateCart`, body);
+  }
+
+  public addToCart(username: string, id: string) : Observable<ICartItem[]>{
+    return this.http.put<ICartItem[]>(`${this.url}/AddBookToCart/${username}/${id}`, null);
   }
 
   public removeFromCart(username: string, id: string) : Observable<ICartItem[]>{

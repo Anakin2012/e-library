@@ -1,7 +1,7 @@
-<div class="shopping-cart">
-    <div class="title">
-      {{currentUser}}'s Shopping Cart
-      <button class="removeall" (click)="onRemoveAll(currentUser)"> Remove all</button>
+<div class="shopping-cart" *ngIf = "appState$ | async as appState">
+    <div class="title" *ngIf = "!appState.isEmpty()">
+      {{appState.userName}}'s Shopping Cart
+      <button class="removeall" (click)="onRemoveAll()"> Remove all</button>
     </div>
 
     <div *ngIf="cart; else empty">
@@ -29,7 +29,7 @@
 
       <div style="float: right; margin-left: 90px;" class="quantity">
         <p> Remove from cart 
-        <button class="remove-btn" type="button" name="button" (click)="onRemove(currentUser, item.bookId)">
+        <button class="remove-btn" type="button" name="button" (click)="onRemove(item.bookId)">
             X 
         </button>
         </p>

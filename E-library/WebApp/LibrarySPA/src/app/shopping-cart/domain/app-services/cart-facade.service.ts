@@ -17,10 +17,18 @@ export class CartFacadeService {
 
   public getCart(username: string): Observable<ICart> {
     return this.cartService.getCart(username);
-    }
+  }
+
+  public updateCart(body) : Observable<ICart>{
+    return this.cartService.updateCart(body);
+  }
 
   public deleteCart(username: string) {
     return this.cartService.deleteCart(username);
+  }
+
+  public addToCart(username: string, id: string) {
+    return this.cartService.addToCart(username, id);
   }
 
   public removeFromCart(username: string, id: string) : Observable<ICartItem[]> {

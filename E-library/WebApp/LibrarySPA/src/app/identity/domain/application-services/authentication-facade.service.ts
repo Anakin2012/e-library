@@ -58,10 +58,18 @@ export class AuthenticationFacadeService {
     return this.appStateService.getAppState().pipe(
       take(1),
       map((appState : IAppState) => {
+        if(appState.userName === undefined) {
+          return null;
+        }
         const request : ILogoutRequest = {loginName : appState.userName as string, refreshToken : appState.refreshToken as string};
         return request;
       }),
-      switchMap((request : ILogoutRequest) => this.authenticationService.Logout(request)),
+      switchMap((request : ILogoutRequest | null) => {
+        if(!request) {
+          return throwError(() => new Error('You need to be signed in!'));
+        }
+        return this.authenticationService.Logout(request);
+      }),
       map(() => {
         this.appStateService.clearAppState();
         return true;

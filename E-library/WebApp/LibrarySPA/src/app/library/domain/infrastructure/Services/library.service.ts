@@ -12,7 +12,7 @@ export class LibraryService {
 
     public getBooks(username: string) {
         //treba da se odfiksira ovaj deo
-        return this.http.get<{ [key: string]: ILibraryItem }>('http://localhost:8085/api/v1/Library/'+username)
+        return this.http.get<{ [key: string]: ILibraryItem }>('http://localhost:8085/api/v1/Library/GetBooksForUser/'+username)
             .pipe(map((res) => {
                 const libItems = [];
                 for (const key in res) {

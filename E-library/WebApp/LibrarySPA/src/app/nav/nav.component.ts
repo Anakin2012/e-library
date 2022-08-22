@@ -27,20 +27,22 @@ export class NavComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.appState$.subscribe((appstate) => {
-          if (!appstate.isEmpty()) {
+      /*
+        this.appStateService.getAppState().subscribe((appstate) => {
+          if (!appstate.isEmpty() && appstate.userName !== null) {
             this.loggedIn = true;
           }
           else {
             this.loggedIn = false;
           }
         })
-        if (this.loggedIn === true) {
+        if (this.loggedIn) {
           this.getCartTotalItems();    
         } 
         else {
           this.cartItemsCount = 0;
         }
+        */
     }
 
     public getCartTotalItems() {

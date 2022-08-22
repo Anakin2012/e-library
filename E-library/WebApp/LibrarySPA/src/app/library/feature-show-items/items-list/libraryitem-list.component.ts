@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, switchMap } from 'rxjs';
 import { IAppState } from '../../../shared/app-state/app-state';
+import { AppStateService } from '../../../shared/app-state/app-state.service';
 import { LocalStorageKeys } from '../../../shared/local-storage/local-storage-keys';
 import { LocalStorageService } from '../../../shared/local-storage/local-storage.service';
 import { LibraryFacadeService } from '../../domain/app-services/library-facade.service';
@@ -12,27 +14,24 @@ import { ILibraryItem } from '../../domain/models/libraryitem';
 })
 export class LibraryitemListComponent implements OnInit {
 
-    currentUser = '';
     libraryItems: ILibraryItem[] = [];
+    public appState$: Observable<IAppState>;
 
-    constructor(private service: LibraryFacadeService, private localStorageService: LocalStorageService) {
-
+    constructor(private service: LibraryFacadeService, private appStateService: AppStateService) {
+        this.appState$ = this.appStateService.getAppState();
     }
 
     ngOnInit() {
-        const appState: IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
-        if (appState !== null) {
-            this.currentUser = appState.userName;
-            console.log(this.currentUser);
-            this.getAllBooks(this.currentUser);
-        }
+        this.getAllBooks();
     }
 
 
-    private getAllBooks(username: string) {
-        this.service.getBooks(username).subscribe((books) => {
-            console.log(books);
-            this.libraryItems = books;
+    private getAllBooks() {
+        this.appStateService.getAppState().pipe(
+            switchMap((appState) => this.service.getBooks(appState.userName))
+        ).subscribe((libraryItems) => {
+            this.libraryItems = libraryItems;
+            console.log(this.libraryItems);
         });
     }
 

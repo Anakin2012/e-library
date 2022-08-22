@@ -74,12 +74,17 @@ namespace Catalog.API
             services.AddMassTransit(config =>
             {
                 config.AddConsumer<CartCheckoutConsumer>();
+                config.AddConsumer<RemoveBookFromLibraryConsumer>();
                 config.UsingRabbitMq((ctx, cfg) =>
                 {
                     cfg.Host(Configuration["EventBusSettings:HostAddress"]);
                     cfg.ReceiveEndpoint(EventBusConstants.UpdateCatalogQueue, c =>
                     {
                         c.ConfigureConsumer<CartCheckoutConsumer>(ctx);
+                    });
+                    cfg.ReceiveEndpoint(EventBusConstants.RemoveBookFromLibraryQueue, c =>
+                    {
+                        c.ConfigureConsumer<RemoveBookFromLibraryConsumer>(ctx);
                     });
                 });
             });

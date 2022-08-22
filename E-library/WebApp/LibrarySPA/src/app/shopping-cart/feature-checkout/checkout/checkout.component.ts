@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NgToastService } from 'ng-angular-popup';
 import { Observable, switchMap } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
@@ -18,7 +19,8 @@ export class CheckoutComponent implements OnInit {
   public appState$ : Observable<IAppState>;
 
   constructor(private cartService: CartFacadeService,
-              private appStateService: AppStateService)
+              private appStateService: AppStateService,
+              private toastService: NgToastService)
   {
     this.appState$ = this.appStateService.getAppState();
   }
@@ -48,10 +50,17 @@ export class CheckoutComponent implements OnInit {
 
   private checkout(info: {street: string, city: string, state: string, country: string, zipCode: string, emailAddress: string})
   {
+    if (Object.values(info).includes("")) {
+      this.toastService.warning({detail: "Missing info", summary: "Please fill in all the fields!", duration: 3000});
+    }
+    else {
     this.appStateService.getAppState().pipe(
       switchMap((appState) => this.cartService.checkout(appState.userName, info))
-      ).subscribe((res) => {console.log(res);
+      ).subscribe((res) => {
+        console.log(res);
+        this.toastService.success({detail: "Order confirmed!", summary: "Your order has been processed.", duration: 3000});
       });
+    }
   }
 
 }

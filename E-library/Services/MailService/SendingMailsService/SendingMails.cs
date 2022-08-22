@@ -27,8 +27,8 @@ namespace MailService.SendingMailsService
 
             var builder = new BodyBuilder();
 
-            builder.HtmlBody = "Hello " + payingModel.Name + " " + payingModel.Surname + "!\n Your E-Library membership for this mounth has just been payed.";
-            builder.TextBody = "Hello " + payingModel.Name + " " + payingModel.Surname + "!\n Your E-Library membership for this mounth has just been payed.";
+            builder.HtmlBody = "Hello " + payingModel.Name + " " + payingModel.Surname + "!\n Your E-Library membership for this month has just been paid.";
+            builder.TextBody = "Hello " + payingModel.Name + " " + payingModel.Surname + "!\n Your E-Library membership for this month has just been paid.";
 
             email.Body = builder.ToMessageBody();
 

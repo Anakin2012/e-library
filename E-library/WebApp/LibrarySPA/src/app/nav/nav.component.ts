@@ -36,7 +36,6 @@ export class NavComponent implements OnInit {
             this.loggedIn = false;
           }
         })
-
         if (this.loggedIn) {
           this.getCartTotalItems();    
         } 

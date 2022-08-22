@@ -3,6 +3,7 @@ import {HttpClient } from '@angular/common/http';
 import { IMemberDetails } from '../models/member-details';
 import { Observable } from 'rxjs';
 import { IChangePasswordRequest } from '../models/change-password-request';
+import { IUserName } from '../models/username-model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,8 @@ export class MemberService {
     return this.httpClient.put('http://localhost:4000/api/v1/Member/ChangePassword', ChangePasswordRequest );
   }
 
-  public PayMembership(username : string) : Observable<any> {
-    return this.httpClient.put('http://localhost:4000/api/v1/Member/Pay', username);
+  public PayMembership(userName : IUserName) : Observable<any> {
+    return this.httpClient.put('http://localhost:4000/api/v1/Member/Pay',  userName);
   }
 
   public DeleteAccount(username : string) : Observable<any> {

@@ -12,7 +12,6 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AuthenticationInterceptor } from './shared/interceptors/authentication.interceptor';
 import { NgToastModule } from 'ng-angular-popup';
 
-
 @NgModule({
   declarations: [
     AppComponent,

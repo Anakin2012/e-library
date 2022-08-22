@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { IAppState } from '../shared/app-state/app-state';
 import { AppStateService } from '../shared/app-state/app-state.service';
-import { LocalStorageKeys } from '../shared/local-storage/local-storage-keys';
-import { LocalStorageService } from '../shared/local-storage/local-storage.service';
 import { DataService } from '../shared/service/data.service';
 import { CartFacadeService } from '../shopping-cart/domain/app-services/cart-facade.service';
 
@@ -15,38 +13,45 @@ import { CartFacadeService } from '../shopping-cart/domain/app-services/cart-fac
 export class NavComponent implements OnInit {
 
     searchText: string = '';
-    cartItemsCount: number;
+    cartItemsCount: number = 0;
     site_name: string = "e-Library";
     public appState$ : Observable<IAppState>;
-
-        
+    loggedIn: boolean = false;
+    
     constructor(private dataService: DataService, 
                 private cartService: CartFacadeService,
-                private appStateService: AppStateService,
-                private localStorageService: LocalStorageService)
+                private appStateService: AppStateService
+                )
     {
       this.appState$ = this.appStateService.getAppState();
     }
 
     ngOnInit(): void {
-        //dodati logiku dodeljivanja total Count 
-        this.getCartTotalItems();
-        
-        this.dataService.notifyObservable$.subscribe(res => {
-          if(res.refresh){
-              this.getCartTotalItems();
+        this.appState$.subscribe((appstate) => {
+          if (!appstate.isEmpty()) {
+            this.loggedIn = true;
+          }
+          else {
+            this.loggedIn = false;
           }
         })
+        if (this.loggedIn === true) {
+          this.getCartTotalItems();    
+        } 
+        else {
+          this.cartItemsCount = 0;
+        }
     }
 
     public getCartTotalItems() {
-      this.appStateService.getAppState().pipe(
-        switchMap((appState) => this.cartService.getCart(appState.userName))
-      ).subscribe((cart) => 
-      {
+
+      this.dataService.notifyObservable$.pipe(
+        switchMap((res: boolean) => this.appStateService.getAppState()),
+        switchMap((appState: IAppState) => this.cartService.getCart(appState.userName))
+      ).subscribe((cart) => {
         this.cartItemsCount = cart.totalItems;
         console.log(this.cartItemsCount);
-      }); 
+      });
+
     }
-    
 }

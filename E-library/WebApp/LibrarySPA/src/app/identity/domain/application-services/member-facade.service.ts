@@ -6,6 +6,7 @@ import { IChangePasswordRequest } from '../models/change-password-request';
 import { AuthenticationFacadeService } from './authentication-facade.service';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IUserName } from '../models/username-model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,13 +36,14 @@ export class MemberFacadeService {
 
 
   public PayMembership(username : string) : Observable<boolean | null> {
-    return this.memberService.PayMembership(username).pipe(
+    const userName : IUserName = {userName : username};
+    return this.memberService.PayMembership(userName).pipe(
       map(() => {
         return true;
       }),
       catchError((err) => {
         if(err instanceof HttpErrorResponse && err.status === 406) {
-          return null;
+          return of(null);
         }
         console.log(err);
         return of(false);

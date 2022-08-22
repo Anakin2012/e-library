@@ -28,6 +28,11 @@ namespace Library.API.Repositories
             return _mapper.Map<IEnumerable<LibraryItemDTO>>(userBooks);
         }
 
+        public async Task<LibraryItemDTO> GetLibraryItem(string id) {
+            var item = await _context.LibraryItems.Find(b => b.Id == id).FirstOrDefaultAsync();
+            return _mapper.Map<LibraryItemDTO>(item);
+        }
+
         public async Task AddLibraryItem(LibraryItemDTO libraryItemDTO)
         {
             var libraryItem = new LibraryItem();
@@ -45,7 +50,7 @@ namespace Library.API.Repositories
             await _context.LibraryItems.InsertOneAsync(libraryItem);
         }
 
-        public async  Task DeleteLibraryItem(string libraryItemId, string username)
+        public async  Task DeleteLibraryItem(string libraryItemId)
         {
             await _context.LibraryItems.DeleteOneAsync(b => b.Id == libraryItemId);
         }

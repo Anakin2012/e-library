@@ -14,9 +14,11 @@ namespace Library.API.Repositories
 
         public Task AddLibraryItem(LibraryItemDTO book);
 
+        public Task<LibraryItemDTO> GetLibraryItem(string libItemId);
+
         public Task<bool> DeleteLibraryItems(string username);
 
-        public Task DeleteLibraryItem(string libraryItemId, string username);
+        public Task DeleteLibraryItem(string libraryItemId);
 
     }
 }

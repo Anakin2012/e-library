@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavComponent } from '../navigation/nav/nav.component';
-import { BooksComponent } from './books/books.component';
-import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-homepage',

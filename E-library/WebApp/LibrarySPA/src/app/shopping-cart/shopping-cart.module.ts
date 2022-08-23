@@ -7,6 +7,7 @@ import { CheckoutComponent } from './feature-checkout/checkout/checkout.componen
 import { FormsModule } from '@angular/forms';
 import { AppModule } from '../app.module';
 import { NavComponent } from '../navigation/nav/nav.component';
+import { NavUserComponent } from '../navigation/nav-user/nav-user/nav-user.component';
 
 
 @NgModule({
@@ -19,6 +20,6 @@ import { NavComponent } from '../navigation/nav/nav.component';
     ShoppingCartRoutingModule,
     FormsModule,
   ],
-  providers: [NavComponent]
+  providers: [NavUserComponent]
 })
 export class ShoppingCartModule { }

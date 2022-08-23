@@ -1,45 +1,72 @@
 <div class="searchdiv">
 <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+</div>
 <div *ngIf = "appState$ | async as appState">
-    <div *ngIf = "!appState.isEmpty()">
-        <div *ngIf="appState.roles==='Administrator'"> 
-            <a class="admin-div" routerLinkActive="active" [routerLink]="['/catalog/admin']"><br>Admin options</a>
-        </div>
-    </div>
-</div>
-</div>
+   <!---<div *ngIf = "!appState.isEmpty(); else not"> -->
 <ng-container *ngIf="searchText===''; else some">
 <div *ngFor="let b of allBooks">
+        
         <div class="card">
+
             <img src="{{b.coverImageFile}}">
             <h5>{{b.title}}</h5>
             <h6>{{b.author}}</h6>
             <div class="details" [ngStyle]="{color: b.isAvailable===true ? 'Green' : 'Red'}">{{b.isAvailable==true ? 'Available' : 'Not available'}}</div>
             <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
-            <p><button class="btn wish" (click)="addToWishlist(b.id)">Add to Wishlist </button></p>
+            
+            <div *ngIf = "!appState.isEmpty(); else not">
+                <p *ngIf="appState.roles!=='Administrator'"><button class="btn wish" (click)="addToWishlist(b.id)">Add to Wishlist </button></p>
             <p><button class="btn show-det" routerLink="/catalog/books/{{b.id}}"> Show Details</button></p> 
-            <p><button class="btn btn-success" style="background-color: #1d6f58;" *ngIf="b.isAvailable===true; else notifyme" (click)="onAddToCart(b.id)"> Borrow</button></p>
+            <p *ngIf="appState.roles!=='Administrator'"><button class="btn btn-success" style="background-color: #1d6f58;" *ngIf="b.isAvailable===true; else notifyme" (click)="onAddToCart(b.id)"> Borrow</button></p>
             <ng-template #notifyme>
+                <div *ngIf="appState.roles !== 'Administrator'">
                 <button class="btn btn-danger" (click)="onAddToCartRed()">Borrow</button>
+                </div>
             </ng-template>
+            </div>
+
+            <ng-template #not>
+                <p><button class="btn show-det" routerLink="/catalog/books/{{b.id}}"> Show Details</button></p> 
+            </ng-template>
+        
+        
+        
         </div>  
 </div>
+
+    
 </ng-container>
 
 <ng-template #some>
     <div *ngFor="let b of someBooks">
         <div class="card">
-            <img [src]="b.coverImageFile">
+
+            <img src="{{b.coverImageFile}}">
             <h5>{{b.title}}</h5>
             <h6>{{b.author}}</h6>
             <div class="details" [ngStyle]="{color: b.isAvailable===true ? 'Green' : 'Red'}">{{b.isAvailable==true ? 'Available' : 'Not available'}}</div>
             <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
-            <p><button class="btn wish">Add to Wishlist </button></p>
-            <p><button class="btn show-det" routerLink="/catalog/books/{{b.id}}"> Show Details</button></p>
-            <p><button class="btn btn-success" style="background-color: #1d6f58;" *ngIf="b.isAvailable===true; else notifyme" (click)="onAddToCart(b.id)"> Borrow</button></p>
+            
+            <div *ngIf = "!appState.isEmpty(); else not">
+                <p *ngIf="appState.roles!=='Administrator'"><button class="btn wish" (click)="addToWishlist(b.id)">Add to Wishlist </button></p>
+            <p><button class="btn show-det" routerLink="/catalog/books/{{b.id}}"> Show Details</button></p> 
+            <p *ngIf="appState.roles!=='Administrator'"><button class="btn btn-success" style="background-color: #1d6f58;" *ngIf="b.isAvailable===true; else notifyme" (click)="onAddToCart(b.id)"> Borrow</button></p>
             <ng-template #notifyme>
-                <button class="btn btn-danger">Borrow</button>
+                <div *ngIf="appState.roles !== 'Administrator'">
+                <button class="btn btn-danger" (click)="onAddToCartRed()">Borrow</button>
+                </div>
             </ng-template>
+            </div>
+
+            <ng-template #not>
+                <p><button class="btn show-det" routerLink="/catalog/books/{{b.id}}"> Show Details</button></p> 
+            </ng-template>
+        
+        
+        
         </div>  
 </div>
 </ng-template>
+<!-- </div> -->
+</div>
+

@@ -6,7 +6,7 @@ import { CartComponent } from './feature-cart/cart/cart.component';
 import { CheckoutComponent } from './feature-checkout/checkout/checkout.component';
 import { FormsModule } from '@angular/forms';
 import { AppModule } from '../app.module';
-import { NavComponent } from '../nav/nav.component';
+import { NavComponent } from '../navigation/nav/nav.component';
 
 
 @NgModule({

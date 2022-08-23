@@ -5,7 +5,7 @@ import { IBook } from '../../domain/models/book';
 import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
 import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
 import { DataService } from 'src/app/shared/service/data.service';
-import { catchError, map, Observable, of, switchMap, throwError } from 'rxjs';
+import { catchError, map, Observable, of, switchMap, take, throwError } from 'rxjs';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/cart-facade.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -54,6 +54,7 @@ export class BookListComponent implements OnInit {
   private addToCart(id: string) {
     
     this.appStateService.getAppState().pipe(
+      take(1),
       map((appState : IAppState) => {
         const username : string = appState.userName;
         const role: string | string[] = appState.roles;
@@ -95,6 +96,7 @@ export class BookListComponent implements OnInit {
   private addWishlist(id:string) {
     
     this.appStateService.getAppState().pipe(
+      take(1),
       map((appState : IAppState) => {
         const username : string = appState.userName;
         return username;

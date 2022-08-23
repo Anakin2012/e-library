@@ -1,5 +1,21 @@
 <div class="wrapper">
-    <app-nav></app-nav>
-    <router-outlet></router-outlet>
+    
+<div *ngIf = "appState$ | async as appState">
+    
+    <div *ngIf = "!appState.isEmpty(); else notlogged">    
+        <div *ngIf = "appState.roles === 'Administrator'; else members">
+            <app-nav-admin></app-nav-admin>
+        </div>        
+        <ng-template #members>
+            <app-nav-user></app-nav-user>
+        </ng-template>
+    
+    </div>
+    <ng-template #notlogged>
+        <app-nav></app-nav>
+    </ng-template>
+    
     <lib-ng-toast></lib-ng-toast>
+    <router-outlet></router-outlet>
+</div>
 </div>

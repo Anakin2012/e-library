@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, switchMap, take } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { DataService } from 'src/app/shared/service/data.service';
@@ -47,7 +47,8 @@ export class CartComponent implements OnInit {
   }
 
   private removeFromCart(id: string) {
-    this.appStateService.getAppState().pipe(
+    this.appState$.pipe(
+      take(1),
       map((appState : IAppState) => {
         const username : string = appState.userName;
         return username;
@@ -66,7 +67,8 @@ export class CartComponent implements OnInit {
   }
 
   private getCart() {
-    this.appStateService.getAppState().pipe(
+    this.appState$.pipe(
+      take(1),
       switchMap((appState) => this.cartService.getCart(appState.userName))
     ).subscribe((cart) => 
     {
@@ -78,7 +80,8 @@ export class CartComponent implements OnInit {
 
   private deleteCart() {
 
-    this.appStateService.getAppState().pipe(
+    this.appState$.pipe(
+      take(1),
       map((appState : IAppState) => {
         const username : string = appState.userName;
         return username;

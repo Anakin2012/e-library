@@ -36,4 +36,8 @@ export class CartService {
   public removeFromCart(username: string, id: string) : Observable<ICartItem[]>{
     return this.http.put<ICartItem[]>(`${this.url}/RemoveBookFromCart/${username}/${id}`, null);
   }
+
+  public removeAll(username: string) : Observable<ICart> {
+    return this.http.put<ICart>(`${this.url}/RemoveAllBooksFromCart/${username})`, null);
+  }
 }

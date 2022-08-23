@@ -15,7 +15,6 @@ import { ICartItem } from '../../domain/models/ICartItem';
 })
 export class CartComponent implements OnInit {
 
-  currentUser: string = '';
   cart: ICart;
   cartItems: ICartItem[] = [];
   public appState$ : Observable<IAppState>;
@@ -86,12 +85,17 @@ export class CartComponent implements OnInit {
         const username : string = appState.userName;
         return username;
       }),
-      switchMap((username: string) => this.cartService.deleteCart(username)),
-      switchMap((username: string) => this.cartService.getCart(username))
+      switchMap((username: string) => this.cartService.removeAll(username)),
+    //  map((cart : ICart) => {
+      //  this.cartItems = cart.items;
+      //  this.cart.items = cart.items;
+      //  return cart;
+     // })
+      switchMap((cart: ICart) => this.cartService.updateCart(cart))
     ).subscribe((cart) => {
       this.cart = cart;
       this.cartItems = cart.items;
-      this.dataService.notifyOther({refresh: true});
+      //this.dataService.notifyOther({refresh: true});
     });
     
   }

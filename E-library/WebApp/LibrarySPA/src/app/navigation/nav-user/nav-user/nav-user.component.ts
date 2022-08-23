@@ -27,36 +27,40 @@ export class NavUserComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    //this.getCartTotalItems();
-    
-        this.appState$.subscribe((appstate) => {
-          if (appstate.roles !== 'Administrator') {
+    this.appState$.subscribe((appstate) => {
+      if (appstate.roles !== 'Administrator') {
             this.loggedIn = true;
-          }
-          else {
-            this.loggedIn = false;
-          }
-        })
+      }
+      else {
+        this.loggedIn = false;
+      }
+    })
     
-        if (this.loggedIn === true) {
-          this.getCartTotalItems();    
-        } 
-        else {
-          this.cartItemsCount = 0;
-        }
-        
+    if (this.loggedIn === true) {
+      this.getCartTotalItems();
+          
+    //  this.notify();   
+    } 
+    else {
+      this.cartItemsCount = 0;
+    }    
   }
 
   public getCartTotalItems() {
 
-    this.dataService.notifyObservable$.pipe(
+    this.appState$.pipe(
       take(1),
-      switchMap((res: boolean) => this.appStateService.getAppState()),
-      switchMap((appState: IAppState) => {
+      switchMap((appState : IAppState) => {
         if (appState.isEmpty()) {
           return of(null);
         }
-        return this.cartService.getCart(appState.userName)})
+        if (appState.roles !== 'Administrator') {
+          return this.cartService.getCart(appState.userName);
+        }
+        else  {
+          return of(null);
+        }
+      })
     ).subscribe((cart : ICart | null) => {
       if (cart === null) {
         console.log('Null');
@@ -65,8 +69,38 @@ export class NavUserComponent implements OnInit {
         this.cartItemsCount = cart.totalItems;
         console.log(this.cartItemsCount);
       }
-    });
+    })
 
   }
+
+  public notify() {
+    this.dataService.notifyObservable$.pipe(
+      take(1),
+      switchMap((res) => {
+          return this.appState$;
+      }),
+      switchMap((appState : IAppState) => {
+        if (appState.isEmpty()) {
+          return of(null);
+        }
+        if (appState.roles !== 'Administrator') {
+          return this.cartService.getCart(appState.userName);
+        }
+        else  {
+          return of(null);
+        }
+      })
+    ).subscribe((cart : ICart | null) => {
+      if (cart === null) {
+        console.log('Null');
+      }
+      else {
+        this.cartItemsCount = cart.totalItems;
+        console.log(this.cartItemsCount);
+      }
+    })
+  }
+
+
 
 }

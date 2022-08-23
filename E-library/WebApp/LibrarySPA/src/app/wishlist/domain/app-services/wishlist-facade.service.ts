@@ -34,4 +34,5 @@ public DeleteList(username : string): void{
 public RemoveFromWishlist(username : string, bookId : string) : Observable<IWish>{
     return this.wishListService.RemoveFromWishlist(username,bookId);
 }
+
 }

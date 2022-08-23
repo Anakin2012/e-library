@@ -8,6 +8,9 @@ import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.
 import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { SearchComponent } from 'src/app/catalog/feature-search/search/search.component';
+import { catchError, map, Observable, switchMap } from 'rxjs';
+import { AppStateService } from 'src/app/shared/app-state/app-state.service';
+import { NgToastService } from 'ng-angular-popup';
 @Component({
   selector: 'app-add-to-list',
   templateUrl: './add-to-list.component.html',
@@ -16,35 +19,102 @@ import { SearchComponent } from 'src/app/catalog/feature-search/search/search.co
 export class AddToListComponent implements OnInit {
   public RecByAuthor : IWishlistItem[] = [];
   public RecByGenre : IWishlistItem[] = [];
-  public currentUser : string;
+  public appState$ : Observable<IAppState>;
   paramObs;
   keys;
+  dataService: any;
   constructor(private localStorageService: LocalStorageService,
-    private service : WishListServiceFacade, private activatedRoute:ActivatedRoute) {
-
+    private service : WishListServiceFacade,
+    private appStateService : AppStateService,
+    private toastService : NgToastService) {
+      this.appState$ = this.appStateService.getAppState();
   }
 
   ngOnInit(): void {
-    const appState : IAppState | null = this.localStorageService.get(LocalStorageKeys.AppState);
-    if(appState !== null){
-      this.currentUser = appState.userName;
-    }
+    
     this.init();
   }
 
   private init(){
-    this.service.GetRecommendationsByAuthor(this.currentUser).subscribe((list)=>
-    {this.RecByAuthor = list;
-     console.log(list);});
-     this.service.GetRecommendationsByGenre(this.currentUser).subscribe((list)=>
-     {this.RecByGenre = list;
-      console.log(list);});
-  
-    }
-    public AddBook(bookId : string){
-      this.service.AddToWishList(this.currentUser, bookId);
-      this.service.GetList(this.currentUser).subscribe((list)=>{
+      this.appStateService.getAppState().pipe(
+        map((appState : IAppState) => {
+          const username : string = appState.userName;
+          return username;
+        }),
+        switchMap((username : string) => {
+          return this.service.GetRecommendationsByGenre(username);
+        }
+        )
+      ).subscribe((list) =>{
+        this.RecByGenre = list;
         console.log(list);
-      });
+      }
+      );
+      this.appStateService.getAppState().pipe(
+        map((appState : IAppState) => {
+          const username : string = appState.userName;
+          return username;
+        }),
+        switchMap((username : string) => {
+          return this.service.GetRecommendationsByAuthor(username);
+        }
+        )
+      ).subscribe((list) =>{
+        this.RecByAuthor = list;
+        console.log(list);
+      }
+      );
+
     }
+    
+    public removeFromWishlist(bookId : string){
+      this.appStateService.getAppState().pipe(
+       map(
+       (appState : IAppState) => {
+         const username : string = appState.userName;
+        return username;
+       }),
+       switchMap((username : string) => {
+         return this.service.RemoveFromWishlist(username, bookId);
+       })
+      ).subscribe((wish) => {
+       this.dataService.notifyOther({refresh : true});
+      })
+   }
+
+  public addToWishlist(bookId : string){
+    this.appStateService.getAppState().pipe(
+      map((appState : IAppState) => {
+        const username : string = appState.userName;
+        return username;
+      }),
+      switchMap((username) => 
+      {
+       this.toastService.info({summary :"Added to wishlist", duration : 3000});
+       return this.service.AddToWishList(username,bookId);
+      })
+      ).subscribe((list) => {
+        this.dataService.notifyOther({refresh : true});
+      });
+    
+      }
+  public isInWishlist(bookId : string){
+    var ind : Boolean = false;
+    this.appStateService.getAppState().pipe(
+      map((appState : IAppState) => {
+        const username : string = appState.userName;
+        return username;
+      }),
+      switchMap((username : string) => {
+        return this.service.GetList(username);
+      })
+    ).subscribe((list) => {
+      for(let item of list.wishedBooks){
+        if(item.bookId === bookId)
+        ind = true;
+      }
+    })
+    return ind;
+  }
+
 }

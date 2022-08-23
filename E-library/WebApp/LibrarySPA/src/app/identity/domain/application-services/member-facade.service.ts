@@ -39,6 +39,7 @@ export class MemberFacadeService {
     const userName : IUserName = {userName : username};
     return this.memberService.PayMembership(userName).pipe(
       map(() => {
+        this.appStateService.setMembershipExpired('False');
         return true;
       }),
       catchError((err) => {

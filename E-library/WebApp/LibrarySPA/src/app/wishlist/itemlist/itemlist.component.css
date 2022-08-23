@@ -30,12 +30,16 @@
     color: white;
   }
 
-.book-display-area{
-    width: 50%;
-    padding: 10px 15px;
-}
 
 .book-display-area img{
   width: 30px;
   height: 40px;
+}
+
+.btn-add{
+  color: #239375;
+}
+
+.btn-delete{
+  color: #020c09;
 }

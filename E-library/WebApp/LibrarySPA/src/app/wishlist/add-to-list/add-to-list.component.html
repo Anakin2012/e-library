@@ -1,32 +1,62 @@
 <div *ngIf="RecByAuthor">
-<p>Recommended by author</p> 
-<div *ngFor="let b of RecByAuthor; let i = index">
-    <div class="card">
-        <h5 class="card-title">{{b.bookTitle}}</h5>
-        <p>Author:</p>
-        <p>{{b.author}}</p>
-        <p>Genre:</p>
-        <p>{{b.genre}}</p>
-        <button class = "btn btn-danger" (click) = "addToWishlist(b.bookId)">Add</button>
-    </div>   
-</div>   
+    <table id="books">
+        <tr>
+          <th>#</th>
+          <th>Recommended by author</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr *ngIf = "RecByAuthor.length === 0">
+          <td colspan="7">No recommendations by author!</td>
+        </tr>
+      <tr *ngFor="let item of RecByAuthor; let i = index">
+              <td>{{i+1}}</td>
+              <td *ngIf="item">{{item.bookTitle}}</td>
+              <td></td>
+              <td>
+                <div *ngIf="!isInWishlist(item.bookId); else isthere">
+              <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)">Add</button>
+                </div>
+                <ng-template #isthere>
+                    <button class = "btn btn-danger">Added</button>  
+                </ng-template>
+                </td>
+              <td></td>
+              <td></td>
+      </tr>
+    </table>    
 </div>
 <div *ngIf="RecByGenre">
-<p>Recommended by genre</p>
-<div *ngFor="let b  of RecByGenre; let i = index">
-    <div class="card">
-        <h5 class="card-title">{{b.bookTitle}}</h5>
-        <p>Author:</p>
-        <p>{{b.author}}</p>
-        <p>Genre:</p>
-        <p>{{b.genre}}</p>
-        <div *ngIf = "isInWishlist(b.bookId); else isthere">
-            <button class = "btn btn-danger" >Add</button>
-        </div>
-        <ng-template #isthere>
-            <button class = "btn btn-danger" (click) = "addToWishlist(b.bookId)">Add</button>
-        </ng-template>
-    </div>  
+    <table id="books">
+        <tr>
+          <th>#</th>
+          <th>Recommended by genre</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr *ngIf = "RecByGenre.length === 0">
+          <td colspan="7">No recommendations by genre!</td>
+        </tr>
+      <tr *ngFor="let item of RecByGenre; let i = index">
+              <td>{{i+1}}</td>
+              <td *ngIf="item">{{item.bookTitle}}</td>
+              <td></td>
+              <td>
+                <div *ngIf="isInWishlist(item.bookId); else isthere">
+                 <button class="wishbut" style="background-color: #4f9ac9;" type="button" (click) = "addToWishlist(item.bookId)">Add</button>
+                  </div>
+                  <ng-template #isthere>
+                    <button class = "btn btn-danger">Added</button>  
+                  </ng-template> 
+                  </td>
+              <td></td>
+              <td></td>
+      </tr>
+    </table> 
+    <button style="float: right" class="back"> <a class="back" routerLinkActive="active" [routerLink]="['/catalog/books']">Find more books </a></button>   
 </div>
-</div>
-<button class = "btn btn-dark" [routerLink]="['..']">Close</button>
+<button class = "btn btn-dark" routerLinkActive="active" [routerLink]="['..']">Close</button>

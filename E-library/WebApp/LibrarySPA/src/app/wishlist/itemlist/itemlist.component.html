@@ -1,6 +1,11 @@
 <div *ngIf = "appState$ | async as appState">
 <div class="book-display-area">
-<h3>Wishlist</h3>
+<div *ngIf="!appState.isEmpty()">
+<div class="title">
+  {{appState.userName}}'s Wishlist
+  <button class = "btn-add" routerLinkActive="active" [routerLink]="['add-to-list']">Add</button>
+  <button class="btn-delete" (click) ="deleteList()">Delete list</button>
+</div>
 <div class="datatable-inner"
 mdbScrollbar
 style="position: center;">
@@ -21,15 +26,15 @@ style="position: center;">
         <td *ngIf="item">{{item.bookTitle}}</td>
         <td></td>
         <td>
-        <button class = "btn btn-danger" (click) = "removeFromList(item.bookId)">Remove</button>
+        <button class = "btn btn-danger" (click) = "removeFromWishlist(item.bookId)">Remove</button>
         </td>
         <td></td>
         <td>
         <div *ngIf="!appState.isEmpty()">  
-        <div *ngIf="!isInCart(item.bookId); else inthere">
-        <button *ngIf="item.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;">Borrow now</button>
+        <div *ngIf="!onIsInCart(item.bookId); else inthere">
+        <button *ngIf="item.isAvailable===true; else notifyme" (click)="onAddToCart(item.bookId)" type="button" style="background-color: #1d6f58;">Borrow now</button>
         <ng-template #notifyme>
-          <button class="btn btn-success" (click)="cartService.addToCart(appState.userName, item.bookId)">Not available</button>
+          <button class="btn btn-success">Not available</button>
         </ng-template>
         </div>
         </div>

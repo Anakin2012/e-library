@@ -8,8 +8,9 @@ import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.
 import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { SearchComponent } from 'src/app/catalog/feature-search/search/search.component';
-import { map, Observable, switchMap } from 'rxjs';
+import { catchError, map, Observable, switchMap } from 'rxjs';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
+import { NgToastService } from 'ng-angular-popup';
 @Component({
   selector: 'app-add-to-list',
   templateUrl: './add-to-list.component.html',
@@ -23,7 +24,9 @@ export class AddToListComponent implements OnInit {
   keys;
   dataService: any;
   constructor(private localStorageService: LocalStorageService,
-    private service : WishListServiceFacade, private appStateService : AppStateService) {
+    private service : WishListServiceFacade,
+    private appStateService : AppStateService,
+    private toastService : NgToastService) {
       this.appState$ = this.appStateService.getAppState();
   }
 
@@ -44,6 +47,7 @@ export class AddToListComponent implements OnInit {
         )
       ).subscribe((list) =>{
         this.RecByGenre = list;
+        console.log(list);
       }
       );
       this.appStateService.getAppState().pipe(
@@ -57,11 +61,26 @@ export class AddToListComponent implements OnInit {
         )
       ).subscribe((list) =>{
         this.RecByAuthor = list;
+        console.log(list);
       }
       );
 
     }
     
+    public removeFromWishlist(bookId : string){
+      this.appStateService.getAppState().pipe(
+       map(
+       (appState : IAppState) => {
+         const username : string = appState.userName;
+        return username;
+       }),
+       switchMap((username : string) => {
+         return this.service.RemoveFromWishlist(username, bookId);
+       })
+      ).subscribe((wish) => {
+       this.dataService.notifyOther({refresh : true});
+      })
+   }
 
   public addToWishlist(bookId : string){
     this.appStateService.getAppState().pipe(
@@ -69,7 +88,11 @@ export class AddToListComponent implements OnInit {
         const username : string = appState.userName;
         return username;
       }),
-      switchMap((username) => this.service.AddToWishList(username,bookId))
+      switchMap((username) => 
+      {
+       this.toastService.info({summary :"Added to wishlist", duration : 3000});
+       return this.service.AddToWishList(username,bookId);
+      })
       ).subscribe((list) => {
         this.dataService.notifyOther({refresh : true});
       });

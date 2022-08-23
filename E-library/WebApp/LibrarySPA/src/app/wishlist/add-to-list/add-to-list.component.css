@@ -1,0 +1,36 @@
+#books {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+#books td, #books th {
+    padding: 4px;
+  }
+  
+#books tr:nth-child(even){background-color: #f2f2f2;}
+  
+#books tr:hover {background-color: #ddd;}
+  
+#books th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    background-color: #222;
+    color: white;
+  }
+
+  .wishbut button:hover{
+    background-color: #798cb0;
+  }
+
+  .back {
+    width: 200px;
+    height: 35px;
+    color: rgb(62, 16, 16);
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #3a668c;  
+    text-decoration: none;
+  
+  }

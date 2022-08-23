@@ -10,9 +10,11 @@ import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/car
 import { BooksFacadeService } from 'src/app/catalog/domain/app-services/books-facade.service';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, pairwise, switchMap } from 'rxjs';
 import { isPlatformWorkerApp } from '@angular/common';
 import { DataService } from 'src/app/shared/service/data.service';
+import { NgToastService } from 'ng-angular-popup';
+import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 @Component({
   selector: 'app-itemlist',
   templateUrl: './itemlist.component.html',
@@ -25,7 +27,8 @@ export class ItemlistComponent implements OnInit {
     private appStateService : AppStateService,
       private service : WishListServiceFacade,
        private activatedRoute:ActivatedRoute,
-       private dataService : DataService) { 
+       private dataService : DataService,
+       private toastService : NgToastService) { 
         this.appState$ = this.appStateService.getAppState();
        }
 
@@ -45,7 +48,7 @@ private getList() {
   }
 
 
-public removeFromList(bookId : string){
+public removeFromWishlist(bookId : string){
    this.appStateService.getAppState().pipe(
     map(
     (appState : IAppState) => {
@@ -56,27 +59,69 @@ public removeFromList(bookId : string){
       return this.service.RemoveFromWishlist(username, bookId);
     })
    ).subscribe((wish) => {
+    this.itemList = wish.wishedBooks;
     this.dataService.notifyOther({refresh : true});
    })
 }
 
-isInCart(bookId : string) : Boolean{
-  var ind : Boolean = false;
+public onIsInCart(bookId : string) : boolean{
+  return this.isInCart(bookId);
+}
+
+private isInCart(bookId : string) : boolean{
+  var ind : boolean = false;
   this.appStateService.getAppState().pipe(
     map((appState : IAppState) => {
-      const username : string = appState.userName;
+      const username = appState.userName;
       return username;
     }),
-    switchMap((username : string) => {
-      return this.cartService.getCart(username);
-    })
+    switchMap((username) =>
+    {
+      var cart : Observable<ICart> | null = this.cartService.getCart(username);  
+      return cart
+    }
+    )
   ).subscribe((cart) => {
-    for(let item of cart.items){
-      if(item.bookId === bookId)
-      ind = true;
+    if(cart !== null){
+    ind = cart.items.find(b => bookId ===b.bookId) !== null;
     }
   })
   return ind;
+}
+public onAddToCart(bookId:string){
+  this.addToCart(bookId);
+}
+private addToCart(bookId : string) {
+  this.appStateService.getAppState().pipe(
+    map((appState : IAppState) => {
+      const username : string = appState.userName;
+      const role : string | string[] = appState.roles;
+      return {username, role};
+    }),
+    switchMap(({username, role}) => {
+      if(this.itemList.find(b => b.bookId===bookId).isPremium && role !== "PremiumMember"){
+        this.toastService.error({detail : "Only Premium!", summary:"Buy premium membership!", duration:3000});
+        return null;
+      }
+      this.toastService.info({detail : "Added to cart!", duration:3000})
+      return this.cartService.addToCart(username,bookId);
+    })
+  ).subscribe((cart) => {
+    console.log(cart);
+    this.dataService.notifyOther({refresh:true});
+  })
+}
+
+public deleteList(){
+  this.appStateService.getAppState().pipe(
+    map((appState : IAppState) =>
+      {return appState.userName;}
+    )
+  ).subscribe((username) => {
+    this.service.DeleteList(username);
+    this.itemList = [];
+  })
+ 
 }
 
 public addToWishlist(bookId : string){
@@ -91,18 +136,8 @@ public addToWishlist(bookId : string){
   });
 
   }
-  public removeFromWishlist(bookId : string){
-    this.appStateService.getAppState().pipe(
-      map((appState : IAppState) => {
-        const username : string = appState.userName;
-        return username;
-      }),
-      switchMap((username) => this.service.RemoveFromWishlist(username, bookId))
-    ).subscribe((list) => {
-      this.itemList = list.wishedBooks;
-      console.log(list);
-    })
-  }
+  
+
 
 
 }

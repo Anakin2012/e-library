@@ -40,6 +40,7 @@ namespace WishList.API.Services
             item.BookId = book.Book.Id;
             item.BookTitle = book.Book.Title;
             item.Author = book.Book.Author;
+            item.Genre = book.Book.Genre;
             item.IsAvailable = book.Book.IsAvailable;
             item.IsPremium = book.Book.IsPremium;
             item.CoverImageFile = book.Book.CoverImageFile;

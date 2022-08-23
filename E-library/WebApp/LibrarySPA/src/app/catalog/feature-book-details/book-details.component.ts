@@ -7,6 +7,7 @@ import { DataService } from 'src/app/shared/service/data.service';
 import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/cart-facade.service';
 import { CartService } from 'src/app/shopping-cart/domain/infrastructure/cart.service';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
+import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
 import { BooksFacadeService } from '../domain/app-services/books-facade.service';
 import { IBook } from '../domain/models/book';
 
@@ -28,7 +29,8 @@ export class BookDetailsComponent implements OnInit {
               private activatedRoute: ActivatedRoute, 
               private service: BooksFacadeService, 
               private appStateService: AppStateService,
-              private cartService: CartFacadeService)
+              private cartService: CartFacadeService,
+              private wishlistService : WishListServiceFacade)
   {
     this.appState$ = this.appStateService.getAppState();
   }
@@ -50,6 +52,7 @@ export class BookDetailsComponent implements OnInit {
     this.addToCart(id);
   }
 
+
   private addToCart(id: string) {
 
     this.appStateService.getAppState().pipe(
@@ -63,5 +66,43 @@ export class BookDetailsComponent implements OnInit {
       this.cartItems = cartitems;
       this.dataService.notifyOther({refresh: true});
     });
+  }
+  onAddToWishlist(id:string){
+    this.addWishlist(id);
+  }
+  private addWishlist(id:string) {
+    
+    this.appStateService.getAppState().pipe(
+      map((appState : IAppState) => {
+        const username : string = appState.userName;
+        return username;
+      }),
+      switchMap((username: string) => this.wishlistService.AddToWishList(username, id))
+    ).subscribe((res) => {
+      console.log(res);
+      this.dataService.notifyOther({refresh : true});
+    });
+  }
+
+  public onIsInWishlist(bookId : string) : boolean{
+    return this.isInWishlist(bookId);
+  }
+  private isInWishlist(bookId: string) : boolean{
+    var ind : boolean = false;
+    this.appStateService.getAppState().pipe(
+      map((appState : IAppState) => {
+        const username : string = appState.userName;
+        return username;
+      }),
+      switchMap((username : string) => {
+        return this.wishlistService.GetList(username);
+      })
+    ).subscribe((list) => {
+      for(let item of list.wishedBooks){
+        if(item.bookId === bookId)
+        ind = true;
+      }
+    })
+    return ind;
   }
 }

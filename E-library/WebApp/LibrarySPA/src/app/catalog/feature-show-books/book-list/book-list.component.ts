@@ -102,6 +102,7 @@ export class BookListComponent implements OnInit {
       switchMap((username: string) => this.wishlistService.AddToWishList(username, id))
     ).subscribe((res) => {
       console.log(res);
+      this.dataService.notifyOther({refresh : true});
     });
   }
 

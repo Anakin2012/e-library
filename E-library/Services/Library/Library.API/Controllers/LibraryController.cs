@@ -83,7 +83,7 @@ namespace Library.API.Controllers
 
             await _publishEndpoint.Publish(eventMessage);
             await _repository.DeleteLibraryItem(item.Id);
-            return Ok();
+            return Ok(await _repository.GetAllBooksForUser(item.Username));
         }
 
     }

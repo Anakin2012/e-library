@@ -7,12 +7,13 @@ import { ILibraryItem } from '../../models/libraryitem';
     providedIn: 'root'
 })
 export class LibraryService {
+    private readonly url: string = 'http://localhost:8085/api/v1/Library';
 
     constructor(private http: HttpClient) { }
 
     public getBooks(username: string) {
         //treba da se odfiksira ovaj deo
-        return this.http.get<{ [key: string]: ILibraryItem }>('http://localhost:8085/api/v1/Library/GetBooksForUser/'+username)
+        return this.http.get<{ [key: string]: ILibraryItem }>(`${this.url}/GetBooksForUser/` + username)
             .pipe(map((res) => {
                 const libItems = [];
                 for (const key in res) {
@@ -23,6 +24,10 @@ export class LibraryService {
                 return libItems;
             }))
 
+    }
+
+    public removeFromLibrary(libraryItemId: string): Observable<ILibraryItem[]> {
+        return this.http.put<ILibraryItem[]>(`${this.url}/RemoveBookFromLibrary/${libraryItemId}`, null);
     }
 
 

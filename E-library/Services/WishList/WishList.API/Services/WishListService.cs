@@ -40,6 +40,9 @@ namespace WishList.API.Services
             item.BookId = book.Book.Id;
             item.BookTitle = book.Book.Title;
             item.Author = book.Book.Author;
+            item.IsAvailable = book.Book.IsAvailable;
+            item.IsPremium = book.Book.IsPremium;
+            item.CoverImageFile = book.Book.CoverImageFile;
             wishList.WishedBooks.Add(item);
 
             await _repository.UpdateList(wishList);

@@ -1,3 +1,4 @@
+<div *ngIf = "appState$ | async as appState">
 <div class="book-display-area">
 <h3>Wishlist</h3>
 <div class="datatable-inner"
@@ -24,12 +25,13 @@ style="position: center;">
         </td>
         <td></td>
         <td>
-        <div *ngIf="isInCart(item.bookId); else inthere">
+        <div *ngIf="!appState.isEmpty()">  
+        <div *ngIf="!isInCart(item.bookId); else inthere">
         <button *ngIf="item.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;">Borrow now</button>
-        
         <ng-template #notifyme>
-          <button class="btn btn-success" (click)="cartService.addToCart(currentUser, item.bookId)">Borrow now</button>
+          <button class="btn btn-success" (click)="cartService.addToCart(appState.userName, item.bookId)">Not available</button>
         </ng-template>
+        </div>
         </div>
         <ng-template #inthere>
           <button class="btn btn-danger">Borrowed</button>

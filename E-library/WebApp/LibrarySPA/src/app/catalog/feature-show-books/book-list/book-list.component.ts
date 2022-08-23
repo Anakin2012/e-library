@@ -10,6 +10,8 @@ import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/cart-facade.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgToastService } from 'ng-angular-popup';
+import { ThisReceiver } from '@angular/compiler';
+import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 
 @Component({
   selector: 'app-book-list',
@@ -19,6 +21,7 @@ import { NgToastService } from 'ng-angular-popup';
 export class BookListComponent implements OnInit {
 
   allBooks: IBook[] = [];
+  username: string = '';
   someBooks: IBook[] = [];
   cartItems: ICartItem[];
   public appState$ : Observable<IAppState>;
@@ -53,7 +56,7 @@ export class BookListComponent implements OnInit {
 
   private addToCart(id: string) {
     
-    this.appStateService.getAppState().pipe(
+    this.appState$.pipe(
       take(1),
       map((appState : IAppState) => {
         const username : string = appState.userName;
@@ -65,16 +68,25 @@ export class BookListComponent implements OnInit {
         var book = this.allBooks.find(b => b.id === id);
         if (pair.role !== "PremiumMember" && book.isPremium) {
           this.toastService.error({detail: "Only for premium members!", summary: "You must be a premium member to borrow this book.", duration: 3000});
+          return null; 
+        }
+          const cart = this.cartService.getCart(pair.username);
+          this.username = pair.username;
+          return this.cartService.getCart(pair.username)
+      }),
+      switchMap((cart : ICart | null) => {
+        if (cart === null) {
           return null;
         }
-        
-        if (this.cartItems) {
-          if (this.cartItems.find(b => b.bookId === id)) {
+      
+        if(cart.totalItems !== 0) {
+          if(cart.items.find(b => b.bookId === id)) {
             this.toastService.warning({detail: "Already in basket!", summary: "You have already added this book to your basket", duration: 3000});
             return null;
           }
         }
-        return this.cartService.addToCart(pair.username, id);  
+
+        return this.cartService.addToCart(this.username, id);
       })
     ).subscribe((cartitems: ICartItem[] | null) => {
       if (cartitems !== null) {
@@ -95,7 +107,7 @@ export class BookListComponent implements OnInit {
 
   private addWishlist(id:string) {
     
-    this.appStateService.getAppState().pipe(
+    this.appState$.pipe(
       take(1),
       map((appState : IAppState) => {
         const username : string = appState.userName;

@@ -5,7 +5,7 @@ import { IBook } from '../../domain/models/book';
 import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
 import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
 import { DataService } from 'src/app/shared/service/data.service';
-import { catchError, map, Observable, switchMap, throwError } from 'rxjs';
+import { catchError, map, Observable, of, switchMap, throwError } from 'rxjs';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/cart-facade.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -52,23 +52,44 @@ export class BookListComponent implements OnInit {
   }
 
   private addToCart(id: string) {
-    if (this.cartItems) {
-      if (this.cartItems.find(b => b.bookId === id)) {
-        this.toastService.warning({detail: "Already in basket!", summary: "You have already added this book to your basket", duration: 3000});
-      }
-    }
+    
     this.appStateService.getAppState().pipe(
       map((appState : IAppState) => {
         const username : string = appState.userName;
-        return username;
+        const role: string | string[] = appState.roles;
+        const pair = {username, role};
+        return pair;
       }),
-      switchMap((username: string) => this.cartService.addToCart(username, id)),
-    ).subscribe((cartitems) => {
-      console.log(cartitems);
-      this.cartItems = cartitems;
-      this.dataService.notifyOther({refresh: true});
-      this.toastService.info({detail: "Added", summary: "The book has been added to your cart", duration: 3000})
-    });
+      switchMap((pair) => { 
+        var book = this.allBooks.find(b => b.id === id);
+        if (pair.role !== "PremiumMember" && book.isPremium) {
+          this.toastService.error({detail: "Only for premium members!", summary: "You must be a premium member to borrow this book.", duration: 3000});
+          return null;
+        }
+        
+        if (this.cartItems) {
+          if (this.cartItems.find(b => b.bookId === id)) {
+            this.toastService.warning({detail: "Already in basket!", summary: "You have already added this book to your basket", duration: 3000});
+            return null;
+          }
+        }
+        return this.cartService.addToCart(pair.username, id);  
+      })
+    ).subscribe((cartitems: ICartItem[] | null) => {
+      if (cartitems !== null) {
+        console.log(cartitems);
+        this.cartItems = cartitems;
+        this.dataService.notifyOther({refresh: true});
+        this.toastService.info({detail: "Added", summary: "The book has been added to your cart", duration: 3000})
+      }
+      else {
+        throwError(() => new Error('This is forbidden!'));
+      }
+    }),
+    catchError((err) => {
+      console.error(err);
+      return of(false);
+    })
   }
 
   private addWishlist(id:string) {

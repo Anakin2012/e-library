@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, switchMap } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { IAppState } from '../shared/app-state/app-state';
 import { AppStateService } from '../shared/app-state/app-state.service';
 import { DataService } from '../shared/service/data.service';
 import { CartFacadeService } from '../shopping-cart/domain/app-services/cart-facade.service';
+import { ICart } from '../shopping-cart/domain/models/ICart';
 
 @Component({
   selector: 'app-nav',
@@ -28,15 +29,17 @@ export class NavComponent implements OnInit {
 
     ngOnInit(): void {
       /*
-        this.appStateService.getAppState().subscribe((appstate) => {
-          if (!appstate.isEmpty() && appstate.userName !== null) {
+        this.appState$.subscribe((appstate) => {
+          if (!appstate.isEmpty()) {
             this.loggedIn = true;
           }
           else {
             this.loggedIn = false;
           }
         })
-        if (this.loggedIn) {
+
+
+        if (this.loggedIn === true) {
           this.getCartTotalItems();    
         } 
         else {
@@ -49,10 +52,19 @@ export class NavComponent implements OnInit {
 
       this.dataService.notifyObservable$.pipe(
         switchMap((res: boolean) => this.appStateService.getAppState()),
-        switchMap((appState: IAppState) => this.cartService.getCart(appState.userName))
-      ).subscribe((cart) => {
-        this.cartItemsCount = cart.totalItems;
-        console.log(this.cartItemsCount);
+        switchMap((appState: IAppState) => {
+          if (appState.isEmpty()) {
+            return of(null);
+          }
+          return this.cartService.getCart(appState.userName)})
+      ).subscribe((cart : ICart | null) => {
+        if (cart === null) {
+          console.log('Null');
+        }
+        else {
+          this.cartItemsCount = cart.totalItems;
+          console.log(this.cartItemsCount);
+        }
       });
 
     }

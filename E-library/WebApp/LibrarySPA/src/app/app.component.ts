@@ -1,7 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit} from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { IBook } from './catalog/domain/models/book';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +8,7 @@ import { IBook } from './catalog/domain/models/book';
 export class AppComponent implements OnInit{
   title = 'LibrarySPA';
 
-  constructor(private http: HttpClient){
+  constructor(){
 
   }
   

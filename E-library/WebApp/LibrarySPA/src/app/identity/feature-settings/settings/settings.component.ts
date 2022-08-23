@@ -67,11 +67,12 @@ export class SettingsComponent implements OnInit {
     console.log(`${userName}`);
     
     this.memberService.PayMembership(userName).subscribe((success : boolean | null) => {
-      if(success === null) {
+      if(success === null) { 
         window.alert('Membership is already payed!');
       }
       if(success == true) {
         window.alert('You have successfully paid your membership!');
+        window.location.reload();
       }
       if(success == false) {
         window.alert('An error occurred while paying membership!');

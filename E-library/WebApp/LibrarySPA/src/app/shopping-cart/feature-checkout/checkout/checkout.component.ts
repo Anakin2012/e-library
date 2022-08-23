@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, switchMap, take } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { CartFacadeService } from '../../domain/app-services/cart-facade.service';
@@ -40,6 +40,7 @@ export class CheckoutComponent implements OnInit {
 
   private getCart() {
     this.appStateService.getAppState().pipe(
+      take(1),
       switchMap((appState) => this.cartService.getCart(appState.userName))
     ).subscribe((cart) => 
     {
@@ -55,6 +56,7 @@ export class CheckoutComponent implements OnInit {
     }
     else {
     this.appStateService.getAppState().pipe(
+      take(1),
       switchMap((appState) => this.cartService.checkout(appState.userName, info))
       ).subscribe((res) => {
         console.log(res);

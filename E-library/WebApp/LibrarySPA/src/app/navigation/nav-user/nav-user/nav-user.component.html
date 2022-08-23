@@ -1,0 +1,24 @@
+<div class="nav-container">
+    <div class="site-name">
+        <h1>Welcome to {{site_name}}</h1>
+    </div>
+    <div class="topnav" *ngIf = "appState$ | async as appState">
+        <a routerLinkActive="active" [routerLink]="['Home']">Home</a>
+        <a routerLinkActive="active" [routerLink]="['catalog/books']">Browse Catalog</a>
+        <a *ngIf="cartItemsCount!==0" class="fa-stack" [attr.data-count]="cartItemsCount" routerLinkActive="active" [routerLink]="['shopping-cart/cart']">My Basket</a>
+        <a *ngIf="cartItemsCount===0" routerLinkActive="active" [routerLink]="['shopping-cart/cart']">My Basket</a>
+        <a routerLinkActive="active" [routerLink]="['wishlist']">My Wishlist</a>
+        <a routerLinkActive="active" [routerLink]="['library/items']">My Library</a>
+      <!--  <a routerLinkActive="active" [routerLink]="['ordering/users']">My orders</a> -->      
+
+        <div class="move-right">
+            <div *ngIf="!appState.isEmpty()">
+            <a routerLinkActive="active" [routerLink]="['identity/settings']"> My Account ({{appState.userName}}) </a>
+            <a routerLinkActive="active" [routerLink]="['identity/logout']">Logout</a>        
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

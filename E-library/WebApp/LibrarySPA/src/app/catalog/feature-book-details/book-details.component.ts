@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NgToastComponent, NgToastService } from 'ng-angular-popup';
 import { map, Observable, switchMap } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
@@ -30,8 +30,9 @@ export class BookDetailsComponent implements OnInit {
               private service: BooksFacadeService, 
               private appStateService: AppStateService,
               private cartService: CartFacadeService,
+              private toastService: NgToastService,
+              private router: Router,
               private wishlistService : WishListServiceFacade)
-              private toastService: NgToastService)
   {
     this.appState$ = this.appStateService.getAppState();
   }
@@ -47,6 +48,10 @@ export class BookDetailsComponent implements OnInit {
         console.log(book);
         this.book = book;
       })
+  }
+
+  goToPage() {
+    this.router.navigate(['/catalog/admin']);
   }
 
   onAddToCart(id: string) {

@@ -34,4 +34,8 @@ export class CartFacadeService {
   public removeFromCart(username: string, id: string) : Observable<ICartItem[]> {
     return this.cartService.removeFromCart(username, id);
   }
+
+  public removeAll(username : string) : Observable <ICart> {
+    return this.cartService.removeAll(username);
+  }
 }

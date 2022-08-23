@@ -129,7 +129,9 @@ body {
     outline: none;
   }
   
-  
+  .available {
+    padding-left: 150px;
+  }
 
   .product-price-btn button:hover {
     background-color: #79b0a1;

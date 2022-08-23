@@ -10,6 +10,6 @@ namespace ShoppingCart.API.Services
     {
         public Task<List<CartItem>> AddBookToCart(string username, string bookId);
         public Task<List<CartItem>> RemoveBookFromCart(string username, string bookId);
-
+        public Task<Cart> RemoveAllBooksFromCart(string username);
     }
 }

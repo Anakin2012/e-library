@@ -1,0 +1,20 @@
+ <div class="nav-container">
+    <div class="site-name">
+        <h1>Welcome to {{site_name}}</h1>
+    </div>
+    <div class="topnav" *ngIf = "appState$ | async as appState">
+        <a routerLinkActive="active" [routerLink]="['Home']">Home</a>
+        <a [routerLink]="['/catalog/books']">Browse Catalog</a>
+        <a [routerLink]="['identity']">My Basket</a>
+        <a [routerLink]="['identity']">My Wishlist</a>
+        <a [routerLink]="['identity']">My Library</a>     
+
+        <div class="move-right">
+          <a routerLinkActive="active" [routerLink]="['identity/login']">Login</a>
+          <a routerLinkActive="active" [routerLink]="['identity/register']">Register</a>
+        </div>
+    </div>
+</div>
+
+
+

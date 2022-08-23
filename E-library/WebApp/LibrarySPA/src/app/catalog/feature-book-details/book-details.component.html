@@ -22,12 +22,35 @@
 
       <div class="product-price-btn">
         <p *ngIf="book" class="premium" [ngStyle]="{color: book.isPremium===true ? 'Orange' : 'Black'}">{{book.isPremium==true ? 'Premium' : 'Standard'}}</p>
-        <div *ngIf="book">
+        
+
+        <div *ngIf = "appState$ | async as appState">
+        <div *ngIf = "!appState.isEmpty(); else loggedout">
+          <div *ngIf="appState.roles==='Administrator'">
+            <p *ngIf="book" class="available" [ngStyle]="{color: book.isAvailable===true ? 'Green' : 'Red'}">{{book.isAvailable===true ? 'Available' : 'Not available'}}</p>
+            </div>
+            <div *ngIf="book">
+        <div *ngIf="appState.roles !== 'Administrator'; else buttonEdit">
         <button *ngIf="book.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;" (click)="onAddToCart(book.id)">Borrow now</button>
         
         <ng-template #notifyme>
           <button class="btn btn-danger" (click)="onAddToCartRed(book.id)">Borrow now</button>
         </ng-template>
+      
+        <button  class="wishbut" style="background-color: #4f9ac9;" type="button">add to wishlist</button>
+        </div>  
+        <ng-template #buttonEdit>
+          <button  class="wishbut" style="background-color: #4f9ac9; margin-top: 55px; margin-right: 50px;" type="button" (click)="goToPage()">go to manage books</button>
+        </ng-template>
+
+        </div>
+
+        </div>
+
+        <ng-template #loggedout>
+          <p *ngIf="book" class="available" [ngStyle]="{color: book.isAvailable===true ? 'Green' : 'Red'}">{{book.isAvailable===true ? 'Available' : 'Not available'}}</p>
+        </ng-template>
+      </div>
       </div>
       <div *ngIf="!onIsInWishlist(book.id); else isthere">
         <button  class="wishbut" style="background-color: #4f9ac9;" type="button" (click)="onAddToWishlist(book.id)">add to wishlist</button>

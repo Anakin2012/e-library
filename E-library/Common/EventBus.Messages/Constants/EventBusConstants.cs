@@ -15,5 +15,7 @@ namespace EventBus.Messages.Constants
         public const string UpdateCatalogQueue = "updatecatalog-queue";
 
         public const string MembershipQueue = "membership-queue";
+
+        public const string RemoveBookFromLibraryQueue = "removebookfromlibrary-queue";
     }
 }

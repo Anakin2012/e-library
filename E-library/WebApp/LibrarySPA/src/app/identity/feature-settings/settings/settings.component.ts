@@ -64,15 +64,17 @@ export class SettingsComponent implements OnInit {
   }
 
   public payMembership(userName : string) : void {
+    console.log(`${userName}`);
     
-    this.memberService.PayMembership(userName).subscribe((success : boolean) => {
-      if(success === null) {
+    this.memberService.PayMembership(userName).subscribe((success : boolean | null) => {
+      if(success === null) { 
         window.alert('Membership is already payed!');
       }
-      if(success === true) {
+      if(success == true) {
         window.alert('You have successfully paid your membership!');
+        window.location.reload();
       }
-      else {
+      if(success == false) {
         window.alert('An error occurred while paying membership!');
       }
     });

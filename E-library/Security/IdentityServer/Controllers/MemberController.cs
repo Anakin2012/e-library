@@ -48,21 +48,21 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
-        public async Task<ActionResult> Pay([FromBody] string userName)
+        public async Task<ActionResult> Pay([FromBody] UserNameDTO userNameDTO)
         {
-            if (User.FindFirstValue(ClaimTypes.Name) != userName)
+            if (User.FindFirstValue(ClaimTypes.Name) != userNameDTO.UserName)
             {
                 return Forbid();
             }
 
-            var member = await _repository.FindMember(userName);
+            var member = await _repository.FindMember(userNameDTO.UserName);
             if (member.IsMembershipPaid == true)
             {
                 return StatusCode(StatusCodes.Status406NotAcceptable);
             }
 
 
-            var result = await _repository.Pay(userName);
+            var result = await _repository.Pay(userNameDTO.UserName);
 
             if (!result.Succeeded)
             {

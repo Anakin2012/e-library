@@ -26,7 +26,7 @@
         <button *ngIf="book.isAvailable===true; else notifyme" type="button" style="background-color: #1d6f58;" (click)="onAddToCart(book.id)">Borrow now</button>
         
         <ng-template #notifyme>
-          <button class="btn btn-danger" (click)="onAddToCart(book.id)">Borrow now</button>
+          <button class="btn btn-danger" (click)="onAddToCartRed(book.id)">Borrow now</button>
         </ng-template>
       </div>
       <div *ngIf="!onIsInWishlist(book.id); else isthere">

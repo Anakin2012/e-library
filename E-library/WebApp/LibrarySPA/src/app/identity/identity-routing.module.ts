@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: IdentityComponent},
   { path: 'login', component: LoginFormComponent},
   { path: 'register', component: RegisterFormComponent},
-  { path: 'settings', component: SettingsComponent},
+  { path: 'settings', component: SettingsComponent, canActivate : [NotAuthenticatedGuard]},
   { path: 'logout', component: LogoutComponent, canActivate : [NotAuthenticatedGuard]}
 ];
 

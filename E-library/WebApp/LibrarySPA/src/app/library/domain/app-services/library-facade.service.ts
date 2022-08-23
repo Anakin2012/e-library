@@ -14,4 +14,8 @@ export class LibraryFacadeService {
         return this.libraryService.getBooks(username);
     }
 
+    public removeFromLibrary(libraryItemId: string): Observable<ILibraryItem[]> {
+        return this.libraryService.removeFromLibrary(libraryItemId);
+    }
+
 }

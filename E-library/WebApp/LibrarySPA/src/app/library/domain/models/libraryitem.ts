@@ -1,4 +1,5 @@
 export interface ILibraryItem {
+    id: string;
     bookId: string;
     username: string
     title: string;

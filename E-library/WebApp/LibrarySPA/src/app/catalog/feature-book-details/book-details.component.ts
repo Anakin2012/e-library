@@ -121,6 +121,7 @@ export class BookDetailsComponent implements OnInit {
   private addWishlist(id:string) {
     
     this.appStateService.getAppState().pipe(
+      take(1),
       map((appState : IAppState) => {
         const username : string = appState.userName;
         this.username = username;

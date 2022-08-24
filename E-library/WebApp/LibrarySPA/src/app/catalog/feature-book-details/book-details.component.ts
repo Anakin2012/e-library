@@ -10,6 +10,8 @@ import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
 import { IWish } from 'src/app/wishlist/domain/models/wishlist';
+import { IWishlistItem } from 'src/app/wishlist/domain/models/wishlistitem';
+
 import { BooksFacadeService } from '../domain/app-services/books-facade.service';
 import { IBook } from '../domain/models/book';
 
@@ -28,6 +30,7 @@ export class BookDetailsComponent implements OnInit {
   wishlist: IWish;
   username: string = '';
   cartItems: ICartItem[] = [];
+  wish : IWish;
   public appState$ : Observable<IAppState>;
 
   constructor(private dataService: DataService, 
@@ -118,6 +121,21 @@ export class BookDetailsComponent implements OnInit {
     this.addWishlist(id);
   }
 
+  private getWish(){
+    this.appStateService.getAppState().pipe(
+      switchMap((appState) => this.wishlistService.GetList(appState.userName))
+    ).subscribe((list) =>
+    {
+      this.wish = list;
+      console.log(list);
+    }
+    );
+  }
+
+  private isInWishlist(bookId: string) : IWishlistItem{
+    return this.wish.wishedBooks.find(b => b.bookId===bookId);
+    
+    
   private addWishlist(id:string) {
     
     this.appStateService.getAppState().pipe(

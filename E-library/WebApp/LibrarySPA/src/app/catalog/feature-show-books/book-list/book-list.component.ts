@@ -11,6 +11,8 @@ import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/car
 import { NgToastService } from 'ng-angular-popup';
 import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 import { IWish } from 'src/app/wishlist/domain/models/wishlist';
+import { IWishlistItem } from 'src/app/wishlist/domain/models/wishlistitem';
+
 
 @Component({
   selector: 'app-book-list',
@@ -40,6 +42,7 @@ export class BookListComponent implements OnInit {
 
   ngOnInit(){    
     this.getAllBooks();
+    this.getWish();
     console.log(this.cartItems);
   }
 
@@ -105,6 +108,19 @@ export class BookListComponent implements OnInit {
     });
   }
 
+  private getWish(){
+    this.appStateService.getAppState().pipe(switchMap((appState : IAppState) => {
+      return this.wishlistService.GetList(appState.userName);
+    })).subscribe((res) => {
+      console.log(res);
+      this.wish = res;
+    }
+    )
+  }
+  private isInWishlist(bookId: string) : IWishlistItem{
+    this.getWish();
+    return this.wish.wishedBooks.find(b => b.bookId===bookId);
+  }
   private addWishlist(id:string) {
     
     this.appState$.pipe(

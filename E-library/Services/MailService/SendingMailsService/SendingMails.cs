@@ -137,8 +137,8 @@ namespace MailService.SendingMailsService
 
             var builder = new BodyBuilder();
 
-            builder.HtmlBody = "Hello " + membershipExpiringModel.Name + " " + membershipExpiringModel.Surname + "!\n Your E-Library membership is expiring in 3 days. Please, be sure to renew your membership!\n";
-            builder.TextBody = "Hello " + membershipExpiringModel.Name + " " + membershipExpiringModel.Surname + "!\n Your E-Library membership is expiring in 3 days. Please, be sure to renew your membership!\n";
+            builder.HtmlBody = "Hello " + membershipExpiringModel.Name + " " + membershipExpiringModel.Surname + "!\n Your E-Library membership is expiring soon. Please, be sure to renew your membership!\n";
+            builder.TextBody = "Hello " + membershipExpiringModel.Name + " " + membershipExpiringModel.Surname + "!\n Your E-Library membership is expiring soon. Please, be sure to renew your membership!\n";
 
             email.Body = builder.ToMessageBody();
 

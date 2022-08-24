@@ -1,0 +1,13 @@
+.main-admin {
+    display: flex;
+    background-color: beige;
+    text-align: left;
+}
+
+.card {
+    display: flex;
+    flex: 50%;
+    max-width: 1500px;
+    box-shadow: 0 4px 8px 0 rgba(6, 117, 17, 0.2);
+    margin: auto;
+}

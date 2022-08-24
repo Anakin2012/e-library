@@ -112,6 +112,26 @@ namespace IdentityServer.Repositories
             return member;
         }
 
+        private async Task<IList<string>> Role(string username) {
+            var member = await _memberManager.FindByNameAsync(username);
+            return await _memberManager.GetRolesAsync(member);
+        }
+        
+
+        public async Task<IEnumerable<MemberDetailsAdminDTO>> GetAllMembersDetails() {
+            var members = await _memberManager.Users.ToListAsync();
+
+            IEnumerable<MemberDetailsAdminDTO> membersDetails = _mapper.Map<IEnumerable<MemberDetailsAdminDTO>>(members);
+
+
+            foreach (MemberDetailsAdminDTO memberDetails in membersDetails) {
+                var roles = await Role(memberDetails.UserName);
+                memberDetails.Roles = new List<string>(roles);
+            }
+            
+            return membersDetails;
+        }
+
 
         public async Task<IEnumerable<MemberDetailsDTO>> GetMembers() {
             var members = await _memberManager.Users.ToListAsync();

@@ -16,6 +16,7 @@ namespace IdentityServer.Repositories.Interfaces
         public Task<Member> FindMember(string UserName);
         public Task<Member> FindMemberByEmailOrUsename(string LoginName);
         public Task<IEnumerable<MemberDetailsDTO>> GetMembers();
+        public Task<IEnumerable<MemberDetailsAdminDTO>> GetAllMembersDetails();
         public Task<MemberDetailsDTO> GetMember(string UserName);
         public Task<IdentityResult> DeleteMember(string username);
         public Task<IdentityResult> ChangePassword(string username, string currentPassword, string newPassword);

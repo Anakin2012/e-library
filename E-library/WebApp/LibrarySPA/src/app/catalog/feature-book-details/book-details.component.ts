@@ -8,6 +8,8 @@ import { DataService } from 'src/app/shared/service/data.service';
 import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/cart-facade.service';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
+import { IWish } from 'src/app/wishlist/domain/models/wishlist';
+import { IWishlistItem } from 'src/app/wishlist/domain/models/wishlistitem';
 import { BooksFacadeService } from '../domain/app-services/books-facade.service';
 import { IBook } from '../domain/models/book';
 
@@ -23,6 +25,7 @@ export class BookDetailsComponent implements OnInit {
   bookId;
   RouteParamObs;
   cartItems: ICartItem[] = [];
+  wish : IWish;
   public appState$ : Observable<IAppState>;
 
   constructor(private dataService: DataService, 
@@ -48,6 +51,7 @@ export class BookDetailsComponent implements OnInit {
         console.log(book);
         this.book = book;
       })
+    this.getWish();
   }
 
   goToPage() {
@@ -103,32 +107,33 @@ export class BookDetailsComponent implements OnInit {
         const username : string = appState.userName;
         return username;
       }),
-      switchMap((username: string) => this.wishlistService.AddToWishList(username, id))
+      switchMap((username: string) => 
+      {
+        if(this.isInWishlist(id)){
+          this.toastService.info({detail: "In wishlist!", summary: "You can't wish the same thing twice", duration: 3000})
+          return null;
+        }
+        return this.wishlistService.AddToWishList(username, id)})
     ).subscribe((res) => {
       console.log(res);
+      this.wish = res;
       this.dataService.notifyOther({refresh : true});
+      this.toastService.info({detail: "Added", summary: "The book has been added to wishlist", duration: 3000})
     });
   }
 
-  public onIsInWishlist(bookId : string) : boolean{
-    return this.isInWishlist(bookId);
-  }
-  private isInWishlist(bookId: string) : boolean{
-    var ind : boolean = false;
+  private getWish(){
     this.appStateService.getAppState().pipe(
-      map((appState : IAppState) => {
-        const username : string = appState.userName;
-        return username;
-      }),
-      switchMap((username : string) => {
-        return this.wishlistService.GetList(username);
-      })
-    ).subscribe((list) => {
-      for(let item of list.wishedBooks){
-        if(item.bookId === bookId)
-        ind = true;
-      }
-    })
-    return ind;
+      switchMap((appState) => this.wishlistService.GetList(appState.userName))
+    ).subscribe((list) =>
+    {
+      this.wish = list;
+      console.log(list);
+    }
+    );
+  }
+
+  private isInWishlist(bookId: string) : IWishlistItem{
+    return this.wish.wishedBooks.find(b => b.bookId===bookId);
   }
 }

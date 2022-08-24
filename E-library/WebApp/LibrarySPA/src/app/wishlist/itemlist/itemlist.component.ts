@@ -15,6 +15,7 @@ import { isPlatformWorkerApp } from '@angular/common';
 import { DataService } from 'src/app/shared/service/data.service';
 import { NgToastService } from 'ng-angular-popup';
 import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
+import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 @Component({
   selector: 'app-itemlist',
   templateUrl: './itemlist.component.html',
@@ -22,18 +23,19 @@ import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 })
 export class ItemlistComponent implements OnInit {
   public itemList : IWishlistItem[] = [];
+  public cart : ICart;
   public appState$ : Observable<IAppState>;
   constructor(public bookService : BooksFacadeService, public cartService: CartFacadeService,
     private appStateService : AppStateService,
       private service : WishListServiceFacade,
-       private activatedRoute:ActivatedRoute,
-       private dataService : DataService,
-       private toastService : NgToastService) { 
+      private dataService : DataService,
+      private toastService : NgToastService) { 
         this.appState$ = this.appStateService.getAppState();
        }
 
   ngOnInit() {
     this.getList();
+    this.getCart();
 }
 
 
@@ -46,7 +48,16 @@ private getList() {
     console.log(list);
   }); 
   }
-
+private getCart(){
+  this.appStateService.getAppState().pipe(
+    switchMap((appState) => this.cartService.getCart(appState.userName))
+  ).subscribe((list) =>
+  {
+    this.cart = list;
+    console.log(list);
+  }
+  );
+}
 
 public removeFromWishlist(bookId : string){
    this.appStateService.getAppState().pipe(
@@ -64,32 +75,19 @@ public removeFromWishlist(bookId : string){
    })
 }
 
-public onIsInCart(bookId : string) : boolean{
+public onIsInCart(bookId : string) : ICartItem{
   return this.isInCart(bookId);
 }
 
-private isInCart(bookId : string) : boolean{
-  var ind : boolean = false;
-  this.appStateService.getAppState().pipe(
-    map((appState : IAppState) => {
-      const username = appState.userName;
-      return username;
-    }),
-    switchMap((username) =>
-    {
-      var cart : Observable<ICart> | null = this.cartService.getCart(username);  
-      return cart
-    }
-    )
-  ).subscribe((cart) => {
-    if(cart !== null){
-    ind = cart.items.find(b => bookId ===b.bookId) !== null;
-    }
-  })
-  return ind;
+private isInCart(bookId : string) : ICartItem{
+  return this.cart.items.find(b => b.bookId === bookId);
 }
 public onAddToCart(bookId:string){
   this.addToCart(bookId);
+}
+
+public onAdded(){
+  this.toastService.info({detail : "Added!", summary : "Already in cart!", duration : 3000});
 }
 private addToCart(bookId : string) {
   this.appStateService.getAppState().pipe(
@@ -103,10 +101,15 @@ private addToCart(bookId : string) {
         this.toastService.error({detail : "Only Premium!", summary:"Buy premium membership!", duration:3000});
         return null;
       }
+      if(this.isInCart(bookId)){
+        this.toastService.error({detail : "Warning", summary:"You can't buy the same book twice", duration:3000});
+        return null;
+      }
       this.toastService.info({detail : "Added to cart!", duration:3000})
       return this.cartService.addToCart(username,bookId);
     })
   ).subscribe((cart) => {
+    this.cart.items = cart;
     console.log(cart);
     this.dataService.notifyOther({refresh:true});
   })
@@ -133,6 +136,7 @@ public addToWishlist(bookId : string){
     switchMap((username) => this.service.AddToWishList(username,bookId))
   ).subscribe((list) => {
     this.itemList = list.wishedBooks;
+    this.toastService.info({summary : "Book is added to the wishlist!", duration : 2000});
   });
 
   }

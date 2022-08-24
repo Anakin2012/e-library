@@ -17,10 +17,10 @@
               <td></td>
               <td>
                 <div *ngIf="!isInWishlist(item.bookId); else isthere">
-              <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)">Add</button>
+              <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)" style="float : right">Add</button>
                 </div>
                 <ng-template #isthere>
-                    <button class = "btn btn-danger">Added</button>  
+                    <button class = "btn btn-danger" (click)="onAdded()" style="float : right">Added</button>  
                 </ng-template>
                 </td>
               <td></td>
@@ -45,14 +45,15 @@
               <td>{{i+1}}</td>
               <td *ngIf="item">{{item.bookTitle}}</td>
               <td></td>
+              <td></td>
               <td>
-                <div *ngIf="isInWishlist(item.bookId); else isthere">
-                 <button class="wishbut" style="background-color: #4f9ac9;" type="button" (click) = "addToWishlist(item.bookId)">Add</button>
-                  </div>
+                <div *ngIf="!isInWishlist(item.bookId); else isthere">
+                  <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)" style="float : right">Add</button>
+                </div>
                   <ng-template #isthere>
-                    <button class = "btn btn-danger">Added</button>  
-                  </ng-template> 
-                  </td>
+                    <button class = "btn btn-danger" (click)="onAdded()" style="float : right">Added</button>  
+                  </ng-template>
+              </td>
               <td></td>
               <td></td>
       </tr>

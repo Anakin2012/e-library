@@ -115,7 +115,7 @@ export class BookListComponent implements OnInit {
       switchMap((username: string) => this.wishlistService.AddToWishList(username, id))
     ).subscribe((res) => {
       console.log(res);
-      this.dataService.notifyOther({refresh : true});
+      this.toastService.info({detail: "Saved to wishlist", summary: "The book has been added to your wishlist", duration: 3000});
     });
   }
 

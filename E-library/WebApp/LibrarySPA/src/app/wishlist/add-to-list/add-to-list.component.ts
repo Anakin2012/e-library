@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { WishListServiceFacade } from '../domain/app-services/wishlist-facade.service';
 import { IWishlistItem } from '../domain/models/wishlistitem';
-import { WishlistComponent } from '../wishlist.component';
-import { LibraryitemListComponent } from 'src/app/library/feature-show-items/items-list/libraryitem-list.component';
 import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
-import { LocalStorageKeys } from 'src/app/shared/local-storage/local-storage-keys';
 import { IAppState } from 'src/app/shared/app-state/app-state';
-import { SearchComponent } from 'src/app/catalog/feature-search/search/search.component';
-import { catchError, map, Observable, switchMap } from 'rxjs';
+import { catchError, map, Observable, switchMap, take } from 'rxjs';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { NgToastService } from 'ng-angular-popup';
 @Component({
@@ -23,10 +18,11 @@ export class AddToListComponent implements OnInit {
   paramObs;
   keys;
   dataService: any;
-  constructor(private localStorageService: LocalStorageService,
-    private service : WishListServiceFacade,
-    private appStateService : AppStateService,
-    private toastService : NgToastService) {
+  
+  constructor(private service : WishListServiceFacade,
+              private appStateService : AppStateService,
+              private toastService : NgToastService) 
+  {
       this.appState$ = this.appStateService.getAppState();
   }
 
@@ -36,7 +32,8 @@ export class AddToListComponent implements OnInit {
   }
 
   private init(){
-      this.appStateService.getAppState().pipe(
+      this.appState$.pipe(
+        take(1),
         map((appState : IAppState) => {
           const username : string = appState.userName;
           return username;
@@ -50,15 +47,16 @@ export class AddToListComponent implements OnInit {
         console.log(list);
       }
       );
-      this.appStateService.getAppState().pipe(
+
+      this.appState$.pipe(
+        take(1),
         map((appState : IAppState) => {
           const username : string = appState.userName;
           return username;
         }),
         switchMap((username : string) => {
           return this.service.GetRecommendationsByAuthor(username);
-        }
-        )
+        })
       ).subscribe((list) =>{
         this.RecByAuthor = list;
         console.log(list);
@@ -68,7 +66,8 @@ export class AddToListComponent implements OnInit {
     }
     
     public removeFromWishlist(bookId : string){
-      this.appStateService.getAppState().pipe(
+      this.appState$.pipe(
+       take(1),
        map(
        (appState : IAppState) => {
          const username : string = appState.userName;
@@ -82,8 +81,9 @@ export class AddToListComponent implements OnInit {
       })
    }
 
-  public addToWishlist(bookId : string){
-    this.appStateService.getAppState().pipe(
+  public addToWishlist(bookId : string) {
+    this.appState$.pipe(
+      take(1),
       map((appState : IAppState) => {
         const username : string = appState.userName;
         return username;
@@ -97,10 +97,12 @@ export class AddToListComponent implements OnInit {
         this.dataService.notifyOther({refresh : true});
       });
     
-      }
+  }
+  
   public isInWishlist(bookId : string){
     var ind : Boolean = false;
-    this.appStateService.getAppState().pipe(
+    this.appState$.pipe(
+      take(1),
       map((appState : IAppState) => {
         const username : string = appState.userName;
         return username;

@@ -13,7 +13,6 @@ export class FeatureShowUsersComponent implements OnInit {
     constructor(private usersService: AllMembersFacadeService) { }
 
     ngOnInit(): void {
-
         this.getAllUsers();
     }
 

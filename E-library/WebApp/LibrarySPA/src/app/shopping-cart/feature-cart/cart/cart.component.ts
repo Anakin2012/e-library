@@ -39,7 +39,7 @@ export class CartComponent implements OnInit {
   }
 
   onRemoveAll() {
-      this.removeAll();
+    this.removeAll();    
   }
 
   onRemove(id: string) {
@@ -132,25 +132,14 @@ export class CartComponent implements OnInit {
  }
 
   private removeAll() {
-
-    this.appState$.pipe(
-      take(1),
-      map((appState : IAppState) => {
-        const username : string = appState.userName;
-        return username;
-      }),
-      switchMap((username: string) => this.cartService.removeAll(username)),
-    //  map((cart : ICart) => {
-      //  this.cartItems = cart.items;
-      //  this.cart.items = cart.items;
-      //  return cart;
-     // })
-      switchMap((cart: ICart) => this.cartService.updateCart(cart))
-    ).subscribe((cart) => {
-      this.cart = cart;
-      this.cartItems = cart.items;
-      //this.dataService.notifyOther({refresh: true});
-    });
-    
+    if (this.cartItems.length === 0) {
+      this.toastService.warning({detail: "Nothing to remove", summary: "Your cart is empty", duration: 3000});
+    }
+    else {
+      for (let i = 0; i < this.cart.items.length; i++) {
+        let id = this.cart.items[i].bookId;
+        this.removeFromCart(id);
+      } 
+    }
   }
 }

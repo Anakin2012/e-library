@@ -23,7 +23,7 @@ import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 })
 export class ItemlistComponent implements OnInit {
   public itemList : IWishlistItem[] = [];
-  public cart : ICart;
+  public cart? : ICart;
   public appState$ : Observable<IAppState>;
   constructor(public bookService : BooksFacadeService, public cartService: CartFacadeService,
     private appStateService : AppStateService,

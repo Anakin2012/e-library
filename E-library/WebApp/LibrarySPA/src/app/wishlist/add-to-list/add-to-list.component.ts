@@ -21,7 +21,7 @@ export class AddToListComponent implements OnInit {
   public RecByAuthor : IWishlistItem[] = [];
   public RecByGenre : IWishlistItem[] = [];
   public appState$ : Observable<IAppState>;
-  private wishlist : IWish;
+  private wishlist? : IWish;
   dataService: any;
   constructor(private localStorageService: LocalStorageService,
     private service : WishListServiceFacade,
@@ -36,6 +36,8 @@ export class AddToListComponent implements OnInit {
   }
 
   private init(){
+    if(this.wishlist.wishedBooks.length === 0)
+      return;
       this.appStateService.getAppState().pipe(
         map((appState : IAppState) => {
           const username : string = appState.userName;
@@ -104,11 +106,7 @@ export class AddToListComponent implements OnInit {
     
       }
   public isInWishlist(bookId : string){
-    console.log(typeof this.wishlist);
-    if(this.wishlist === null){
-      return false;
-    }
-    return this.wishlist.wishedBooks.find(b => b.bookId===bookId) !== null;
+    return this.wishlist.wishedBooks.find(b => b.bookId===bookId);
   }
 
 }

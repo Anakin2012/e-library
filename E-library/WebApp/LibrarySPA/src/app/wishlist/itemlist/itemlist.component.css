@@ -38,6 +38,7 @@
 
 .btn-add{
   color: #239375;
+  width: fit-content;
 }
 
 .btn-delete{

@@ -77,7 +77,7 @@ public removeFromWishlist(bookId : string){
    })
 }
 
-public onIsInCart(bookId : string) : ICartItem{
+public onIsInCart(bookId : string) : boolean{
   return this.isInCart(bookId);
 }
 

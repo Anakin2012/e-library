@@ -132,10 +132,7 @@ export class BookDetailsComponent implements OnInit {
     );
   }
 
-  private isInWishlist(bookId: string) : IWishlistItem{
-    return this.wish.wishedBooks.find(b => b.bookId===bookId);
-    
-    
+  
   private addWishlist(id:string) {
     
     this.appStateService.getAppState().pipe(

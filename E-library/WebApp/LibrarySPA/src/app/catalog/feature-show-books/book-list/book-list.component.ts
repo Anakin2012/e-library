@@ -42,7 +42,6 @@ export class BookListComponent implements OnInit {
 
   ngOnInit(){    
     this.getAllBooks();
-    this.getWish();
     console.log(this.cartItems);
   }
 
@@ -108,19 +107,6 @@ export class BookListComponent implements OnInit {
     });
   }
 
-  private getWish(){
-    this.appStateService.getAppState().pipe(switchMap((appState : IAppState) => {
-      return this.wishlistService.GetList(appState.userName);
-    })).subscribe((res) => {
-      console.log(res);
-      this.wish = res;
-    }
-    )
-  }
-  private isInWishlist(bookId: string) : IWishlistItem{
-    this.getWish();
-    return this.wish.wishedBooks.find(b => b.bookId===bookId);
-  }
   private addWishlist(id:string) {
     
     this.appState$.pipe(

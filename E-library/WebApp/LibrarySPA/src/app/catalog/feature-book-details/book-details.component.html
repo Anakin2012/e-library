@@ -37,13 +37,14 @@
           <button class="btn btn-danger" (click)="onAddToCartRed(book.id)">Borrow now</button>
         </ng-template>
       
-        <div *ngIf="!onIsInWishlist(book.id); else isthere">
+      <!--  <div *ngIf="!onIsInWishlist(book.id); else isthere"> -->
           <button  class="wishbut" style="background-color: #4f9ac9;" type="button" (click)="onAddToWishlist(book.id)">add to wishlist</button>
-        </div>
+      <!--  </div> -->
+      <!--
         <ng-template #isthere>
           <button style="background-color:#aa2943">Added to wishlist</button>
         </ng-template>
-
+      -->
        <!--- <button  class="wishbut" style="background-color: #4f9ac9;" type="button">add to wishlist</button> -->
         </div>  
         <ng-template #buttonEdit>

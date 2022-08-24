@@ -13,7 +13,7 @@
 
         <div class="move-right">
             <div *ngIf="!appState.isEmpty()">
-            <a routerLinkActive="active" [routerLink]="['identity/settings']"> My Account ({{appState.userName}}) </a>
+            <a routerLinkActive="active" [routerLink]="['identity/account']"> My Account ({{appState.userName}}) </a>
             <a routerLinkActive="active" [routerLink]="['identity/logout']">Logout</a>        
             </div>
         </div>

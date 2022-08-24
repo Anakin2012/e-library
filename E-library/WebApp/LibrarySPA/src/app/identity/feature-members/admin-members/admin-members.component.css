@@ -1,0 +1,15 @@
+.hello-admin {
+    margin-top: 70px;
+    margin-left: 20px;
+    display: flex;
+    
+    font-size: x-large;
+    font-weight: 300;
+    text-align: left;
+}
+
+.buttonn {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #04AA6D;
+    border-color: #0bc580;
+}

@@ -4,13 +4,13 @@
     <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Last name: {{ appState.lastName }}</p>
     <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Username: {{ appState.userName }}</p>
     <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Email: {{ appState.email }}</p>
-    <p *ngIf="appState.membershipExpired==='False'; else MembershipExpired" style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Membership paid up to date: {{ appState.membershipPaid}}</p>
-    <ng-template #MembershipExpired>
-      <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Membership expired! </p>
-    </ng-template>
-
-    <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Pay membership: <button (click)="payMembership(appState.userName)" class="btn btn-secondary buttons"> Here </button> </p>
-    
+    <div *ngIf="!appState.isAdmin();">
+      <p *ngIf="appState.membershipExpired==='False'; else MembershipExpired" style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Membership paid up to date: {{ appState.membershipPaid}}</p>
+      <ng-template #MembershipExpired>
+        <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Membership expired! </p>
+      </ng-template>
+      <p style="margin-top: 50px; margin-left: 50px; font-family:verdana;" class ="settings-field"> Pay membership: <button (click)="payMembership(appState.userName)" class="btn btn-secondary buttons"> Here </button> </p>
+    </div>
     <div *ngIf="!appState.isEmpty()" class = "row" style = "border-width: 1px; border-top-style: none; border-right-style: none; border-bottom-style: solid; border-left-style: none; margin-left: 50px;" >
       <div class = "col-3"> 
         <p style="margin-top: 50px; font-family:verdana;"> Change password: </p>

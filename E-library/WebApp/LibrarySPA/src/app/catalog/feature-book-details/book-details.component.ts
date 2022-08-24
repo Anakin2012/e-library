@@ -25,6 +25,7 @@ export class BookDetailsComponent implements OnInit {
   bookId;
   RouteParamObs;
   roles: string | string[] = '';
+  wishlist: IWish;
   username: string = '';
   cartItems: ICartItem[] = [];
   public appState$ : Observable<IAppState>;
@@ -122,6 +123,7 @@ export class BookDetailsComponent implements OnInit {
     this.appStateService.getAppState().pipe(
       map((appState : IAppState) => {
         const username : string = appState.userName;
+        this.username = username;
         return username;
       }),
       switchMap((username: string) => {
@@ -129,6 +131,7 @@ export class BookDetailsComponent implements OnInit {
         return wishlist;
       }),
       switchMap((wishlist: IWish) => {
+        this.wishlist = wishlist;
         if (wishlist.wishedBooks.find(b => b.bookId === id)) {
           this.toastService.warning({detail: "Already in wishlist", summary: "You have already saved this book in your wishlist", duration: 3000});
           return of(false);

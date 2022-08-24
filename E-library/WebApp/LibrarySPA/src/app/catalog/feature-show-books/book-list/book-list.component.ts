@@ -8,7 +8,6 @@ import { DataService } from 'src/app/shared/service/data.service';
 import { map, Observable, of, switchMap, take, throwError } from 'rxjs';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/cart-facade.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { NgToastService } from 'ng-angular-popup';
 import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 import { IWish } from 'src/app/wishlist/domain/models/wishlist';
@@ -125,6 +124,7 @@ export class BookListComponent implements OnInit {
           return of(false);
         }
         else {
+          console.log(id);
           return this.wishlistService.AddToWishList(this.username, id);
         }
       })

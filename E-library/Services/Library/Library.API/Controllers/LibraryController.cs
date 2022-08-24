@@ -14,7 +14,7 @@ using MassTransit;
 
 namespace Library.API.Controllers
 {
-    [Authorize(Roles =  "Member")]
+    [Authorize(Roles = "Member, PremiumMember")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class LibraryController : ControllerBase
@@ -83,7 +83,7 @@ namespace Library.API.Controllers
 
             await _publishEndpoint.Publish(eventMessage);
             await _repository.DeleteLibraryItem(item.Id);
-            return Ok();
+            return Ok(await _repository.GetAllBooksForUser(item.Username));
         }
 
     }

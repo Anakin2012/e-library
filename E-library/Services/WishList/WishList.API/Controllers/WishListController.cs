@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WishList.API.Entities;
 using WishList.API.Repositories;
@@ -10,7 +11,7 @@ using WishList.API.Services;
 
 namespace WishList.API.Controllers
 {
-    //[Authorize(Roles = "PremiumMember,Member")]
+    [Authorize(Roles = "PremiumMember,Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class WishListController : ControllerBase
@@ -24,12 +25,17 @@ namespace WishList.API.Controllers
             _service = service ?? throw new ArgumentNullException(nameof(repository));
         }
 
+
         [HttpGet("[action]/{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> GetList(string username) { 
+
+
+
             var basket = await _repository.GetList(username);
             return Ok(basket ?? new WishBookList(username));
         }
+
 
         [HttpGet("recommendByAuthor/{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
@@ -39,6 +45,7 @@ namespace WishList.API.Controllers
             return Ok(recommendations);
         }
 
+
         [HttpPut("/addBookToWishList/{username}/{bookId}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> AddToWishList(string username, string bookId)
@@ -47,10 +54,16 @@ namespace WishList.API.Controllers
             return Ok(await _service.addBookToWishList(username, bookId));
         }
 
+
         [HttpGet("recommendByGenre/{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ListItem>>> GetRecommendationsByGenre(string username)
         {
+            if (User.FindFirst(ClaimTypes.Name).Value != username)
+            {
+                return Forbid();
+            }
+
             var recommendations = await _service.getRecommendationsByGenre(username);
             return Ok(recommendations);
         }

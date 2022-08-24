@@ -8,6 +8,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterFormComponent } from './feature-authorisation/register-form/register-form.component';
 import { SettingsComponent } from './feature-settings/settings/settings.component';
 import { LogoutComponent } from './feature-authentication/logout/logout.component';
+import { AdminMembersComponent } from './feature-members/admin-members/admin-members.component';
+import { RegisterAdminComponent } from './feature-members/register-admin/register-admin.component';
+import { ManageMembershipsComponent } from './feature-members/manage-memberships/manage-memberships.component';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import { LogoutComponent } from './feature-authentication/logout/logout.componen
     LoginFormComponent,
     RegisterFormComponent,
     SettingsComponent,
-    LogoutComponent
+    LogoutComponent,
+    AdminMembersComponent,
+    RegisterAdminComponent,
+    ManageMembershipsComponent
   ],
   imports: [
     CommonModule,

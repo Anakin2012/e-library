@@ -60,6 +60,11 @@ namespace WishList.API.Services
             List<ListItem> result = new List<ListItem>();
             WishBookList usersBooks = await _repository.GetList(username);
 
+            if (usersBooks.WishedBooks.Count == 0)
+            {
+                return result;
+            }
+
             foreach (ListItem bookItem in usersBooks.WishedBooks) {
                 if (!writerCounterMap.ContainsKey(bookItem.Author))
                 {
@@ -86,6 +91,8 @@ namespace WishList.API.Services
                 item.BookId = book.Id;
                 item.BookTitle = book.Title;
                 item.Author = book.Author;
+                item.CoverImageFile = book.CoverImageFile;
+
                 result.Add(item);
             }
 
@@ -99,7 +106,11 @@ namespace WishList.API.Services
             List<ListItem> result = new List<ListItem>();
             WishBookList usersBooks = await _repository.GetList(username);
 
-            //TODO umesto Writer treba dodati Genre
+            if (usersBooks.WishedBooks.Count == 0)
+            {
+                return result;
+            }
+
             foreach (ListItem bookItem in usersBooks.WishedBooks)
             {
                 if (!genreCounterMap.ContainsKey(bookItem.Genre))
@@ -131,6 +142,7 @@ namespace WishList.API.Services
                 item.BookTitle = book.Title;
                 item.Author = book.Author;
                 item.Genre = book.Genre;
+                item.CoverImageFile = book.CoverImageFile;
                 result.Add(item);
             }
 

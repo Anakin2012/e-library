@@ -26,10 +26,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCartInfo();
-  }
-
-  getCartInfo() {
     this.getCart();
   }
 
@@ -39,7 +35,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   private getCart() {
-    this.appStateService.getAppState().pipe(
+    this.appState$.pipe(
       take(1),
       switchMap((appState) => this.cartService.getCart(appState.userName))
     ).subscribe((cart) => 
@@ -55,7 +51,7 @@ export class CheckoutComponent implements OnInit {
       this.toastService.warning({detail: "Missing info", summary: "Please fill in all the fields!", duration: 3000});
     }
     else {
-    this.appStateService.getAppState().pipe(
+    this.appState$.pipe(
       take(1),
       switchMap((appState) => this.cartService.checkout(appState.userName, info))
       ).subscribe((res) => {

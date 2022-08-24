@@ -17,7 +17,7 @@ namespace IdentityServer.Controllers
 {
     [Route("/api/v1/[controller]")]
     [ApiController]
- //   [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class AdministratorController : ControllerBase
     {
         private readonly IdentityRepositoryInterface _repository;
@@ -56,13 +56,21 @@ namespace IdentityServer.Controllers
             return Ok(membersDetails);
         }
 
+        [HttpGet("[action]")]
+        [ProducesResponseType(typeof(IEnumerable<MemberDetailsAdminDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<MemberDetailsAdminDTO>>> GetAllMembersDetails()
+        {
+            var membersDetails = await _repository.GetAllMembersDetails();
+            return Ok(membersDetails);
+        }
+
 
         [HttpPut("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> AddCredentialsToMember(string UserName, double add)
+        public async Task<ActionResult> AddCredentialsToMember([FromBody] AddCredentialsDTO addCredentials)
         {
-            var result = await _repository.AddCredentialsToMember(UserName, add);
+            var result = await _repository.AddCredentialsToMember(addCredentials.UserName, addCredentials.Credentials);
 
             if (!result.Succeeded)
             {
@@ -81,15 +89,15 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> CancelMembershipOfMember(string username)
+        public async Task<ActionResult> CancelMembershipOfMember([FromBody] UserNameDTO userNameDTO)
         {
-            var member = await _repository.FindMember(username);
+            var member = await _repository.FindMember(userNameDTO.UserName);
 
             DateTime dm = member.DateMembership.AddDays(30);
 
             if (dm <= DateTime.Now)
             {
-                var result = await _repository.CancelMembership(username);
+                var result = await _repository.CancelMembership(userNameDTO.UserName);
 
                 if (!result.Succeeded)
                 {
@@ -115,7 +123,6 @@ namespace IdentityServer.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendMembershipExpiringMail([FromBody] MemberDetailsDTO memberDetailsDTO)
         {
-            // salje se 3 dana pre isteka clanarine
 
             MembershipExpiringEvent membershipExpiring = new MembershipExpiringEvent(memberDetailsDTO.Email, memberDetailsDTO.Name, memberDetailsDTO.Surname, memberDetailsDTO.UserName);
 

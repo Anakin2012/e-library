@@ -34,7 +34,8 @@ namespace IdentityServer.Repositories
 
 
             var memberUserName = await _memberManager.FindByNameAsync(member.UserName);
-            if (memberUserName != null) {
+            if (memberUserName != null)
+            {
                 IEnumerable<IdentityError> errors = Enumerable.Empty<IdentityError>();
                 errors = errors.Append(new IdentityErrorDescriber().DuplicateUserName(member.UserName));
 
@@ -86,15 +87,18 @@ namespace IdentityServer.Repositories
         }
 
 
-        public async Task<Member> FindMember(string UserName) {
-            var member =  await _memberManager.FindByNameAsync(UserName);
+        public async Task<Member> FindMember(string UserName)
+        {
+            var member = await _memberManager.FindByNameAsync(UserName);
             return member;
         }
 
-        public async Task<Member> FindMemberByEmailOrUsename(string LoginName) {
+        public async Task<Member> FindMemberByEmailOrUsename(string LoginName)
+        {
             bool isEmail = false;
 
-            if (LoginName.Contains('@')) {
+            if (LoginName.Contains('@'))
+            {
                 isEmail = true;
             }
 
@@ -112,18 +116,44 @@ namespace IdentityServer.Repositories
             return member;
         }
 
+        private async Task<IList<string>> Role(string username)
+        {
+            var member = await _memberManager.FindByNameAsync(username);
+            return await _memberManager.GetRolesAsync(member);
+        }
 
-        public async Task<IEnumerable<MemberDetailsDTO>> GetMembers() {
+
+        public async Task<IEnumerable<MemberDetailsAdminDTO>> GetAllMembersDetails()
+        {
+            var members = await _memberManager.Users.ToListAsync();
+
+            IEnumerable<MemberDetailsAdminDTO> membersDetails = _mapper.Map<IEnumerable<MemberDetailsAdminDTO>>(members);
+
+
+            foreach (MemberDetailsAdminDTO memberDetails in membersDetails)
+            {
+                var roles = await Role(memberDetails.UserName);
+                memberDetails.Roles = new List<string>(roles);
+            }
+
+            return membersDetails;
+        }
+
+
+        public async Task<IEnumerable<MemberDetailsDTO>> GetMembers()
+        {
             var members = await _memberManager.Users.ToListAsync();
             return _mapper.Map<IEnumerable<MemberDetailsDTO>>(members);
         }
 
-        public async Task<MemberDetailsDTO> GetMember(string UserName) {
+        public async Task<MemberDetailsDTO> GetMember(string UserName)
+        {
             var member = await _memberManager.Users.FirstOrDefaultAsync(member => member.UserName == UserName);
             return _mapper.Map<MemberDetailsDTO>(member);
         }
 
-        public async Task<IdentityResult> DeleteMember(string username) {
+        public async Task<IdentityResult> DeleteMember(string username)
+        {
             var member = await _memberManager.FindByNameAsync(username);
             if (member == null)
             {
@@ -133,7 +163,8 @@ namespace IdentityServer.Repositories
                 return IdentityResult.Failed(errors.ToArray());
 
             }
-            else {
+            else
+            {
                 var result = await _memberManager.DeleteAsync(member);
                 return result;
             }
@@ -159,25 +190,29 @@ namespace IdentityServer.Repositories
         }
 
 
-        public async Task<IdentityResult> Pay(string username) {
+        public async Task<IdentityResult> Pay(string username)
+        {
             var member = await _memberManager.FindByNameAsync(username);
 
             IList<string> roles = await _memberManager.GetRolesAsync(member);
 
             bool premium = false;
-            foreach (string _role in roles) {
+            foreach (string _role in roles)
+            {
                 if (_role == "PremiumMember")
                     premium = true;
             }
 
             if (premium)
             { // premium : 1500 credentials
-                if (member.Credentials < 1500.0) {
+                if (member.Credentials < 1500.0)
+                {
                     return IdentityResult.Failed();
                 }
                 member.Credentials -= 1500;
             }
-            else { // regular : 750 credentials 
+            else
+            { // regular : 750 credentials 
                 if (member.Credentials < 750.0)
                 {
                     return IdentityResult.Failed();
@@ -195,7 +230,8 @@ namespace IdentityServer.Repositories
         }
 
 
-        public async Task<IdentityResult> AddCredentialsToMember(string username, double add) {
+        public async Task<IdentityResult> AddCredentialsToMember(string username, double add)
+        {
             var member = await _memberManager.FindByNameAsync(username);
 
             member.Credentials += add;
@@ -205,7 +241,8 @@ namespace IdentityServer.Repositories
             return result;
         }
 
-        public async Task<IdentityResult> CancelMembership(string username) {
+        public async Task<IdentityResult> CancelMembership(string username)
+        {
 
             var member = await _memberManager.FindByNameAsync(username);
 

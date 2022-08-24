@@ -6,6 +6,20 @@
         <h2>Borrow books without leaving your home! </h2>
     </div>
     <div class="new-arrivals">
-        <p>New arrivals</p>
+        <div *ngIf = "appState$ | async as appState">
+            <div *ngIf = "!appState.isEmpty(); else loggedout">
+                <div *ngIf="appState.roles==='Administrator'; else member">
+                    <p>New arrivals</p>
+                </div>
+                
+                <ng-template #member>
+                    <p #member>Recommended for {{appState.userName}}</p>
+                </ng-template>
+            </div>
+            
+            <ng-template #loggedout>
+                <p>New arrivals</p>
+            </ng-template>
+        </div>
     </div>
 </div>

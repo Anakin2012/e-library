@@ -23,6 +23,7 @@ namespace IdentityServer.Data
         {
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new MemberConfiguration());
+            builder.ApplyConfiguration(new MemberRoleConfiguration());
 
             base.OnModelCreating(builder);
         }

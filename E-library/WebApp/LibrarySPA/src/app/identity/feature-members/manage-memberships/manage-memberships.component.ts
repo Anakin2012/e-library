@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { AdminFacadeService } from '../../domain/application-services/admin-facade.service';
@@ -17,6 +17,7 @@ export class ManageMembershipsComponent implements OnInit, OnDestroy {
   public AddingCredentialsTo : string;
   public AddCredentialsMode : boolean;
   public addCredentialsForm: FormGroup;
+  private sub : Subscription;
 
   constructor(private appStateService: AppStateService, private adminService : AdminFacadeService) {
     this.appState$ = this.appStateService.getAppState();
@@ -31,12 +32,12 @@ export class ManageMembershipsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
+    this.sub.unsubscribe();
   }
   
 
   private getAllMembersDetails() : void {
-    this.adminService.GetAllMembersDetails().subscribe((members : IFullMemberDetails[]) => {
+    this.sub = this.adminService.GetAllMembersDetails().subscribe((members : IFullMemberDetails[]) => {
       this.members = members;
       console.log(this.members);
     });

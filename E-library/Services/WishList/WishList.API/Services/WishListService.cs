@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,11 +14,13 @@ namespace WishList.API.Services
 
         private readonly CatalogGrpcService _grpcService;
         private readonly IWishListRepository _repository;
+        private readonly ILogger<WishListService> _logger;
 
-        public WishListService(CatalogGrpcService grpcService, IWishListRepository repository)
+        public WishListService(CatalogGrpcService grpcService, IWishListRepository repository, ILogger<WishListService> logger)
         {
             _grpcService = grpcService;
             _repository = repository;
+            _logger = logger;
         }
 
         public async Task<List<ListItem>> addBookToWishList(string username, string bookId)
@@ -58,6 +61,7 @@ namespace WishList.API.Services
             Dictionary<string, int> writerCounterMap = new Dictionary<string, int>();
 
             List<ListItem> result = new List<ListItem>();
+            _logger.LogInformation(username);
             WishBookList usersBooks = await _repository.GetList(username);
 
             if (usersBooks.WishedBooks.Count == 0)
@@ -108,7 +112,10 @@ namespace WishList.API.Services
 
             List<ListItem> result = new List<ListItem>();
             WishBookList usersBooks = await _repository.GetList(username);
-
+            foreach (ListItem item in usersBooks.WishedBooks)
+            {
+                _logger.LogInformation(item.CoverImageFile+" "+item.Author);
+            }
             if (usersBooks.WishedBooks.Count == 0)
             {
                 return result;

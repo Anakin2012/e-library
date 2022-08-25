@@ -4,7 +4,8 @@
 <div *ngIf = "appState$ | async as appState">
    <!---<div *ngIf = "!appState.isEmpty(); else not"> -->
 <ng-container *ngIf="searchText===''; else some">
-<div *ngFor="let b of allBooks">
+<div class="cont">
+    <div *ngFor="let b of allBooks">
         
         <div class="card">
 
@@ -30,7 +31,7 @@
             </ng-template>        
         </div>  
 </div>
-
+</div>
     
 </ng-container>
 

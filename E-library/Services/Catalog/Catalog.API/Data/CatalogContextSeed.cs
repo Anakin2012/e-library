@@ -100,7 +100,7 @@ namespace Catalog.API.Data
                     CoverImageFile = "/assets/book_covers/hp3.png",
                     IsAvailable = true,
                     IsPremium = false,
-                    RentCount = 0
+                    RentCount = 4
                 },
                 new Book()
                 {
@@ -126,7 +126,7 @@ namespace Catalog.API.Data
                     CoverImageFile = "/assets/book_covers/florette.png",
                     IsAvailable = true,
                     IsPremium = true,
-                    RentCount = 0
+                    RentCount = 3
                 },
                 new Book()
                 {
@@ -139,7 +139,7 @@ namespace Catalog.API.Data
                     CoverImageFile = "/assets/book_covers/BriefHist.png",
                     IsAvailable = true,
                     IsPremium = true,
-                    RentCount = 0
+                    RentCount = 5
                 },
                 new Book()
                 {

@@ -13,6 +13,7 @@ import { AuthenticationInterceptor } from './shared/interceptors/authentication.
 import { NgToastModule } from 'ng-angular-popup';
 import { NavAdminComponent } from './navigation/nav-admin/nav-admin/nav-admin.component';
 import { NavUserComponent } from './navigation/nav-user/nav-user/nav-user.component';
+import { AboutComponent } from './homepage/about/about.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NavUserComponent } from './navigation/nav-user/nav-user/nav-user.compon
     HeaderComponent,
     BooksComponent,
     NavAdminComponent,
-    NavUserComponent
+    NavUserComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

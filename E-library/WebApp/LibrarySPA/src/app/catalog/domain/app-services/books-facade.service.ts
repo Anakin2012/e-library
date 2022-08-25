@@ -30,6 +30,10 @@ export class BooksFacadeService {
     return this.booksService.getBookById(id);
   }
 
+  public getBooksByRentCount(count: number): Observable<IBook[]> {
+    return this.booksService.getBooksByRentCount(count);
+  }
+
   public getBooksByTitle(title: string): Observable<IBook[]> {
     return this.booksService.getBooksByTitle(title);
   }

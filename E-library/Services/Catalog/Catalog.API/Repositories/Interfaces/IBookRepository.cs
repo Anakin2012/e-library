@@ -14,6 +14,7 @@ namespace Catalog.API.Repositories.Interfaces
         Task<IEnumerable<BookDTO>> GetBooksByGenre(string genre);
         Task<IEnumerable<BookDTO>> GetBooksByAuthor(string author);
         Task<IEnumerable<BookDTO>> GetBooksByTitle(string title);
+        Task<IEnumerable<BookDTO>> GetBooksByRentCount(int count);
         Task CreateBook(CreateBookDTO bookDTO);
         Task<bool> UpdateBook(string id, UpdateBookDTO bookDTO);
         Task<bool> DeleteBook(string id);

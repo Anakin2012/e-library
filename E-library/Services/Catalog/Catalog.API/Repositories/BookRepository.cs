@@ -35,6 +35,12 @@ namespace Catalog.API.Repositories
             return _mapper.Map<BookDTO>(book);
         }
 
+        public async Task<IEnumerable<BookDTO>> GetBooksByRentCount(int count)
+        {
+            var books = await _context.Books.Find(b => b.RentCount >= count).ToListAsync();
+            return _mapper.Map<IEnumerable<BookDTO>>(books);
+        }
+
         public async Task<IEnumerable<BookDTO>> GetBooksByGenre(string genre)
         {
             var books = await _context.Books.Find(b => b.Genre.ToLower().Contains(genre.ToLower())).ToListAsync();

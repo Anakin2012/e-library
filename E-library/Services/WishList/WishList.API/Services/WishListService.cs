@@ -91,7 +91,10 @@ namespace WishList.API.Services
                 item.BookId = book.Id;
                 item.BookTitle = book.Title;
                 item.Author = book.Author;
+                item.Genre = book.Genre;
                 item.CoverImageFile = book.CoverImageFile;
+                item.IsAvailable = book.IsAvailable;
+                item.IsPremium = book.IsPremium;
 
                 result.Add(item);
             }
@@ -143,6 +146,9 @@ namespace WishList.API.Services
                 item.Author = book.Author;
                 item.Genre = book.Genre;
                 item.CoverImageFile = book.CoverImageFile;
+                item.IsAvailable = book.IsAvailable;
+                item.IsPremium = book.IsPremium;
+
                 result.Add(item);
             }
 

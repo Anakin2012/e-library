@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, of, switchMap, take } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, of, Subscription, switchMap, take } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { DataService } from 'src/app/shared/service/data.service';
@@ -11,12 +11,14 @@ import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
   templateUrl: './nav-user.component.html',
   styleUrls: ['./nav-user.component.css']
 })
-export class NavUserComponent implements OnInit {
+export class NavUserComponent implements OnInit, OnDestroy {
 
   site_name: string = "e-Library";
   cartItemsCount: number = 0;
   public appState$ : Observable<IAppState>;
   loggedIn: boolean = false;
+  sub1: Subscription;
+  sub2: Subscription;
 
   constructor(private appStateService: AppStateService,
               private dataService: DataService, 
@@ -27,7 +29,7 @@ export class NavUserComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    this.appState$.subscribe((appstate) => {
+    this.sub1 = this.appState$.subscribe((appstate) => {
       if (appstate.roles !== 'Administrator') {
             this.loggedIn = true;
       }
@@ -37,18 +39,25 @@ export class NavUserComponent implements OnInit {
     })
     
     if (this.loggedIn === true) {
-      this.getCartTotalItems();
+      this.sub2 = this.getCartTotalItems();
           
-    //  this.notify();   
+     // this.notify();   
     } 
     else {
       this.cartItemsCount = 0;
     }    
   }
 
+  ngOnDestroy(): void {
+    this.sub1.unsubscribe();
+    if (this.sub2) {
+      this.sub2.unsubscribe();
+    }
+  }
+
   public getCartTotalItems() {
 
-    this.appState$.pipe(
+    return this.appState$.pipe(
       take(1),
       switchMap((appState : IAppState) => {
         if (appState.isEmpty()) {

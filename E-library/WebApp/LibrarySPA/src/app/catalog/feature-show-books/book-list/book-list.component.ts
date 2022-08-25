@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 import { BooksFacadeService } from '../../domain/app-services/books-facade.service';
 import { IBook } from '../../domain/models/book';
 import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
 import { AppState, IAppState } from 'src/app/shared/app-state/app-state';
 import { DataService } from 'src/app/shared/service/data.service';
-import { map, Observable, of, switchMap, take, throwError } from 'rxjs';
+import { map, Observable, of, Subscription, switchMap, take, throwError } from 'rxjs';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/cart-facade.service';
 import { NgToastService } from 'ng-angular-popup';
@@ -19,7 +19,7 @@ import { IWishlistItem } from 'src/app/wishlist/domain/models/wishlistitem';
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.css']
 })
-export class BookListComponent implements OnInit {
+export class BookListComponent implements OnInit, OnDestroy {
 
   allBooks: IBook[] = [];
   username: string = '';
@@ -29,6 +29,7 @@ export class BookListComponent implements OnInit {
   cart: ICart;
   public appState$ : Observable<IAppState>;
   searchText: string = '';
+  sub: Subscription;
 
   constructor(private dataService: DataService,
               private service: BooksFacadeService, 
@@ -41,8 +42,12 @@ export class BookListComponent implements OnInit {
   }
 
   ngOnInit(){    
-    this.getAllBooks();
+    this.sub = this.getAllBooks();
     console.log(this.cartItems);
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   addToWishlist(bookId:string){
@@ -152,7 +157,7 @@ export class BookListComponent implements OnInit {
   }
   
   private getAllBooks() {
-    this.service.getBooks().subscribe((books) => {
+    return this.service.getBooks().subscribe((books) => {
       console.log(books);
       this.allBooks = books;
       this.someBooks = books;

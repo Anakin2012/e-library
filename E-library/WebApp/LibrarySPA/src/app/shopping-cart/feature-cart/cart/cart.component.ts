@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
-import { map, Observable, of, switchMap, take } from 'rxjs';
+import { map, Observable, of, Subscription, switchMap, take } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { DataService } from 'src/app/shared/service/data.service';
@@ -16,13 +16,14 @@ import { ICartItem } from '../../domain/models/ICartItem';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
 
   cart: ICart;
   cartItems: ICartItem[] = [];
   public appState$ : Observable<IAppState>;
   wishlist: IWish;
   username: string;
+  sub: Subscription;
 
   constructor(private dataService: DataService,
               private cartService: CartFacadeService,
@@ -35,7 +36,11 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCart();
+    this.sub = this.getCart();
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   onRemoveAll() {
@@ -114,7 +119,7 @@ export class CartComponent implements OnInit {
   }
 
   private getCart() {
-    this.appState$.pipe(
+    return this.appState$.pipe(
       take(1),
       switchMap((appState) => this.cartService.getCart(appState.userName))
     ).subscribe((cart) => 

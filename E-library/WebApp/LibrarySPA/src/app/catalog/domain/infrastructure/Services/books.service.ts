@@ -35,6 +35,10 @@ export class BooksService {
     return this.http.get<IBook>(`${this.url}/GetBookById/${id}`)
   }
 
+  public getBooksByRentCount(count: number): Observable<IBook[]> {
+    return this.http.get<IBook[]>(`${this.url}/GetBooksByRentCount/${count}`);
+  }
+
   public getBooksByTitle(title: string): Observable<IBook[]> {
     return this.http.get<IBook[]>(`http://localhost:8000/api/v1/Catalog/GetBooksByTitle/${title}`);
   }

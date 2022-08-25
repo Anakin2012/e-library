@@ -81,27 +81,30 @@ namespace WishList.API.Services
                 }
             }
 
-            string recommendedWriter = "";
             int max = writerCounterMap.Values.Max();
             foreach (string writer in writerCounterMap.Keys) {
                 if (writerCounterMap[writer] == max)
-                    recommendedWriter = writer;
+                {
+                    var booksForAuthor = await _grpcService.GetBooksByAuthor(writer);
+
+                    foreach (var book in booksForAuthor.Books)
+                    {
+                        ListItem item = new ListItem();
+                        item.BookId = book.Id;
+                        item.BookTitle = book.Title;
+                        item.Author = book.Author;
+                        item.Genre = book.Genre;
+                        item.CoverImageFile = book.CoverImageFile;
+                        item.IsAvailable = book.IsAvailable;
+                        item.IsPremium = book.IsPremium;
+
+                        result.Add(item);
+                    }
+                }
+
+                
             }
 
-            var allBooks = await _grpcService.GetBooksByAuthor(recommendedWriter);
-
-            foreach (var book in allBooks.Books) {
-                ListItem item = new ListItem();
-                item.BookId = book.Id;
-                item.BookTitle = book.Title;
-                item.Author = book.Author;
-                item.Genre = book.Genre;
-                item.CoverImageFile = book.CoverImageFile;
-                item.IsAvailable = book.IsAvailable;
-                item.IsPremium = book.IsPremium;
-
-                result.Add(item);
-            }
 
             return result;
         }
@@ -135,29 +138,34 @@ namespace WishList.API.Services
                 }
             }
 
-            string recommendedGenre = "";
+          //  string recommendedGenre = "";
             int max = genreCounterMap.Values.Max();
             foreach (string genre in genreCounterMap.Keys)
             {
                 if (genreCounterMap[genre] == max)
-                    recommendedGenre = genre;
+                {
+                    var booksForGenre = await _grpcService.GetBooksByGenre(genre);
+
+                    foreach (var book in booksForGenre.Books)
+                    {
+                        ListItem item = new ListItem();
+                        item.BookId = book.Id;
+                        item.BookTitle = book.Title;
+                        item.Author = book.Author;
+                        item.Genre = book.Genre;
+                        item.CoverImageFile = book.CoverImageFile;
+                        item.IsAvailable = book.IsAvailable;
+                        item.IsPremium = book.IsPremium;
+
+                        result.Add(item);
+                    }
+
+                }
+
             }
 
-            var allBooks = await _grpcService.GetBooksByGenre(recommendedGenre);
+           // var allBooks = await _grpcService.GetBooksByGenre(recommendedGenre);
 
-            foreach (var book in allBooks.Books)
-            {
-                ListItem item = new ListItem();
-                item.BookId = book.Id;
-                item.BookTitle = book.Title;
-                item.Author = book.Author;
-                item.Genre = book.Genre;
-                item.CoverImageFile = book.CoverImageFile;
-                item.IsAvailable = book.IsAvailable;
-                item.IsPremium = book.IsPremium;
-
-                result.Add(item);
-            }
 
             return result;
         }

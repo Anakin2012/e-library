@@ -39,6 +39,7 @@ namespace WishList.API
 
             services.AddScoped<IWishListService, WishListService>();
 
+
             services.AddGrpcClient<CatalogProtoService.CatalogProtoServiceClient>(
                 options => options.Address = new Uri(Configuration["GrpcSettings:CatalogUrl"])
             );

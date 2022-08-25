@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WishList.API.Entities;
 using WishList.API.Repositories;
@@ -10,7 +11,7 @@ using WishList.API.Services;
 
 namespace WishList.API.Controllers
 {
-
+    [Authorize(Roles = "Member,PremiumMember")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class WishListController : ControllerBase
@@ -24,7 +25,7 @@ namespace WishList.API.Controllers
             _service = service ?? throw new ArgumentNullException(nameof(repository));
         }
 
-       // [Authorize(Roles = "Member")]
+       //[Authorize(Roles = "Member")]
         [HttpGet("[action]/{username}")]
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> GetList(string username) { 
@@ -37,6 +38,11 @@ namespace WishList.API.Controllers
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ListItem>>> GetRecommendationsByAuthor(string username)
         {
+            if (User.FindFirst(ClaimTypes.Name).Value != username)
+            {
+                return Forbid();
+            }
+
             var recommendations = await _service.getRecommendationsByAuthor(username);
             return Ok(recommendations);
         }
@@ -46,6 +52,11 @@ namespace WishList.API.Controllers
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> AddToWishList(string username, string bookId)
         {
+            if (User.FindFirst(ClaimTypes.Name).Value != username)
+            {
+                return Forbid();
+            }
+
 
             return Ok(await _service.addBookToWishList(username, bookId));
         }
@@ -55,6 +66,11 @@ namespace WishList.API.Controllers
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ListItem>>> GetRecommendationsByGenre(string username)
         {
+            if (User.FindFirst(ClaimTypes.Name).Value != username)
+            {
+                return Forbid();
+            }
+
             var recommendations = await _service.getRecommendationsByGenre(username);
             return Ok(recommendations);
         }
@@ -64,6 +80,11 @@ namespace WishList.API.Controllers
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> UpdateList(WishBookList list)
         {
+            if (User.FindFirst(ClaimTypes.Name).Value != list.Username)
+            {
+                return Forbid();
+            }
+
             return Ok(await _repository.UpdateList(list));
         }
 

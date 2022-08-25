@@ -22,5 +22,12 @@ namespace Ordering.Infrastructure.Repositories
                 .Include(o => o.OrderItems)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Order>> GetAllOrders()
+        {
+            return await _dbContext.Orders
+                .Include(o => o.OrderItems)
+                .ToListAsync();
+        }
     }
 }

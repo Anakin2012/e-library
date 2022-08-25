@@ -6,7 +6,7 @@ import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/car
 import { BooksFacadeService } from 'src/app/catalog/domain/app-services/books-facade.service';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
-import { map, Observable, pairwise, switchMap, take } from 'rxjs';
+import { map, Observable, pairwise, Subscription, switchMap, take } from 'rxjs';
 import { DataService } from 'src/app/shared/service/data.service';
 import { NgToastService } from 'ng-angular-popup';
 import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
@@ -21,7 +21,8 @@ import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 export class ItemlistComponent implements OnInit {
   public itemList : IWishlistItem[] = [];
   public cart? : ICart;
-  public appState$ : Observable<IAppState>;
+    public appState$: Observable<IAppState>;
+    subscription: Subscription;
 
   constructor(public bookService : BooksFacadeService, public cartService: CartFacadeService,
               private appStateService : AppStateService,
@@ -36,7 +37,10 @@ export class ItemlistComponent implements OnInit {
   ngOnInit() {
     this.getList();
     this.getCart();
-}
+    }
+   ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 
 
 private getList() {
@@ -49,8 +53,8 @@ private getList() {
     console.log(list);
   }); 
   }
-private getCart(){
-  this.appStateService.getAppState().pipe(
+    private getCart() {
+        this.subscription = this.appStateService.getAppState().pipe(
     switchMap((appState) => this.cartService.getCart(appState.userName))
   ).subscribe((list) =>
   {

@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ILibraryItem } from '../domain/models/libraryitem';
 import { BooksFacadeService } from '../../catalog/domain/app-services/books-facade.service';
 import { IBook } from '../../catalog/domain/models/book';
-import { map, switchMap, take } from 'rxjs';
+import { map, Subscription, switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-libraryitem-details',
@@ -14,13 +14,14 @@ export class LibraryitemDetailsComponent implements OnInit {
 
     public book: IBook;
     bookId;
+    subscription: Subscription;
     RouteParamObs;
 
     constructor(private activatedRoute: ActivatedRoute, private service: BooksFacadeService) { }
 
     ngOnInit(): void {
 
-        this.RouteParamObs = this.activatedRoute.paramMap.pipe(
+        this.subscription = this.RouteParamObs = this.activatedRoute.paramMap.pipe(
             take(1),
             map((param: ParamMap) => {
                 this.bookId = param.get('id');  
@@ -31,6 +32,10 @@ export class LibraryitemDetailsComponent implements OnInit {
                 console.log(book);
                 this.book = book;
             });  
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 }
 

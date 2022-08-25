@@ -3,7 +3,7 @@ import { WishListServiceFacade } from '../domain/app-services/wishlist-facade.se
 import { IWishlistItem } from '../domain/models/wishlistitem';
 import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
 import { IAppState } from 'src/app/shared/app-state/app-state';
-import { catchError, map, Observable, switchMap, take } from 'rxjs';
+import { catchError, map, Observable, Subscription, switchMap, take } from 'rxjs';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { NgToastService } from 'ng-angular-popup';
 import { IWish } from '../domain/models/wishlist';
@@ -15,7 +15,8 @@ import { IWish } from '../domain/models/wishlist';
 export class AddToListComponent implements OnInit {
   public RecByAuthor : IWishlistItem[] = [];
   public RecByGenre : IWishlistItem[] = [];
-  public appState$ : Observable<IAppState>;
+  public appState$: Observable<IAppState>;
+  subscription: Subscription;
   private wishlist? : IWish;
   dataService: any;
   
@@ -31,6 +32,9 @@ export class AddToListComponent implements OnInit {
     this.init();
   }
 
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
   private init(){
       this.appState$.pipe(
         take(1),
@@ -48,7 +52,7 @@ export class AddToListComponent implements OnInit {
       }
       );
 
-      this.appState$.pipe(
+      this.subscription = this.appState$.pipe(
         take(1),
         map((appState : IAppState) => {
           const username : string = appState.userName;

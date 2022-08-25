@@ -13,4 +13,8 @@ export class OrderingFacadeService {
         return this.orderingService.getOrders(username);
     }
 
+    public getAllOrders() {
+        return this.orderingService.getAllOrders();
+    }
+
 }

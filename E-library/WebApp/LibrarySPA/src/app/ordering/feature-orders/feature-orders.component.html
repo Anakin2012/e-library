@@ -1,0 +1,28 @@
+<div class="history-container">
+    <div class="title">
+        E-library ordering history:
+        <button class="btn show-det" routerLink="/ordering/users"> Search ordering history by user</button>
+    </div>
+    <div *ngFor="let order of allOrders;">
+        <div class="transactions">
+            <h3>{{order.orderDate | date: 'medium'}}</h3>
+            <table>
+                <tbody>
+                <tr>
+                    <td>Customer: {{order.username}}</td>
+                </tr>
+                </tbody>
+
+            </table>
+            <div *ngFor="let item of order.orderItems;">
+                <table>
+                        <tr class="transaction-row">
+                            <td class="transaction-date">{{item.bookTitle}} &emsp;</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+</div>

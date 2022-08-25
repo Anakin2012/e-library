@@ -24,4 +24,8 @@ export class OrderingService {
             }))
 
     }
+
+    public getAllOrders(): Observable<IOrder[]> {
+        return this.http.get<IOrder[]>(`${this.url}/GetAllOrders/`);
+    }
 }

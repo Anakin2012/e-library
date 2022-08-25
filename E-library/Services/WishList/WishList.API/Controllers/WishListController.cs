@@ -11,7 +11,8 @@ using WishList.API.Services;
 
 namespace WishList.API.Controllers
 {
-    [Authorize(Roles = "PremiumMember,Member")]
+
+    [Authorize(Roles = "Member,PremiumMember")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class WishListController : ControllerBase
@@ -41,6 +42,11 @@ namespace WishList.API.Controllers
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<ListItem>>> GetRecommendationsByAuthor(string username)
         {
+            if (User.FindFirst(ClaimTypes.Name).Value != username)
+            {
+                return Forbid();
+            }
+
             var recommendations = await _service.getRecommendationsByAuthor(username);
             return Ok(recommendations);
         }
@@ -50,6 +56,11 @@ namespace WishList.API.Controllers
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> AddToWishList(string username, string bookId)
         {
+            if (User.FindFirst(ClaimTypes.Name).Value != username)
+            {
+                return Forbid();
+            }
+
 
             return Ok(await _service.addBookToWishList(username, bookId));
         }
@@ -73,6 +84,11 @@ namespace WishList.API.Controllers
         [ProducesResponseType(typeof(WishBookList), StatusCodes.Status200OK)]
         public async Task<ActionResult<WishBookList>> UpdateList(WishBookList list)
         {
+            if (User.FindFirst(ClaimTypes.Name).Value != list.Username)
+            {
+                return Forbid();
+            }
+
             return Ok(await _repository.UpdateList(list));
         }
 

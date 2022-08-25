@@ -64,7 +64,7 @@ namespace WishList.API.Services
             _logger.LogInformation(username);
             WishBookList usersBooks = await _repository.GetList(username);
 
-            if(usersBooks.WishedBooks.Count == 0)
+            if (usersBooks.WishedBooks.Count == 0)
             {
                 return result;
             }
@@ -96,6 +96,7 @@ namespace WishList.API.Services
                 item.BookTitle = book.Title;
                 item.Author = book.Author;
                 item.CoverImageFile = book.CoverImageFile;
+                
                 result.Add(item);
             }
 

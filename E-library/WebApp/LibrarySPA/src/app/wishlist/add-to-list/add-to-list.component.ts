@@ -6,6 +6,7 @@ import { IAppState } from 'src/app/shared/app-state/app-state';
 import { catchError, map, Observable, switchMap, take } from 'rxjs';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { NgToastService } from 'ng-angular-popup';
+import { IWish } from '../domain/models/wishlist';
 @Component({
   selector: 'app-add-to-list',
   templateUrl: './add-to-list.component.html',
@@ -15,8 +16,7 @@ export class AddToListComponent implements OnInit {
   public RecByAuthor : IWishlistItem[] = [];
   public RecByGenre : IWishlistItem[] = [];
   public appState$ : Observable<IAppState>;
-  paramObs;
-  keys;
+  private wishlist? : IWish;
   dataService: any;
   
   constructor(private service : WishListServiceFacade,
@@ -27,7 +27,7 @@ export class AddToListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.getWishlist();
     this.init();
   }
 
@@ -64,6 +64,20 @@ export class AddToListComponent implements OnInit {
       );
 
     }
+  
+  public onAdded(){
+    this.toastService.info({detail : "Added!", summary : "Already in wishlist!", duration : 3000});
+  }
+  private getWishlist(){
+    this.appStateService.getAppState().pipe(
+        switchMap((appState) => this.service.GetList(appState.userName))
+      ).subscribe((list) =>
+      {
+        this.wishlist = list;
+        console.log(list);
+      }
+      );
+    }
     
     public removeFromWishlist(bookId : string){
       this.appState$.pipe(
@@ -81,6 +95,7 @@ export class AddToListComponent implements OnInit {
       })
    }
 
+
   public addToWishlist(bookId : string) {
     this.appState$.pipe(
       take(1),
@@ -90,10 +105,16 @@ export class AddToListComponent implements OnInit {
       }),
       switchMap((username) => 
       {
-       this.toastService.info({summary :"Added to wishlist", duration : 3000});
+       if(this.isInWishlist(bookId)){
+        this.toastService.error({detail : "Warning", summary:"Wishful thinking!", duration:3000});
+        return null;
+       }
+       this.toastService.info({summary :"Added to wishlist!", duration : 3000});
        return this.service.AddToWishList(username,bookId);
       })
       ).subscribe((list) => {
+        this.wishlist = list;
+        console.log(list);
         this.dataService.notifyOther({refresh : true});
       });
     

@@ -153,26 +153,5 @@ namespace ShoppingCart.API.Controllers
             return Ok(await _service.RemoveBookFromCart(username, bookId));
         }
 
-
-        [Route("[action]/{username}")]
-        [HttpPut]
-        [ProducesResponseType(typeof(Cart), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Cart>> RemoveAllBooksFromCart(string username)
-        {
-
-            if (User.FindFirst(ClaimTypes.Name).Value != username)
-            {
-                return Forbid();
-            }
-
-            var result = await _service.RemoveAllBooksFromCart(username);
-            if (result == null)
-            {
-                return BadRequest("No active cart for this user!");
-            }
-
-            return Ok(result);
-        }
-
     }
 }

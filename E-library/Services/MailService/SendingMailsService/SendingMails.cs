@@ -18,7 +18,8 @@ namespace MailService.SendingMailsService
             _mailSettings = mailSettings.Value ?? throw new ArgumentNullException(nameof(mailSettings));
         }
 
-        public async  Task<bool> SendPayingMembershipMail(PayingModel payingModel) {
+        public async Task<bool> SendPayingMembershipMail(PayingModel payingModel)
+        {
             var email = new MimeMessage();
 
             email.Sender = MailboxAddress.Parse(_mailSettings.EmailAddress);
@@ -54,7 +55,8 @@ namespace MailService.SendingMailsService
             return true;
         }
 
-        public async Task<bool> SendDeletingAccountMail(DeletingAccountModel deletingAccountModel) {
+        public async Task<bool> SendDeletingAccountMail(DeletingAccountModel deletingAccountModel)
+        {
             var email = new MimeMessage();
 
             email.Sender = MailboxAddress.Parse(_mailSettings.EmailAddress);
@@ -90,7 +92,8 @@ namespace MailService.SendingMailsService
             return true;
         }
 
-        public async Task<bool> SendChangePasswordMail(ChangePasswordModel changePasswordModel) {
+        public async Task<bool> SendChangePasswordMail(ChangePasswordModel changePasswordModel)
+        {
             var email = new MimeMessage();
 
             email.Sender = MailboxAddress.Parse(_mailSettings.EmailAddress);
@@ -127,7 +130,8 @@ namespace MailService.SendingMailsService
         }
 
 
-        public async Task<bool> SendMembershipExpiringMail(MembershipExpiringModel membershipExpiringModel) {
+        public async Task<bool> SendMembershipExpiringMail(MembershipExpiringModel membershipExpiringModel)
+        {
 
             var email = new MimeMessage();
 
@@ -137,8 +141,8 @@ namespace MailService.SendingMailsService
 
             var builder = new BodyBuilder();
 
-            builder.HtmlBody = "Hello " + membershipExpiringModel.Name + " " + membershipExpiringModel.Surname + "!\n Your E-Library membership is expiring in 3 days. Please, be sure to renew your membership!\n";
-            builder.TextBody = "Hello " + membershipExpiringModel.Name + " " + membershipExpiringModel.Surname + "!\n Your E-Library membership is expiring in 3 days. Please, be sure to renew your membership!\n";
+            builder.HtmlBody = "Hello " + membershipExpiringModel.Name + " " + membershipExpiringModel.Surname + "!\n Your E-Library membership is expiring soon. Please, be sure to renew your membership!\n";
+            builder.TextBody = "Hello " + membershipExpiringModel.Name + " " + membershipExpiringModel.Surname + "!\n Your E-Library membership is expiring soon. Please, be sure to renew your membership!\n";
 
             email.Body = builder.ToMessageBody();
 
@@ -156,7 +160,8 @@ namespace MailService.SendingMailsService
             {
                 return false;
             }
-            finally {
+            finally
+            {
                 smtp.Disconnect(true);
             }
 

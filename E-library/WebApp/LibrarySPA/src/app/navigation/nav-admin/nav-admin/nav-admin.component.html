@@ -13,11 +13,13 @@
         <a routerLinkActive="active" [routerLink]="['wishlist']">My Wishlist</a>
         <a routerLinkActive="active" [routerLink]="['library/items']">My Library</a>
       -->
-        <a routerLinkActive="active" [routerLink]="['ordering/orders']">Orders</a>     
+
+        <a routerLinkActive="active" [routerLink]="['ordering/orders']">Orders</a>         
+        <a routerLinkActive="active" [routerLink]="['/identity/admin']">Manage members</a>
 
         <div class="move-right">
             <div *ngIf="!appState.isEmpty()">
-            <a routerLinkActive="active" [routerLink]="['identity/settings']"> My Account ({{appState.userName}}) </a>
+            <a routerLinkActive="active" [routerLink]="['identity/account']"> My Account ({{appState.userName}}) </a>
             <a routerLinkActive="active" [routerLink]="['identity/logout']">Logout</a>        
             </div>
         </div>

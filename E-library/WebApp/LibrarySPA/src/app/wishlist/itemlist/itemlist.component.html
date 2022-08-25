@@ -3,7 +3,6 @@
 <div *ngIf="!appState.isEmpty()">
 <div class="title">
   {{appState.userName}}'s Wishlist
-  <button class = "btn-add" routerLinkActive="active" [routerLink]="['add-to-list']">Add</button>
   <button class="btn-delete" (click) ="deleteList()">Delete list</button>
 </div>
 <div class="datatable-inner"
@@ -18,9 +17,7 @@ style="position: center;">
     <th></th>
     <th></th>
   </tr>
-  <tr *ngIf = "itemList.length === 0">
-    <td colspan="7">Wishlist is empty!</td>
-  </tr>
+  <tr type = "button" class = "btn-add" routerLinkActive="active" [routerLink]="['add-to-list']">Add to wishlist!</tr>
 <tr *ngFor="let item of itemList; let i = index">
         <td>{{i+1}}</td>
         <td *ngIf="item">{{item.bookTitle}}</td>
@@ -30,17 +27,17 @@ style="position: center;">
         </td>
         <td></td>
         <td>
-        <div *ngIf="!appState.isEmpty()">  
-        <div *ngIf="!onIsInCart(item.bookId); else inthere">
+        <div *ngIf="!appState.isEmpty()">
+        <div *ngIf="!onIsInCart(item.bookId); else isthere;">
         <button *ngIf="item.isAvailable===true; else notifyme" (click)="onAddToCart(item.bookId)" type="button" style="background-color: #1d6f58;">Borrow now</button>
         <ng-template #notifyme>
-          <button class="btn btn-success">Not available</button>
+          <button class="btn btn-success" style="background-color: blue;">Not available</button>
         </ng-template>
         </div>
+        <ng-template #isthere>
+          <button class="btn btn-danger" (click)="onAdded()" style="background-color: #b7dd69;">Added to cart</button>
+        </ng-template>  
         </div>
-        <ng-template #inthere>
-          <button class="btn btn-danger">Borrowed</button>
-        </ng-template>
         </td>
 </tr>
 </table>

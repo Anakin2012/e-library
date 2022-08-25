@@ -1,0 +1,27 @@
+.main-admin {
+    margin-top: 70px;
+    margin-left: 20px;
+    display: flex;
+    
+    font-size: x-large;
+    font-weight: 300;
+    text-align: left;
+}
+
+.buttonn {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(66, 186, 150);
+    border-color: #0bc580;
+}
+
+.bottom-line {
+    margin-bottom: 20px;
+    margin-right: 200px;
+    border-width: 2px;
+    border-radius: 3%;
+    border-top-style: solid;
+    border-bottom-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-color: #0bc580;
+}

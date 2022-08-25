@@ -83,24 +83,5 @@ namespace ShoppingCart.API.Services
             return cart.Items;
         }
 
-        public async Task<Cart> RemoveAllBooksFromCart(string username)
-        {
-
-            Cart cart;
-            if (await _repository.GetCart(username) != null)
-            {
-                cart = await _repository.GetCart(username);
-            }
-            else
-            {
-                return null;
-            }
-
-            cart.Items.Clear();
-
-            return await _repository.UpdateCart(cart);
-        }
-
-
     }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
-import { map, Observable, switchMap, take } from 'rxjs';
+import { map, Observable, of, switchMap, take } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { DataService } from 'src/app/shared/service/data.service';
@@ -39,7 +39,7 @@ export class CartComponent implements OnInit {
   }
 
   onRemoveAll() {
-      this.removeAll();
+    this.removeAll();    
   }
 
   onRemove(id: string) {
@@ -73,29 +73,23 @@ export class CartComponent implements OnInit {
         return username;
       }),
       switchMap((username: string) => this.wishlistService.GetList(username)),
-      map((list: IWish) => {
+      switchMap((list: IWish) => {
         if (list.wishedBooks.find(b => b.bookId === id)) {
           this.toastService.warning({detail: "Already in wishlist", summary: "You have added this book to wishlist before", duration: 3000});
+          return of(false);
         }
-        return this.wishlistService.AddToWishList(this.username, id);
+        else {
+          return this.wishlistService.AddToWishList(this.username, id);
+        }
       })
-    ).subscribe((res) => {
-      console.log(res);
-      this.toastService.info({detail: "Saved in wishlist", summary: "The book has been added to your wishlist", duration: 3000});
-    });
-  }
-
-  private getWishList() {
-    this.appState$.pipe(
-      take(1),
-      map((appState : IAppState) => {
-        const username : string = appState.userName;
-        return username;
-      }),
-      switchMap((username: string) => this.wishlistService.GetList(username))
-    ).subscribe((res) => {
-      console.log(res);
-      this.wishlist = res;
+    ).subscribe((res: IWish | false) => {
+      if (res === false) {
+        console.log('OK, not added');
+      }
+      else {
+        console.log(res);
+        this.toastService.info({detail: "Saved in wishlist", summary: "The book has been added to your wishlist", duration: 3000});
+      }
     });
   }
 
@@ -132,25 +126,14 @@ export class CartComponent implements OnInit {
  }
 
   private removeAll() {
-
-    this.appState$.pipe(
-      take(1),
-      map((appState : IAppState) => {
-        const username : string = appState.userName;
-        return username;
-      }),
-      switchMap((username: string) => this.cartService.removeAll(username)),
-    //  map((cart : ICart) => {
-      //  this.cartItems = cart.items;
-      //  this.cart.items = cart.items;
-      //  return cart;
-     // })
-      switchMap((cart: ICart) => this.cartService.updateCart(cart))
-    ).subscribe((cart) => {
-      this.cart = cart;
-      this.cartItems = cart.items;
-      //this.dataService.notifyOther({refresh: true});
-    });
-    
+    if (this.cartItems.length === 0) {
+      this.toastService.warning({detail: "Nothing to remove", summary: "Your cart is empty", duration: 3000});
+    }
+    else {
+      for (let i = 0; i < this.cart.items.length; i++) {
+        let id = this.cart.items[i].bookId;
+        this.removeFromCart(id);
+      } 
+    }
   }
 }

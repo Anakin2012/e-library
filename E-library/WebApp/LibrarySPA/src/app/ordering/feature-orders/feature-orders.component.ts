@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { OrderingFacadeService } from '../domain/app-services/ordering-facade.service';
 import { IOrder } from '../domain/models/IOrder';
 
@@ -10,14 +11,19 @@ import { IOrder } from '../domain/models/IOrder';
 export class FeatureOrdersComponent implements OnInit {
 
     allOrders: IOrder[] = [];
+    subscription: Subscription;
     constructor(private orderingService: OrderingFacadeService) { }
 
     ngOnInit(): void {
         this.getAllOrders();
     }
 
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
+
     private getAllOrders() {
-        this.orderingService.getAllOrders().subscribe((orders) => {
+        this.subscription = this.orderingService.getAllOrders().subscribe((orders) => {
             console.log(orders);
             this.allOrders = orders;
             this.allOrders.sort((a, b) => { return <any>new Date(b.orderDate) - <any>new Date(a.orderDate) } );

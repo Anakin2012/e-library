@@ -1,13 +1,19 @@
-<div *ngFor="let b of libraryItems; let i = index">
-    <!-- <p>{{i}}</p> -->
-    <div class="card">
-        <img src="{{b.coverImageFile}}">
-        <h5>{{b.title}}</h5>
-        <h6>{{b.author}}</h6>
-        <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
-        <p><button class="btn show-det" routerLink="/library/item/{{b.bookId}}"> Show Details</button></p>
-        <button class="remove-btn" type="button" name="button" (click)="onRemoveFromLibrary(b.id)">
-            Return book
-        </button>
+<div *ngIf="appState$ | async as appState">
+    <div class="title" *ngIf="!appState.isEmpty()">
+        {{appState.userName}}'s Library
+    </div>
+    <div *ngFor="let b of libraryItems; let i = index">
+        <!-- <p>{{i}}</p> -->
+
+        <div class="card">
+            <img src="{{b.coverImageFile}}">
+            <h5>{{b.title}}</h5>
+            <h6>{{b.author}}</h6>
+            <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
+            <p><button class="btn show-det" routerLink="/library/item/{{b.bookId}}"> Show Details</button></p>
+            <button class="remove-btn" type="button" name="button" (click)="onRemoveFromLibrary(b.id)">
+                Return book
+            </button>
+        </div>
     </div>
 </div>

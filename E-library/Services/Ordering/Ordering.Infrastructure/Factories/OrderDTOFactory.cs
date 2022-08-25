@@ -34,7 +34,6 @@ namespace Ordering.Infrastructure.Factories
                 orderItem.BookId = item.BookId;
                 orderItem.BookGenre = item.Genre;
                 orderItem.BookAuthor = item.Author;
-                orderItem.CoverImageFile = item.CoverImageFile;
                 orderItems.Add(orderItem);
             }
             orderVM.OrderItems = orderItems;

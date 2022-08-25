@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
-import { Observable, switchMap, take } from 'rxjs';
+import { Observable, Subscription, switchMap, take } from 'rxjs';
 import { IAppState } from '../../../shared/app-state/app-state';
 import { AppStateService } from '../../../shared/app-state/app-state.service';
 import { DataService } from '../../../shared/service/data.service';
@@ -16,6 +16,7 @@ export class LibraryitemListComponent implements OnInit {
 
     libraryItems: ILibraryItem[] = [];
     public appState$: Observable<IAppState>;
+    subscription: Subscription;
 
     constructor(private toastService: NgToastService, 
                 private service: LibraryFacadeService, 
@@ -29,9 +30,13 @@ export class LibraryitemListComponent implements OnInit {
         this.getAllBooks();
     }
 
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+
 
     private getAllBooks() {
-        this.appState$.pipe(
+        this.subscription = this.appState$.pipe(
             take(1),
             switchMap((appState) => this.service.getBooks(appState.userName))
         ).subscribe((libraryItems) => {

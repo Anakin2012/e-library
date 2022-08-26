@@ -27,7 +27,7 @@
     <p *ngIf="empty" style="color: red">No recommendations!<br> Add some books to your wishlist. </p>
 <div *ngFor="let b of recommendedBooks">
     <div class="book-container" [ngStyle]="{backgroundColor: b.isAvailable===true ? '#D5F5E3' : '#FADBD8'}">
-        <div class="image-container"><img [src]="b.coverImageFile" alt="" style="max-height: 50px; max-width: 50px;"></div>
+        <div class="image-container"><img [src]="b.coverImageFile" alt="" style="max-height: 50px; max-width: 60px;"></div>
         <div>
             <div class="title-container"><h6>{{b.bookTitle}}</h6></div>
             <div class="detail-container">

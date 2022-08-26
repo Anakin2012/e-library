@@ -18,10 +18,22 @@
             </div>
 
             <ng-template #not>
-                <h1>Most popular<br><br></h1>    
-                
+                <h1>Most popular from our library:<br><br></h1>    
+                <div *ngFor="let book of popularBooks">
 
+                    <div class="book-container">
+                        <div class="image-container"><img [src]="book.coverImageFile" alt="" style="max-height: 80px; max-width: 70px;"></div>
 
+                            <ul style="list-style: none;" >
+                                <li class="title-container">{{book.title}}</li>
+                                <li class="information">{{book.author}}</li>
+                                <li class="information" [ngStyle]="{color: book.isPremium===true ? 'Orange' : '#7d7d7d'}">{{book.isPremium==true ? 'Premium' : 'Standard'}}</li>
+                                <li><button class="btn" style="background-color: rgb(249, 195, 95); color: white;" routerLink="/catalog/books/{{book.id}}"> Show Details</button></li>
+
+                            </ul>
+                    </div>
+
+                </div>
             </ng-template>
 
         </div>

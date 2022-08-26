@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationFacadeService } from '../../domain/application-services/authentication-facade.service';
+import { PasswordValidator } from '../../validators/password-validator/password-validator';
 
 
 interface ILoginFormData {
@@ -20,7 +21,7 @@ export class LoginFormComponent implements OnInit {
   constructor(private authenticationService: AuthenticationFacadeService, private routerService : Router) { 
     this.loginForm = new FormGroup({
       loginName: new FormControl("", [Validators.required]),
-      password: new FormControl("", [Validators.required, Validators.minLength(8)])
+      password: new FormControl("", [Validators.required, Validators.minLength(8), PasswordValidator.strongPassword])
     });
   }
 
@@ -28,8 +29,8 @@ export class LoginFormComponent implements OnInit {
   }
 
   public onLoginFormSubmit() : void {
-    if (this.loginForm.invalid) {
-      window.alert('Form is invalid');
+    if(this.loginForm.invalid) {
+      window.alert('Invalid form!');
       return;
     }
 

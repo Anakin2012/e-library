@@ -6,6 +6,7 @@ import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { AuthenticationFacadeService } from '../../domain/application-services/authentication-facade.service';
 import { MemberFacadeService } from '../../domain/application-services/member-facade.service';
+import { PasswordValidator } from '../../validators/password-validator/password-validator';
 
 interface IChangePasswordData {
   oldPassword: string;
@@ -24,8 +25,8 @@ export class SettingsComponent implements OnInit {
   constructor(private appStateService: AppStateService, private memberService : MemberFacadeService, private routerService : Router) {
     this.appState$ = this.appStateService.getAppState();
     this.changePasswordForm = new FormGroup({
-      oldPassword: new FormControl("", [Validators.required, Validators.minLength(8)]),
-      newPassword: new FormControl("", [Validators.required, Validators.minLength(8)])
+      oldPassword: new FormControl("", [Validators.required, Validators.minLength(8), PasswordValidator.strongPassword]),
+      newPassword: new FormControl("", [Validators.required, Validators.minLength(8), PasswordValidator.strongPassword])
     });
   }
 

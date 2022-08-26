@@ -75,7 +75,6 @@ export class AuthenticationFacadeService {
         return true;
       }),
       catchError((err) => {
-        console.error(err);
         return of(false);
       })
     );

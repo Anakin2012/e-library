@@ -28,10 +28,12 @@ export class RegisterFormComponent implements OnInit {
 
   public onRegisterFormSubmit() : void {
     
+    /*
     if(this.registerForm.invalid) {
-      window.alert('Form is invalid!');
+      window.alert(this.registerForm.errors);
       return;
     }
+    */
     
 
     if(this.registerForm.value.membership === 'regular') {

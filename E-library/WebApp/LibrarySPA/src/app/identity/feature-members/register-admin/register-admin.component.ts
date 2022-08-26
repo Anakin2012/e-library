@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { AdminFacadeService } from '../../domain/application-services/admin-facade.service';
+import { PasswordValidator } from '../../validators/password-validator/password-validator';
 
 @Component({
   selector: 'app-register-admin',
@@ -21,7 +22,7 @@ export class RegisterAdminComponent implements OnInit {
       surname: new FormControl("", [Validators.required]),
       username: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [Validators.required, Validators.minLength(8)])
+      password: new FormControl("", [Validators.required, Validators.minLength(8), PasswordValidator.strongPassword])
     });
    }
 
@@ -29,8 +30,29 @@ export class RegisterAdminComponent implements OnInit {
   }
 
   public RegisterAdministrator() : void {
-    if (this.registerForm.invalid) {
-      window.alert('Form is invalid');
+    if(this.registerForm.controls['password'].invalid) {
+      window.alert('Invalid password! Password must contain at least 8 characters and must have at least one number, one lowercase and one uppercase letter!');
+      return;
+    }
+
+    if(this.registerForm.controls['email'].invalid) {
+      window.alert('Invalid email address!');
+      return;
+    }
+
+    if(this.registerForm.controls['name'].invalid) {
+      window.alert('Name required!');
+      return;
+    }
+    
+
+    if(this.registerForm.controls['surname'].invalid) {
+      window.alert('Surname required!');
+      return;
+    }
+
+    if(this.registerForm.controls['username'].invalid) {
+      window.alert('Username required!');
       return;
     }
 

@@ -34,8 +34,13 @@ export class SettingsComponent implements OnInit {
   }
 
   public changePassword(userName: string) : void {
-    if (this.changePasswordForm.invalid) {
-      window.alert('Form is invalid');
+    if(this.changePasswordForm.controls['oldPassword'].invalid) {
+      window.alert('Invalid password! Password must contain at least 8 characters and must have at least one number, one lowercase and one uppercase letter!');
+      return;
+    }
+
+    if(this.changePasswordForm.controls['newPassword'].invalid) {
+      window.alert('Invalid password! Password must contain at least 8 characters and must have at least one number, one lowercase and one uppercase letter!');
       return;
     }
 

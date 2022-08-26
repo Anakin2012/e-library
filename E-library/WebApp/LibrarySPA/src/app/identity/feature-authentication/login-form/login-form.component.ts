@@ -29,8 +29,13 @@ export class LoginFormComponent implements OnInit {
   }
 
   public onLoginFormSubmit() : void {
-    if(this.loginForm.invalid) {
-      window.alert('Invalid form!');
+    if(this.loginForm.controls['password'].invalid) {
+      window.alert('Invalid password! Password must contain at least 8 characters and must have at least one number, one lowercase and one uppercase letter!');
+      return;
+    }
+
+    if(this.loginForm.controls['loginName'].invalid) {
+      window.alert('Invalid email address or username!');
       return;
     }
 

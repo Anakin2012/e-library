@@ -27,13 +27,36 @@ export class RegisterFormComponent implements OnInit {
   }
 
   public onRegisterFormSubmit() : void {
-    
-    /*
-    if(this.registerForm.invalid) {
-      window.alert(this.registerForm.errors);
+    if(this.registerForm.controls['password'].invalid) {
+      window.alert('Invalid password! Password must contain at least 8 characters and must have at least one number, one lowercase and one uppercase letter!');
       return;
     }
-    */
+
+    if(this.registerForm.controls['email'].invalid) {
+      window.alert('Invalid email address!');
+      return;
+    }
+
+    if(this.registerForm.controls['name'].invalid) {
+      window.alert('Name required!');
+      return;
+    }
+    
+
+    if(this.registerForm.controls['surname'].invalid) {
+      window.alert('Surname required!');
+      return;
+    }
+
+    if(this.registerForm.controls['username'].invalid) {
+      window.alert('Username required!');
+      return;
+    }
+
+    if(this.registerForm.controls['membership'].invalid) {
+      window.alert('You need to choose membership!');
+      return;
+    }
     
 
     if(this.registerForm.value.membership === 'regular') {

@@ -2,6 +2,14 @@
     margin-top: 70px;
     margin-left: 20px;
     display: flex;
+    border-left: solid;
+    border-right: solid;
+    border-bottom: solid;
+    border-top: solid;
+    margin-right: 500px;
+    border-color: #04AA6D;
+    background-color:beige;
+    border-radius: 2%;
     
     font-size: x-large;
     font-weight: 300;

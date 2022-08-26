@@ -26,6 +26,7 @@ namespace IdentityServer.Data.EntityTypeConfigurations
                 NormalizedUserName = "ADMIN",
                 Credentials = 0,
                 IsMembershipPaid = true,
+                SecurityStamp = Guid.NewGuid().ToString()
             };
 
             PasswordHasher<Member> password_hash = new PasswordHasher<Member>();

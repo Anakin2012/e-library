@@ -12,25 +12,26 @@
                     <div class="col-2" style="text-align: left">
                         <p style="color:#99b707; font-family: Georgia, 'Times New Roman', Times, serif;"> {{m.roles}}</p>
                     </div>
-                    <div class="col-2">
+                    <div class="col-2" *ngIf="m.roles.includes('Administrator')===false">
                         <p style="color:#cf3711; font-family: Georgia, 'Times New Roman', Times, serif;" *ngIf="m.isMembershipPaid===false; else showDate"> Membership expired </p>
                         <ng-template #showDate>
                             <p style="color:#3c8504; font-family: Georgia, 'Times New Roman', Times, serif;"> Membership paid : {{m.dateMembership | date: 'dd-MM-yyyy'}}  </p>
                         </ng-template>
                     </div>
-                    <div class="col-4" *ngIf="m.isMembershipPaid===true; else onlyAdd">
-                        <button class="btn btn-primary" style="margin-right: 10px;" (click)="SendMail(m.userName, m.name, m.surname, m.email)"> Send mail </button>
-                        <button class = "btn btn-secondary" style="margin-right: 10px;" (click)="SetAddCredentialsMode(true, m.userName)">  Add Credentials</button>
-                        <button class ="btn btn-danger" style="margin-right: 10px;" (click)="CancelMembership(m.userName)"> Cancel membership</button>
-                    </div>
-                    <ng-template #onlyAdd>
-                        <div class="col-4">
-                            <button class = "btn btn-secondary" style="margin-left:300px; margin-right: 10px;" (click)="SetAddCredentialsMode(true, m.userName)">  Add Credentials </button>
+                    <div class="col-4" *ngIf="m.roles.includes('Administrator')===false">
+                        <div *ngIf="m.isMembershipPaid===true; else onlyAdd">
+                            <button class="btn btn-primary" style="margin-right: 10px;" (click)="SendMail(m.userName, m.name, m.surname, m.email)"> Send mail </button>
+                            <button class = "btn btn-secondary" style="margin-right: 10px;" (click)="SetAddCredentialsMode(true, m.userName)">  Add Credentials</button>
+                            <button class ="btn btn-danger" style="margin-right: 10px;" (click)="CancelMembership(m.userName)"> Cancel membership</button>
                         </div>
-                    </ng-template>
+                        <ng-template #onlyAdd>
+                            <div class="col-4">
+                                <button class = "btn btn-secondary" style="margin-left:300px; margin-right: 10px;" (click)="SetAddCredentialsMode(true, m.userName)">  Add Credentials </button>
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
     <ng-template #AddCredentialsmode>

@@ -25,3 +25,12 @@
 h2{
     font-size: 35px;
 }
+
+.blink {
+    animation: blinker 1.7s linear infinite;
+}
+@keyframes blinker {
+    70% {
+        opacity: 0;
+    }
+}

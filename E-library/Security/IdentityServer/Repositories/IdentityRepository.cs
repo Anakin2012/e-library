@@ -1,4 +1,5 @@
 using AutoMapper;
+using IdentityServer.Data;
 using IdentityServer.DTOs;
 using IdentityServer.Entities;
 using IdentityServer.Repositories.Interfaces;
@@ -155,6 +156,7 @@ namespace IdentityServer.Repositories
         public async Task<IdentityResult> DeleteMember(string username)
         {
             var member = await _memberManager.FindByNameAsync(username);
+
             if (member == null)
             {
                 IEnumerable<IdentityError> errors = Enumerable.Empty<IdentityError>();

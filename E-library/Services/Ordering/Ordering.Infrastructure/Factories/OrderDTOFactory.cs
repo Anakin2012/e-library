@@ -32,6 +32,8 @@ namespace Ordering.Infrastructure.Factories
                 orderItem.Id = item.Id;
                 orderItem.BookTitle = item.BookTitle;
                 orderItem.BookId = item.BookId;
+                orderItem.BookGenre = item.Genre;
+                orderItem.BookAuthor = item.Author;
                 orderItems.Add(orderItem);
             }
             orderVM.OrderItems = orderItems;

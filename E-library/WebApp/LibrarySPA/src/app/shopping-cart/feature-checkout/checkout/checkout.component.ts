@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
-import { Observable, switchMap, take } from 'rxjs';
+import { Observable, Subscription, switchMap, take } from 'rxjs';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { CartFacadeService } from '../../domain/app-services/cart-facade.service';
@@ -12,11 +12,12 @@ import { ICart } from '../../domain/models/ICart';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
 
   @ViewChild('checkoutForm') form: NgForm;
   cart: ICart;
   public appState$ : Observable<IAppState>;
+  sub: Subscription;
 
   constructor(private cartService: CartFacadeService,
               private appStateService: AppStateService,
@@ -26,7 +27,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCart();
+    this.sub = this.getCart();
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   onCheckout(info: {street: string, city: string, state: string, country: string, zipCode: string, emailAddress: string}) 
@@ -35,7 +40,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   private getCart() {
-    this.appState$.pipe(
+    return this.appState$.pipe(
       take(1),
       switchMap((appState) => this.cartService.getCart(appState.userName))
     ).subscribe((cart) => 

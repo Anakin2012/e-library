@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { switchMap } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { BooksFacadeService } from '../../domain/app-services/books-facade.service';
 import { IBook } from '../../domain/models/book';
 
@@ -9,8 +9,9 @@ import { IBook } from '../../domain/models/book';
   templateUrl: './admin-options.component.html',
   styleUrls: ['./admin-options.component.css']
 })
-export class AdminOptionsComponent implements OnInit {
+export class AdminOptionsComponent implements OnInit, OnDestroy {
 
+  sub: Subscription;
   allBooks: IBook[] = [];
   editMode: boolean = false;
   @ViewChild('booksForm') form: NgForm;
@@ -19,7 +20,11 @@ export class AdminOptionsComponent implements OnInit {
   constructor(private service: BooksFacadeService) { }
 
   ngOnInit(): void {
-    this.fetchBooks();
+    this.sub = this.fetchBooks();
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   onBookCreate(books: {title: string, author: string, genre: string, language:string, description: string, 
@@ -58,7 +63,7 @@ export class AdminOptionsComponent implements OnInit {
   }
 
   private fetchBooks() {
-    this.service.getBooks().subscribe((books) => {
+    return this.service.getBooks().subscribe((books) => {
       console.log(books); 
       this.allBooks = books;
     });

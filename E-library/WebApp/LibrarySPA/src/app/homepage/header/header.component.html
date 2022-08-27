@@ -1,19 +1,24 @@
-<div>
+<div class="cont">
+    
     <div class="site-image">
         <img src="/assets/homeimage.png" width="350" height="280">
     </div>
+
+    <app-about style="float:right; margin-right: 200px;" ></app-about>   
+
     <div class="site-slogan">
         <h2>Borrow books without leaving your home! </h2>
     </div>
+
     <div class="new-arrivals">
         <div *ngIf = "appState$ | async as appState">
             <div *ngIf = "!appState.isEmpty(); else loggedout">
                 <div *ngIf="appState.roles==='Administrator'; else member">
-                    <p>New arrivals</p>
+                    <p style="font-size: 20px;">New arrivals</p>
                 </div>
                 
                 <ng-template #member>
-                    <p #member>Recommended for {{appState.userName}}</p>
+                    <p #member style="font-size: 20px;"> <br> Recommended based on authors and genres you liked: </p>
                 </ng-template>
             </div>
             

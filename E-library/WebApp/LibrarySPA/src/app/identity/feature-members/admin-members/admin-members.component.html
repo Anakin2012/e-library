@@ -1,7 +1,7 @@
 <div *ngIf="appState$ | async as appState">
     <div class="row hello-admin">
         <div>
-            <p style="font-family:Georgia, 'Times New Roman', Times, serif;"> HELLO, {{appState.userName}}! </p>
+            <p style="font-family:Georgia, 'Times New Roman', Times, serif;">  HELLO, {{appState.userName}}! </p>
             <p style="font-family:Georgia, 'Times New Roman', Times, serif;">&#x2022; FOR CREATING AN ANOTHER ADMIN ACCOUNT CLICK <button class="btn btn-primary buttonn" [routerLink]="['/identity/admin/register-administrator']" > HERE</button></p>
             <p style="font-family:Georgia, 'Times New Roman', Times, serif;">&#x2022; FOR MANAGING MEMBERSHIPS CLICK <button class="btn btn-primary buttonn" [routerLink]="['/identity/admin/manage-memberships']"> HERE </button></p>
         </div>

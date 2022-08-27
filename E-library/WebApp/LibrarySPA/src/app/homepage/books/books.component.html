@@ -1,4 +1,7 @@
+<div class="cont">
+
 <div *ngIf = "appState$ | async as appState">
+    <div *ngIf= "appState.isEmpty() || appState.roles==='Administrator'; else rec">
 <div *ngFor="let b of newBooks; let i = index">
     <!-- <p>{{i}}</p> -->
     <div class="book-container" [ngStyle]="{backgroundColor: b.isAvailable===true ? '#D5F5E3' : '#FADBD8'}">
@@ -12,14 +15,35 @@
             </div>
         </div>
         <div class="options">
-            <button class="btn" style="background-color: rgb(249, 195, 95); color: white; margin-top: 15px;" routerLink="/catalog/books/{{b.id}}"> Show Details</button>
-           <!--
-            <button style="background-color: #1d6f58; color:white;" class="btn" *ngIf="b.isAvailable===true; else notifyme">Borrow</button>
-            <ng-template #notifyme>
-                <button class="btn btn-danger">Borrow</button>
-            </ng-template> -->
+            <button class="btn" style="background-color: rgb(249, 195, 95); color: white;" routerLink="/catalog/books/{{b.id}}"> Show Details</button>
         </div>
     </div>
 </div>
+
+    </div>
+
+    <ng-template #rec>
+
+    <p *ngIf="empty" style="color: red">No recommendations!<br> Add some books to your wishlist. </p>
+<div *ngFor="let b of recommendedBooks">
+    <div class="book-container" [ngStyle]="{backgroundColor: b.isAvailable===true ? '#D5F5E3' : '#FADBD8'}">
+        <div class="image-container"><img [src]="b.coverImageFile" alt="" style="max-height: 50px; max-width: 60px;"></div>
+        <div>
+            <div class="title-container"><h6>{{b.bookTitle}}</h6></div>
+            <div class="detail-container">
+                <div class="details">{{b.author}}</div>
+                <div class="details">{{b.genre}}</div>
+                <div class="details" [ngStyle]="{color: b.isPremium===true ? 'Orange' : 'Black'}">{{b.isPremium==true ? 'Premium' : 'Standard'}}</div>
+            </div>
+        </div>
+        <div class="options">
+            <button class="btn" style="background-color: rgb(249, 195, 95); color: white;" routerLink="/catalog/books/{{b.bookId}}"> Show Details</button>
+        </div>
+    </div>
+</div>
+
+    </ng-template>
+</div>
+
 
 </div>

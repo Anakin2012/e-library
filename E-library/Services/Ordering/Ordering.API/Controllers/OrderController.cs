@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.API.Controllers
 {
-    //[Authorize(Roles = "Member")]
+    //[Authorize(Roles = "Administrator")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class OrderController : ControllerBase
@@ -34,6 +34,17 @@ namespace Ordering.API.Controllers
             var orders = await _mediator.Send(query);
             return Ok(orders);
         }
+
+        [Route("[action]")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<OrderDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<OrderDTO>>> GetAllOrders()
+        {
+            var query = new GetAllOrdersQuery();
+            var orders = await _mediator.Send(query);
+            return Ok(orders);
+        }
+
         [Route("[action]")]
         [HttpPost]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]

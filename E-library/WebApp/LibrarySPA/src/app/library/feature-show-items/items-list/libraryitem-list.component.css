@@ -61,10 +61,14 @@
     display: flex;
 }
 
-.title-container {
-    margin: 0px 20px;
-    font-size: medium;
-    font-weight: 200;
+.title {
+    height: 60px;
+    border-bottom: 1px solid #E1E8EE;
+    padding: 20px 30px;
+    color: #04AA6D;
+    font-size: 22px;
+    font-weight: 700;
+    padding-bottom: 30px;
 }
 
 .remove-btn {

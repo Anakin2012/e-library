@@ -13,3 +13,11 @@
     border-bottom-style: solid;
     border-left-style: none;
   }
+
+  .ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948;
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid crimson;
+  }

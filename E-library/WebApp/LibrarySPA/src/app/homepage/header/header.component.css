@@ -1,6 +1,6 @@
 .header{
+    width: 1500px;
     height: 280px;
-    padding: 30px 40px;
     display: flex;
     background-color: #ffff;
 }
@@ -8,13 +8,22 @@
     float: left;
     background: transparent;
 }
+
+.right {
+    float: right;
+}
+
+.cont {
+    margin-left: 150px;
+}
+
 .site-slogan{
     font-weight: 300;
     width: 620px;
     color: #04AA6D;
     margin-left: 70px;
     margin-bottom: 100px;
-    margin-top: 50px;
+    margin-top: 90px;
     text-align: center;
     font-size: small;
 }

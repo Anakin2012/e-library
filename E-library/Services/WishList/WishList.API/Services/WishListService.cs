@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,11 +14,13 @@ namespace WishList.API.Services
 
         private readonly CatalogGrpcService _grpcService;
         private readonly IWishListRepository _repository;
+        private readonly ILogger<WishListService> _logger;
 
-        public WishListService(CatalogGrpcService grpcService, IWishListRepository repository)
+        public WishListService(CatalogGrpcService grpcService, IWishListRepository repository, ILogger<WishListService> logger)
         {
             _grpcService = grpcService;
             _repository = repository;
+            _logger = logger;
         }
 
         public async Task<List<ListItem>> addBookToWishList(string username, string bookId)
@@ -58,6 +61,7 @@ namespace WishList.API.Services
             Dictionary<string, int> writerCounterMap = new Dictionary<string, int>();
 
             List<ListItem> result = new List<ListItem>();
+            _logger.LogInformation(username);
             WishBookList usersBooks = await _repository.GetList(username);
 
             if (usersBooks.WishedBooks.Count == 0)
@@ -77,24 +81,30 @@ namespace WishList.API.Services
                 }
             }
 
-            string recommendedWriter = "";
             int max = writerCounterMap.Values.Max();
             foreach (string writer in writerCounterMap.Keys) {
                 if (writerCounterMap[writer] == max)
-                    recommendedWriter = writer;
+                {
+                    var booksForAuthor = await _grpcService.GetBooksByAuthor(writer);
+
+                    foreach (var book in booksForAuthor.Books)
+                    {
+                        ListItem item = new ListItem();
+                        item.BookId = book.Id;
+                        item.BookTitle = book.Title;
+                        item.Author = book.Author;
+                        item.Genre = book.Genre;
+                        item.CoverImageFile = book.CoverImageFile;
+                        item.IsAvailable = book.IsAvailable;
+                        item.IsPremium = book.IsPremium;
+
+                        result.Add(item);
+                    }
+                }
+
+                
             }
 
-            var allBooks = await _grpcService.GetBooksByAuthor(recommendedWriter);
-
-            foreach (var book in allBooks.Books) {
-                ListItem item = new ListItem();
-                item.BookId = book.Id;
-                item.BookTitle = book.Title;
-                item.Author = book.Author;
-                item.CoverImageFile = book.CoverImageFile;
-
-                result.Add(item);
-            }
 
             return result;
         }
@@ -105,7 +115,10 @@ namespace WishList.API.Services
 
             List<ListItem> result = new List<ListItem>();
             WishBookList usersBooks = await _repository.GetList(username);
-
+            foreach (ListItem item in usersBooks.WishedBooks)
+            {
+                _logger.LogInformation(item.CoverImageFile+" "+item.Author);
+            }
             if (usersBooks.WishedBooks.Count == 0)
             {
                 return result;
@@ -125,26 +138,34 @@ namespace WishList.API.Services
                 }
             }
 
-            string recommendedGenre = "";
+          //  string recommendedGenre = "";
             int max = genreCounterMap.Values.Max();
             foreach (string genre in genreCounterMap.Keys)
             {
                 if (genreCounterMap[genre] == max)
-                    recommendedGenre = genre;
+                {
+                    var booksForGenre = await _grpcService.GetBooksByGenre(genre);
+
+                    foreach (var book in booksForGenre.Books)
+                    {
+                        ListItem item = new ListItem();
+                        item.BookId = book.Id;
+                        item.BookTitle = book.Title;
+                        item.Author = book.Author;
+                        item.Genre = book.Genre;
+                        item.CoverImageFile = book.CoverImageFile;
+                        item.IsAvailable = book.IsAvailable;
+                        item.IsPremium = book.IsPremium;
+
+                        result.Add(item);
+                    }
+
+                }
+
             }
 
-            var allBooks = await _grpcService.GetBooksByGenre(recommendedGenre);
+           // var allBooks = await _grpcService.GetBooksByGenre(recommendedGenre);
 
-            foreach (var book in allBooks.Books)
-            {
-                ListItem item = new ListItem();
-                item.BookId = book.Id;
-                item.BookTitle = book.Title;
-                item.Author = book.Author;
-                item.Genre = book.Genre;
-                item.CoverImageFile = book.CoverImageFile;
-                result.Add(item);
-            }
 
             return result;
         }

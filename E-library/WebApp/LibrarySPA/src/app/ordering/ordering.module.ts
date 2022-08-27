@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { OrderingRoutingModule } from './ordering-routing.module';
 import { FeatureShowUsersComponent } from './feature-show-users/feature-show-users.component';
+import { FeatureOrdersComponent } from './feature-orders/feature-orders.component';
 
 
 
@@ -13,7 +14,8 @@ import { FeatureShowUsersComponent } from './feature-show-users/feature-show-use
     declarations: [
         OrderingComponent,
         ShowOrdersComponent,
-        FeatureShowUsersComponent
+        FeatureShowUsersComponent,
+        FeatureOrdersComponent
     ],
     imports: [
         CommonModule,

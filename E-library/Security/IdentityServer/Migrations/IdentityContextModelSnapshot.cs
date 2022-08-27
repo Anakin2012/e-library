@@ -99,6 +99,29 @@ namespace IdentityServer.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4a95140d-cc34-431b-8530-b66b8516b1a7",
+                            Credentials = 0.0,
+                            DateMembership = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "napoleon77@ethereal.email",
+                            EmailConfirmed = false,
+                            IsMembershipPaid = true,
+                            LockoutEnabled = false,
+                            Name = "Admin",
+                            NormalizedEmail = "NAPOLEON77@ETHEREAL.EMAIL",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMGpTNiB9D3kTwSVPo6nCwC1/iMfYo6mB4E2aRn7BPYSOnlxK+AnWm2KG3vKY9n6Mg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "afc1f903-4205-4909-a952-1a1aa79b40b6",
+                            Surname = "Admin",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("IdentityServer.Entities.RefreshToken", b =>
@@ -155,21 +178,21 @@ namespace IdentityServer.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "f522f25f-c1dd-4870-aede-c684e9260a8c",
+                            ConcurrencyStamp = "b377f452-d914-4302-b98d-ab60a1a60228",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "d6e581d3-cf46-4378-adbd-09e6ff7288e8",
+                            ConcurrencyStamp = "ac466b9d-56f2-408e-98e8-447e6b0f8841",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "5d978f9c-dbb6-454e-b2de-7dc74772ac69",
+                            ConcurrencyStamp = "83067910-2b18-431c-ad84-bf2f6a4b5db6",
                             Name = "PremiumMember",
                             NormalizedName = "PREMIUMMEMBER"
                         });
@@ -255,6 +278,13 @@ namespace IdentityServer.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>

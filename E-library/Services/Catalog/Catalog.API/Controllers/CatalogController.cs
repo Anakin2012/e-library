@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace Catalog.API.Controllers
 {
- //   [Authorize(Roles = "Member")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class CatalogController : ControllerBase
@@ -49,6 +48,16 @@ namespace Catalog.API.Controllers
             }
             return Ok(book);
         }
+
+        [Route("[action]/{count}")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<BookDTO>>> GetBooksByRentCount(int count)
+        {
+            var books = await _repository.GetBooksByRentCount(count);
+            return Ok(books);
+        }
+
 
         [Route("[action]/{genre}")]
         [HttpGet]

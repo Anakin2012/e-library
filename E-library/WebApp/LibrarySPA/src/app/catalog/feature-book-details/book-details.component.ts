@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NgToastComponent, NgToastService } from 'ng-angular-popup';
 import { map, Observable, of, switchMap, take } from 'rxjs';
@@ -10,8 +10,6 @@ import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
 import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 import { WishListServiceFacade } from 'src/app/wishlist/domain/app-services/wishlist-facade.service';
 import { IWish } from 'src/app/wishlist/domain/models/wishlist';
-import { IWishlistItem } from 'src/app/wishlist/domain/models/wishlistitem';
-
 import { BooksFacadeService } from '../domain/app-services/books-facade.service';
 import { IBook } from '../domain/models/book';
 
@@ -21,7 +19,7 @@ import { IBook } from '../domain/models/book';
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.css']
 })
-export class BookDetailsComponent implements OnInit {
+export class BookDetailsComponent implements OnInit, OnDestroy {
 
   public book: IBook;
   bookId;
@@ -30,7 +28,6 @@ export class BookDetailsComponent implements OnInit {
   wishlist: IWish;
   username: string = '';
   cartItems: ICartItem[] = [];
-  wish : IWish;
   public appState$ : Observable<IAppState>;
 
   constructor(private dataService: DataService, 
@@ -56,6 +53,10 @@ export class BookDetailsComponent implements OnInit {
         console.log(book);
         this.book = book;
       })
+  }
+
+  ngOnDestroy(): void {
+    this.RouteParamObs.unsubscribe();
   }
 
   goToPage() {
@@ -120,19 +121,7 @@ export class BookDetailsComponent implements OnInit {
   onAddToWishlist(id:string){
     this.addWishlist(id);
   }
-
-  private getWish(){
-    this.appStateService.getAppState().pipe(
-      switchMap((appState) => this.wishlistService.GetList(appState.userName))
-    ).subscribe((list) =>
-    {
-      this.wish = list;
-      console.log(list);
-    }
-    );
-  }
-
-  
+ 
   private addWishlist(id:string) {
     
     this.appStateService.getAppState().pipe(
@@ -183,12 +172,6 @@ export class BookDetailsComponent implements OnInit {
         return this.wishlistService.GetList(username);
       })
     ).subscribe((list) => {
-      /*
-      for(let item of list.wishedBooks){
-        if(item.bookId === bookId)
-        ind = true;
-      }
-      */
 
       if (list.wishedBooks.find(i => i.bookId === bookId)) {
         ind = true;

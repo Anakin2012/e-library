@@ -61,7 +61,7 @@ export class ManageMembershipsComponent implements OnInit, OnDestroy {
         window.location.reload();
       }
       else {
-        window.alert(`Membership not canceled!`);
+        window.alert(`Membership not canceled! You are allowed to cancel membership 30 days after the member has paid membership!`);
       }
     });
   }
@@ -91,6 +91,19 @@ export class ManageMembershipsComponent implements OnInit, OnDestroy {
       }
     });
 
+  }
+
+  public Days(date : Date) : string {
+    const date1 : Date = new Date(date);
+
+    const date_tmp : Date = new Date(date);
+    const date_tmp1 : Date = new Date(date);
+    
+    date_tmp1.setDate(date_tmp.getDate()+30);
+
+    const date2 : Date = new Date(date_tmp1);
+    const time : number = date2.getTime() - date1.getTime();
+    return Math.floor(time/(1000*3600*24)).toString();
   }
 
 }

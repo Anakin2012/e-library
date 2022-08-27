@@ -15,7 +15,7 @@
                     <div class="col-2" *ngIf="m.roles.includes('Administrator')===false">
                         <p style="color:#cf3711; font-family: Georgia, 'Times New Roman', Times, serif;" *ngIf="m.isMembershipPaid===false; else showDate"> Membership expired </p>
                         <ng-template #showDate>
-                            <p style="color:#3c8504; font-family: Georgia, 'Times New Roman', Times, serif;"> Membership paid : {{m.dateMembership | date: 'dd-MM-yyyy'}}  </p>
+                            <p style="color:#3c8504; font-family: Georgia, 'Times New Roman', Times, serif;"> Membership expires in  {{ Days(m.dateMembership) }} days. </p>
                         </ng-template>
                     </div>
                     <div class="col-4" *ngIf="m.roles.includes('Administrator')===false">

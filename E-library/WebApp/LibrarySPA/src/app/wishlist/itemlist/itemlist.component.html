@@ -28,15 +28,10 @@ style="position: center;">
         <td></td>
         <td>
         <div *ngIf="!appState.isEmpty()">
-        <div *ngIf="!onIsInCart(item.bookId); else isthere;">
-        <button *ngIf="item.isAvailable===true; else notifyme" (click)="onAddToCart(item.bookId)" type="button" style="background-color: #1d6f58;">Borrow now</button>
+        <button *ngIf="item.isAvailable===true; else notifyme" (click)="onAddToCart(item.bookId)" type="button" style="background-color: #1d6f58; position: center;">  Borrow  </button>
         <ng-template #notifyme>
-          <button class="btn btn-success" style="background-color: blue;">Not available</button>
+          <button type="button" style="background-color: #a61a1f; float : right;">Not available</button>
         </ng-template>
-        </div>
-        <ng-template #isthere>
-          <button class="btn btn-danger" (click)="onAdded()" style="background-color: #b7dd69;">Added to cart</button>
-        </ng-template>  
         </div>
         </td>
 </tr>

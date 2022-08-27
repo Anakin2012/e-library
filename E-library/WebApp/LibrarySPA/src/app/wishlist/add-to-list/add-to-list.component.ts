@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WishListServiceFacade } from '../domain/app-services/wishlist-facade.service';
 import { IWishlistItem } from '../domain/models/wishlistitem';
 import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
@@ -7,6 +7,10 @@ import { catchError, map, Observable, Subscription, switchMap, take } from 'rxjs
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { NgToastService } from 'ng-angular-popup';
 import { IWish } from '../domain/models/wishlist';
+import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/cart-facade.service';
+import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
+import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
+import { DataService } from 'src/app/shared/service/data.service';
 @Component({
   selector: 'app-add-to-list',
   templateUrl: './add-to-list.component.html',
@@ -22,13 +26,14 @@ export class AddToListComponent implements OnInit {
   
   constructor(private service : WishListServiceFacade,
               private appStateService : AppStateService,
-              private toastService : NgToastService) 
+              private toastService : NgToastService,
+              private cartService: CartFacadeService,
+              private dataService : DataService) 
   {
       this.appState$ = this.appStateService.getAppState();
   }
 
   ngOnInit(): void {
-    this.getWishlist();
     this.init();
   }
 
@@ -38,31 +43,46 @@ export class AddToListComponent implements OnInit {
   private init(){
       this.appState$.pipe(
         take(1),
-        map((appState : IAppState) => {
-          const username : string = appState.userName;
-          return username;
+        switchMap((appState : IAppState) => {
+
+          return this.service.GetList(appState.userName);
         }),
-        switchMap((username : string) => {
-          return this.service.GetRecommendationsByGenre(username);
+        switchMap((list) => {
+          if(list.wishedBooks.length === 0){
+            return of(false);
+          }
+          return this.service.GetRecommendationsByGenre(list.username);
         }
         )
-      ).subscribe((list) =>{
-        this.RecByGenre = list;
+      ).subscribe((list: IWishlistItem[] | false) =>{
+        if(list === false){
+          console.log("Empty wishlist!");
+          return;
+        }
+        this.RecByGenre = list.slice(0,10);
         console.log(list);
       }
       );
 
       this.subscription = this.appState$.pipe(
         take(1),
-        map((appState : IAppState) => {
-          const username : string = appState.userName;
-          return username;
+        switchMap((appState : IAppState) => {
+
+          return this.service.GetList(appState.userName);
         }),
-        switchMap((username : string) => {
-          return this.service.GetRecommendationsByAuthor(username);
-        })
-      ).subscribe((list) =>{
-        this.RecByAuthor = list;
+        switchMap((list) => {
+          if(list.wishedBooks.length === 0){
+            return of(false);
+          }
+          return this.service.GetRecommendationsByAuthor(list.username);
+        }
+        )
+      ).subscribe((list : IWishlistItem[] | false) =>{
+        if(list === false){
+          console.log("Empty wishlist!");
+          return;
+        }
+        this.RecByAuthor = list.slice(0,10);
         console.log(list);
       }
       );
@@ -72,27 +92,18 @@ export class AddToListComponent implements OnInit {
   public onAdded(){
     this.toastService.info({detail : "Added!", summary : "Already in wishlist!", duration : 3000});
   }
-  private getWishlist(){
-    this.appStateService.getAppState().pipe(
-        switchMap((appState) => this.service.GetList(appState.userName))
-      ).subscribe((list) =>
-      {
-        this.wishlist = list;
-        console.log(list);
-      }
-      );
-    }
+  
     
-    public removeFromWishlist(bookId : string){
-      this.appState$.pipe(
-       take(1),
-       map(
+  public removeFromWishlist(bookId : string){
+    this.appState$.pipe(
+      take(1),
+      map(
        (appState : IAppState) => {
-         const username : string = appState.userName;
+        const username : string = appState.userName;
         return username;
        }),
-       switchMap((username : string) => {
-         return this.service.RemoveFromWishlist(username, bookId);
+      switchMap((username : string) => {
+        return this.service.RemoveFromWishlist(username, bookId);
        })
       ).subscribe((wish) => {
        this.dataService.notifyOther({refresh : true});
@@ -103,45 +114,57 @@ export class AddToListComponent implements OnInit {
   public addToWishlist(bookId : string) {
     this.appState$.pipe(
       take(1),
-      map((appState : IAppState) => {
-        const username : string = appState.userName;
-        return username;
+      switchMap((appState : IAppState) => {
+        const wish = this.service.GetList(appState.userName)
+        return wish;
       }),
-      switchMap((username) => 
+      switchMap((wish) => 
       {
-       if(this.isInWishlist(bookId)){
-        this.toastService.error({detail : "Warning", summary:"Wishful thinking!", duration:3000});
-        return null;
+       if(wish.wishedBooks.find(b => b.bookId === bookId)){
+        this.toastService.error({detail : "Warning!", summary:"Wishful thinking!", duration:3000});
+        return of(false);
        }
-       this.toastService.info({summary :"Added to wishlist!", duration : 3000});
-       return this.service.AddToWishList(username,bookId);
+       this.toastService.info({detail :"Added to wishlist!", duration : 3000});
+       return this.service.AddToWishList(wish.username,bookId);
       })
-      ).subscribe((list) => {
-        this.wishlist = list;
+      ).subscribe((list : IWish | false) => {
+        if(list === false){
+          console.log("WARNING!");
+          return;
+        }
         console.log(list);
         this.dataService.notifyOther({refresh : true});
       });
-    
+      
   }
   
-  public isInWishlist(bookId : string){
-    var ind : Boolean = false;
+  public addToCart(id: string) {
+    
     this.appState$.pipe(
       take(1),
-      map((appState : IAppState) => {
-        const username : string = appState.userName;
-        return username;
+     switchMap((appState : IAppState) => {        
+          const cart = this.cartService.getCart(appState.userName);  
+          return cart;
       }),
-      switchMap((username : string) => {
-        return this.service.GetList(username);
+      switchMap((cart : ICart) => {
+        
+        if(cart.totalItems !== 0) {
+          if(cart.items.find(b => b.bookId === id)) {
+            return of(false);
+          }
+        }
+        return this.cartService.addToCart(cart.username, id);
       })
-    ).subscribe((list) => {
-      for(let item of list.wishedBooks){
-        if(item.bookId === bookId)
-        ind = true;
+    ).subscribe((cartitems: ICartItem[] | false) => {
+      if (cartitems === false) {
+        console.log('OK');
+        this.toastService.warning({detail: "Already in basket!", summary: "You have already added this book to your basket!", duration: 3000});
       }
-    })
-    return ind;
+      else {
+        console.log(cartitems);
+        this.toastService.info({detail: "Added", summary: "The book has been added to your cart", duration: 3000});
+        this.dataService.notifyOther({refresh: true});
+      }
+    });
   }
-
 }

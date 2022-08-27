@@ -1,3 +1,4 @@
+<div *ngIf="appState$ | async as appState">
 <div *ngIf="RecByAuthor">
     <table id="books">
         <tr>
@@ -15,15 +16,18 @@
               <td>{{i+1}}</td>
               <td *ngIf="item">{{item.bookTitle}}</td>
               <td></td>
-              <td>
-                <div *ngIf="!isInWishlist(item.bookId); else isthere">
-              <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)" style="float : right">Add</button>
-                </div>
-                <ng-template #isthere>
-                    <button class = "btn btn-danger" (click)="onAdded()" style="float : right">Added</button>  
-                </ng-template>
-                </td>
               <td></td>
+              <td>
+              <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)" style="float : right">Add</button>
+              </td>
+              <td>
+                <div *ngIf="item.isAvailable; else rep;">
+                  <button style="background-color: #1d6f58; float : right;" (click)="addToCart(item.bookId)"> Borrow</button>
+                </div> 
+                <ng-template #rep>
+                  <button style="background-color: #a61a1f; float : right;"> Not available!</button>  
+                </ng-template>
+              </td>
               <td></td>
       </tr>
     </table>    
@@ -47,17 +51,20 @@
               <td></td>
               <td></td>
               <td>
-                <div *ngIf="!isInWishlist(item.bookId); else isthere">
                   <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)" style="float : right">Add</button>
-                </div>
-                  <ng-template #isthere>
-                    <button class = "btn btn-danger" (click)="onAdded()" style="float : right">Added</button>  
-                  </ng-template>
               </td>
-              <td></td>
+              <td>
+                <div *ngIf="item.isAvailable; else rep;">
+                  <button style="background-color: #1d6f58; float : right;" (click)="addToCart(item.bookId)"> Borrow</button>
+                </div> 
+                <ng-template #rep>
+                  <button style="background-color: #a61a1f; float : right;"> Not available!</button>  
+                </ng-template>
+              </td>
               <td></td>
       </tr>
     </table> 
     <button style="float: right" class="back"> <a class="back" routerLinkActive="active" [routerLink]="['/catalog/books']">Find more books </a></button>   
 </div>
 <button class = "btn btn-dark" routerLinkActive="active" [routerLink]="['..']">Close</button>
+</div>

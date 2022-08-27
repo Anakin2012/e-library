@@ -43,10 +43,10 @@ export class LoginFormComponent implements OnInit {
 
     this.authenticationService.Login(data.loginName, data.password).subscribe((success: boolean) => {
       if(success==true) {
-        window.alert('Login is successfull!');
+        window.alert('Login is successful');
       }
       else {
-        window.alert('Login is not successfull!');
+        window.alert('Login is not successful!');
       }
       this.loginForm.reset();
       if(success == true) {

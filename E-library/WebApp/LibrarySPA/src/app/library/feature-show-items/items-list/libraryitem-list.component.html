@@ -1,6 +1,6 @@
 <div *ngIf="appState$ | async as appState">
     <div class="title" *ngIf="!appState.isEmpty()">
-        {{appState.userName}}'s Library
+        {{appState.userName}}'s currently borrowed books:
     </div>
     <div *ngFor="let b of libraryItems; let i = index">
         <!-- <p>{{i}}</p> -->

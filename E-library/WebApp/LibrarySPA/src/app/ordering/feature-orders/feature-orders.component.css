@@ -24,15 +24,15 @@
     }
 .show-det {
     background-color: rgb(249, 195, 95);
-    width: 400px;
-    height: 40px;
+    width: 650px;
+    height: 50px;
     border-radius: 6px;
     border: none;
     cursor: pointer;
     font-size: 22px;
     font-weight: 700;
     color: white;
-    margin-left: 432px
+    margin-left: 422px;
 }
 
 .card button:hover {

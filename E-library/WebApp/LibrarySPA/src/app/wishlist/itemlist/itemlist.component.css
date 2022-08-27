@@ -45,3 +45,13 @@
 .btn-delete{
   color: #020c09;
 }
+
+.title {
+  height: 60px;
+  border-bottom: 1px solid #E1E8EE;
+  padding: 20px 30px;
+  color: #04AA6D;
+  font-size: 22px;
+  font-weight: 700;
+  padding-bottom: 30px;
+}

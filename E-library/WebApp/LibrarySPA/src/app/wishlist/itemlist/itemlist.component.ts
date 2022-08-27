@@ -21,8 +21,9 @@ import { ICartItem } from 'src/app/shopping-cart/domain/models/ICartItem';
 export class ItemlistComponent implements OnInit {
   public itemList : IWishlistItem[] = [];
   public cart? : ICart;
-    public appState$: Observable<IAppState>;
-    subscription: Subscription;
+  public appState$: Observable<IAppState>;
+  subscription: Subscription;
+  subscription1: Subscription;
 
   constructor(public bookService : BooksFacadeService, public cartService: CartFacadeService,
               private appStateService : AppStateService,
@@ -40,11 +41,12 @@ export class ItemlistComponent implements OnInit {
     }
    ngOnDestroy() {
         this.subscription.unsubscribe();
+        this.subscription1.unsubscribe();
     }
 
 
 private getList() {
-  this.appState$.pipe(
+  this.subscription1 = this.appState$.pipe(
     take(1),
     switchMap((appState) => this.service.GetList(appState.userName))
   ).subscribe((list) => 
@@ -54,7 +56,7 @@ private getList() {
   }); 
   }
     private getCart() {
-        this.subscription = this.appStateService.getAppState().pipe(
+        this.subscription = this.appState$.pipe(
     switchMap((appState) => this.cartService.getCart(appState.userName))
   ).subscribe((list) =>
   {

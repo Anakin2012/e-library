@@ -3,7 +3,7 @@ import { WishListServiceFacade } from '../domain/app-services/wishlist-facade.se
 import { IWishlistItem } from '../domain/models/wishlistitem';
 import { LocalStorageService } from 'src/app/shared/local-storage/local-storage.service';
 import { IAppState } from 'src/app/shared/app-state/app-state';
-import { catchError, map, Observable, Subscription, switchMap, take } from 'rxjs';
+import { catchError, map, Observable, of, Subscription, switchMap, take } from 'rxjs';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
 import { NgToastService } from 'ng-angular-popup';
 import { IWish } from '../domain/models/wishlist';
@@ -22,13 +22,13 @@ export class AddToListComponent implements OnInit {
   public appState$: Observable<IAppState>;
   subscription: Subscription;
   private wishlist? : IWish;
-  dataService: any;
+ // dataService: any;
   
   constructor(private service : WishListServiceFacade,
               private appStateService : AppStateService,
               private toastService : NgToastService,
               private cartService: CartFacadeService,
-              private dataService : DataService) 
+             ) 
   {
       this.appState$ = this.appStateService.getAppState();
   }
@@ -106,7 +106,7 @@ export class AddToListComponent implements OnInit {
         return this.service.RemoveFromWishlist(username, bookId);
        })
       ).subscribe((wish) => {
-       this.dataService.notifyOther({refresh : true});
+   //    this.dataService.notifyOther({refresh : true});
       })
    }
 
@@ -133,7 +133,7 @@ export class AddToListComponent implements OnInit {
           return;
         }
         console.log(list);
-        this.dataService.notifyOther({refresh : true});
+        //this.dataService.notifyOther({refresh : true});
       });
       
   }
@@ -163,7 +163,7 @@ export class AddToListComponent implements OnInit {
       else {
         console.log(cartitems);
         this.toastService.info({detail: "Added", summary: "The book has been added to your cart", duration: 3000});
-        this.dataService.notifyOther({refresh: true});
+      //  this.dataService.notifyOther({refresh: true});
       }
     });
   }

@@ -62,7 +62,7 @@ export class RegisterFormComponent implements OnInit {
     if(this.registerForm.value.membership === 'regular') {
       this.authorisationService.RegisterMember(this.registerForm.value.name, this.registerForm.value.surname, this.registerForm.value.username, this.registerForm.value.password, this.registerForm.value.email).subscribe((success: boolean) => {
         if(success==true) {
-          window.alert('Account created successfuly!');
+          window.alert('Account created successfully!');
         }
         else {
           window.alert('Creation of the account failed! Username or email already taken!');
@@ -73,7 +73,7 @@ export class RegisterFormComponent implements OnInit {
   if(this.registerForm.value.membership === 'premium') {
     this.authorisationService.RegisterPremiumMember(this.registerForm.value.name, this.registerForm.value.surname, this.registerForm.value.username, this.registerForm.value.password, this.registerForm.value.email).subscribe((success: boolean) => {
       if(success==true) {
-        window.alert('Account created successfuly!');
+        window.alert('Account created successfully!');
       }
       else {
         window.alert('Creation of the account failed! Username or email already taken!');

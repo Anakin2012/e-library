@@ -18,14 +18,14 @@
               <td></td>
               <td></td>
               <td>
-              <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)" style="float : right">Add</button>
+              <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)" style="background-color: #248bba; float : right">Add</button>
               </td>
               <td>
                 <div *ngIf="item.isAvailable; else rep;">
-                  <button style="background-color: #1d6f58; float : right;" (click)="addToCart(item.bookId)"> Borrow</button>
+                  <button class = "btn btn-success" style= "float : right;" (click)="addToCart(item.bookId)"> Borrow</button>
                 </div> 
                 <ng-template #rep>
-                  <button style="background-color: #a61a1f; float : right;"> Not available!</button>  
+                  <button class = "btn btn-success" style="background-color: #a61a1f; float : right;"> Not available!</button>  
                 </ng-template>
               </td>
               <td></td>
@@ -51,14 +51,14 @@
               <td></td>
               <td></td>
               <td>
-                  <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)" style="float : right">Add</button>
+                  <button class ="btn btn-success" type="button" (click) = "addToWishlist(item.bookId)" style="background-color: #248bba; float : right">Add</button>
               </td>
               <td>
                 <div *ngIf="item.isAvailable; else rep;">
-                  <button style="background-color: #1d6f58; float : right;" (click)="addToCart(item.bookId)"> Borrow</button>
+                  <button class = "btn btn-success" style="float : right;" (click)="addToCart(item.bookId)"> Borrow</button>
                 </div> 
                 <ng-template #rep>
-                  <button style="background-color: #a61a1f; float : right;"> Not available!</button>  
+                  <button class="btn btn-success" style="background-color: #a61a1f; float : right;"> Not available!</button>  
                 </ng-template>
               </td>
               <td></td>

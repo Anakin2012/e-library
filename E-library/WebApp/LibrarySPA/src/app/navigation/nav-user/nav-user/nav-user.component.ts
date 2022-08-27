@@ -39,7 +39,7 @@ export class NavUserComponent implements OnInit, OnDestroy {
     })
     
     if (this.loggedIn === true) {
-      this.sub2 = this.getCartTotalItems();
+     // this.sub2 = this.getCartTotalItems();
           
      // this.notify();   
     } 

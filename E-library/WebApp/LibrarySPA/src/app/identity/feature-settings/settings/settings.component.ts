@@ -74,7 +74,7 @@ export class SettingsComponent implements OnInit {
     
     this.memberService.PayMembership(userName).subscribe((success : boolean | null) => {
       if(success === null) { 
-        window.alert('Membership is already payed!');
+        window.alert('Membership is already paid!');
       }
       if(success == true) {
         window.alert('You have successfully paid your membership!');

@@ -3,7 +3,7 @@
 <div *ngIf="!appState.isEmpty()">
 <div class="title">
   {{appState.userName}}'s Wishlist
-  <button class="btn-delete" (click) ="deleteList()">Delete list</button>
+  <!-- <button class="btn-delete" (click) ="deleteList()">Delete list</button> -->
 </div>
 <div class="datatable-inner"
 mdbScrollbar
@@ -28,9 +28,9 @@ style="position: center;">
         <td></td>
         <td>
         <div *ngIf="!appState.isEmpty()">
-        <button *ngIf="item.isAvailable===true; else notifyme" (click)="onAddToCart(item.bookId)" type="button" style="background-color: #1d6f58; position: center;">  Borrow  </button>
+        <button class = "btn btn-success" *ngIf="item.isAvailable===true; else notifyme" (click)="onAddToCart(item.bookId)" type="button" style="position: center;">  Borrow  </button>
         <ng-template #notifyme>
-          <button type="button" style="background-color: #a61a1f; float : right;">Not available</button>
+          <button class="btn btn-danger" style="">Not available</button>
         </ng-template>
         </div>
         </td>

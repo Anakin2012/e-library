@@ -1,8 +1,17 @@
+<div *ngIf = "appState$ | async as appState">
+    <div *ngIf = "!appState.isEmpty()">
+
 <div class="history-container">
+    <div *ngIf="orders">
+        <div *ngIf="orders.length ===0">
+            This user has no orders yet.
+        </div>
     <div *ngFor="let order of orders;">
+        
         <div class="transactions">
             <h3>{{order.orderDate | date: 'medium'}}</h3>
             <div *ngFor="let item of order.orderItems;">
+                
                 <table>
                     <tbody>
                         <tr class="transaction-row">
@@ -15,4 +24,9 @@
         <div class="footer">
         </div>
     </div>
+    </div>
+  
+</div>
+
+</div>
 </div>

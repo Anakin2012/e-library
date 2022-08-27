@@ -6,7 +6,7 @@ import { CartFacadeService } from 'src/app/shopping-cart/domain/app-services/car
 import { BooksFacadeService } from 'src/app/catalog/domain/app-services/books-facade.service';
 import { IAppState } from 'src/app/shared/app-state/app-state';
 import { AppStateService } from 'src/app/shared/app-state/app-state.service';
-import { map, Observable, pairwise, switchMap, take } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, pairwise, switchMap, take } from 'rxjs';
 import { DataService } from 'src/app/shared/service/data.service';
 import { NgToastService } from 'ng-angular-popup';
 import { ICart } from 'src/app/shopping-cart/domain/models/ICart';
@@ -22,7 +22,6 @@ export class ItemlistComponent implements OnInit {
   public itemList : IWishlistItem[] = [];
   public cart? : ICart;
   public appState$ : Observable<IAppState>;
-
   constructor(public bookService : BooksFacadeService, public cartService: CartFacadeService,
               private appStateService : AppStateService,
               private service : WishListServiceFacade,
@@ -112,26 +111,31 @@ public onAdded(){
 }
 private addToCart(bookId : string) {
   this.appState$.pipe(
-    map((appState : IAppState) => {
-      const username : string = appState.userName;
-      const role : string | string[] = appState.roles;
-      return {username, role};
-    }),
-    switchMap(({username, role}) => {
-      if(this.itemList.find(b => b.bookId===bookId).isPremium && role !== "PremiumMember"){
+    take(1),
+    switchMap((appState) => {
+      if(!this.itemList.find(b => b.bookId === bookId).isAvailable){
+        this.toastService.error({detail: "Not available!", duration:3000});
+        return of(false);
+      }
+      if(this.itemList.find(b => b.bookId===bookId).isPremium && appState.roles !== "PremiumMember"){
         this.toastService.error({detail : "Only Premium!", summary:"Buy premium membership!", duration:3000});
-        return null;
+        return of(false);
       }
       if(this.isInCart(bookId)){
         this.toastService.error({detail : "Warning", summary:"You can't buy the same book twice", duration:3000});
-        return null;
+        return of(false);
       }
+
       this.toastService.info({detail : "Added to cart!", duration:3000})
-      return this.cartService.addToCart(username,bookId);
+      return this.cartService.addToCart(appState.userName,bookId);
     })
-  ).subscribe((cart) => {
-    this.cart.items = cart;
-    console.log(cart);
+  ).subscribe((list : ICartItem[] | false) => {
+    if(list === false){
+      console.error("Error");
+      return;
+    }
+    this.cart.items = list;
+    console.log(list);
     this.dataService.notifyOther({refresh:true});
   })
 }
@@ -149,22 +153,9 @@ public deleteList(){
  
 }
 
-public addToWishlist(bookId : string){
-  this.appState$.pipe(
-    take(1),
-    map((appState : IAppState) => {
-      const username : string = appState.userName;
-      return username;
-    }),
-    switchMap((username) => this.service.AddToWishList(username,bookId))
-  ).subscribe((list) => {
-    this.itemList = list.wishedBooks;
-    this.toastService.info({summary : "Book is added to the wishlist!", duration : 2000});
-  });
-
-  }
+}
   
 
 
 
-}
+

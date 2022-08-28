@@ -13,11 +13,11 @@ Platforma: docker
 Pokretanje
 -----------------
 
-Pozicionirati se unutar solution direktorijuma i izvrsiti komandu
+Pozicionirati se unutar solution direktorijuma i izvršiti komandu:
 
 docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d --build
 
-Pozicionirati se unutar WebApp direktorijuma i izvrisiti 
+Pozicionirati se unutar WebApp direktorijuma i izvršiti redom komande:
 
 npm install
 

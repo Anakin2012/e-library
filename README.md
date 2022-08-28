@@ -2,7 +2,6 @@
 
 Korišćene tehnologije
 -----------------
-Programski jezik: C#
 
 IDE: Visual Studio
 

@@ -13,11 +13,14 @@ Platforma: docker
 Pokretanje
 -----------------
 
-Pozicionirati se unutar solution direktorijuma i izvrsiti komandu 
+Pozicionirati se unutar solution direktorijuma i izvrsiti komandu
+
 docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d --build
 
 Pozicionirati se unutar WebApp direktorijuma i izvrisiti 
+
 npm install
+
 ng serve 
 
 Kratak opis aplikacije
@@ -83,8 +86,11 @@ Funkcionalnosti ovog mikroservisa dostupni su običnim i premium članovima
 -----------------
 
 Bojović Bogdan 1019/2021,
+
 Đorović Luka 1029/2021,
+
 Jošić Bojana 1016/2021,
+
 Petrović Ana 1073/2020.
 
 

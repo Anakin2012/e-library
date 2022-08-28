@@ -95,14 +95,14 @@ export class ManageMembershipsComponent implements OnInit, OnDestroy {
 
   public Days(date : Date) : string {
     const date1 : Date = new Date(date);
-
     const date_tmp : Date = new Date(date);
-    const date_tmp1 : Date = new Date(date);
     
-    date_tmp1.setDate(date_tmp.getDate()+30);
+    date1.setDate(date_tmp.getDate()+30);
 
-    const date2 : Date = new Date(date_tmp1);
-    const time : number = date2.getTime() - date1.getTime();
+    const date2 : Date = new Date(date1);
+    const date3 : Date = new Date();
+
+    const time : number = date2.getTime() - date3.getTime();
     return Math.floor(time/(1000*3600*24)).toString();
   }
 

@@ -24,7 +24,7 @@ Kratak opis aplikacije
 -----------------
 
 Aplikacija koja simulira rad onlajn biblioteke. Pretplaćeni korisnici mogu da pozajme knjige iz kataloga na određeni period, i nakon toga ih vraćaju u biblioteku. Ako se korisnik registruje kao premium član, ima mogućnost da naruči i specijalne premium knjige dostupne samo premium članovima. Postoji opcija dodavanja knjige u listu želja, na osnovu koje se  prave lične preporuke za tog korisnika na osnovu žanra i autora. Ukoliko se korisnik uloguje kao administrator, ima mogućnost upravljanja knjigama iz kataloga, korisnicima i njihovim članarinama, kao i pregled svih porudžbina po pretplaćenim članovima biblioteke.
------------------
+
 
 
 Mikroservisi
@@ -79,7 +79,8 @@ Ovaj mikroservis omogućava dohvatanje liste na osnovu korisnika, dohvatanje lis
 Ovaj mikroservis je GRPC klijent Catalog mikroservisa.
 Funkcionalnosti ovog mikroservisa dostupni su običnim i premium članovima
 
-Članovi tima: 
+Članovi tima:
+-----------------
 
 Bojović Bogdan 1019/2021,
 Đorović Luka 1029/2021,

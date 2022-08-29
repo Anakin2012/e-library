@@ -37,8 +37,10 @@ Catalog
 
 Mikroservis za manipulisanje knjigama. Sadrži entitet knjige, sa poljima kao što su naslov, autor, žanr, opis, dostupnost, tip knjige i slično.  Knjige se čuvaju kao json reprezentacije u mongodb bazi podataka. Servis podržava osnovne operacije kreiranja, ažuriranja i brisanja knjige (namenjene administratoru), kao i dohvatanje knjiga preko različitih aitrubuta (namenjena svim korisnicima, za potrebe pretrage, preporuka i sl.). Katalog koristi grpc komunikaciju za slanje podataka o knjigama mikroservisima korpe i liste želja.
 
-ShoppingCart (ana)
-Mikroservis koji ima ulogu korisničke korpe. Svi metodi - dohvatanje, ažuriranje, dodavanje i brisanje knjige iz korpe, kao i odjava korpe za kreiranje porudžbine,  autorizovani su samo za korisnike koji imaju ulogu Member ili PremiumMember. ShoppingCart komunicira sa katalogom preko grpc-a, kao i sa Ordering mikroservisom preko redova poruka.
+ShoppingCart
+-----------------
+Mikroservis koji ima ulogu korisničke korpe. Koristi redis bazu podataka. Svi metodi - dohvatanje, ažuriranje, dodavanje i brisanje knjige iz korpe, kao i odjava korpe za kreiranje porudžbine,  autorizovani su samo za korisnike koji imaju ulogu Member ili PremiumMember. ShoppingCart komunicira sa katalogom preko grpc-a, kao i sa Ordering mikroservisom preko redova poruka.
+
 
 Identity
 -----------------

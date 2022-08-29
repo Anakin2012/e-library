@@ -14,13 +14,13 @@ Pokretanje
 
 Pozicionirati se unutar solution direktorijuma i izvršiti komandu:
 
-        docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d --build
+    docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d --build
 
 Pozicionirati se unutar WebApp direktorijuma i izvršiti redom komande:
 
-        npm install
+    npm install
 
-        ng serve 
+    ng serve 
 
 Kratak opis aplikacije
 -----------------

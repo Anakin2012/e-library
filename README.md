@@ -3,24 +3,24 @@
 Korišćene tehnologije
 -----------------
 
-IDE: Visual Studio
+- IDE: **Visual Studio**
 
-Framework: .net5, Angular
+- Framework: **.net5, Angular**
 
-Platforma: docker 
+- Platforma: **docker** 
 
 Pokretanje
 -----------------
 
 Pozicionirati se unutar solution direktorijuma i izvršiti komandu:
 
-docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d --build
+        docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d --build
 
 Pozicionirati se unutar WebApp direktorijuma i izvršiti redom komande:
 
-npm install
+        npm install
 
-ng serve 
+        ng serve 
 
 Kratak opis aplikacije
 -----------------
@@ -29,8 +29,8 @@ Aplikacija koja simulira rad onlajn biblioteke. Pretplaćeni korisnici mogu da p
 
 
 
-Mikroservisi
------------------
+# Mikroservisi
+
 
 Catalog 
 -----------------
@@ -86,12 +86,12 @@ Funkcionalnosti ovog mikroservisa dostupni su običnim i premium članovima
 Članovi tima:
 -----------------
 
-Bojović Bogdan 1019/2021,
+- Bojović Bogdan 1019/2021,
 
-Đorović Luka 1029/2021,
+- Đorović Luka 1029/2021,
 
-Jošić Bojana 1016/2021,
+- Jošić Bojana 1016/2021,
 
-Petrović Ana 1073/2020.
+- Petrović Ana 1073/2020.
 
 
